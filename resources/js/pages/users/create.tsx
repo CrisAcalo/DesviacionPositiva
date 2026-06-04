@@ -1,4 +1,4 @@
-﻿import { Head, Link } from '@inertiajs/react';
+�import { Head, Link } from '@inertiajs/react';
 import { useForm } from '@inertiajs/react';
 import { ArrowLeft, Loader2 } from 'lucide-react';
 import Heading from '@/components/heading';
@@ -45,7 +45,7 @@ export default function UsersCreate({ roles }: Props) {
 
                 <Card>
                     <CardHeader className="pb-3 border-b">
-                        <CardTitle className="text-base">InformaciÃ³n del usuario</CardTitle>
+                        <CardTitle className="text-base">Información del usuario</CardTitle>
                     </CardHeader>
                     <CardContent className="pt-6">
                         <form onSubmit={handleSubmit} className="space-y-5">
@@ -56,7 +56,7 @@ export default function UsersCreate({ roles }: Props) {
                                     <Input
                                         id="name"
                                         type="text"
-                                        placeholder="Ej: MarÃ­a GarcÃ­a LÃ³pez"
+                                        placeholder="Ej: María García López"
                                         value={data.name}
                                         onChange={(e) => setData('name', e.target.value)}
                                         className={errors.name ? 'border-destructive' : ''}
@@ -65,7 +65,7 @@ export default function UsersCreate({ roles }: Props) {
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="email">Correo electrÃ³nico <span className="text-destructive">*</span></Label>
+                                    <Label htmlFor="email">Correo electrónico <span className="text-destructive">*</span></Label>
                                     <Input
                                         id="email"
                                         type="email"
@@ -81,25 +81,25 @@ export default function UsersCreate({ roles }: Props) {
                             {/* Password + Confirm en grid */}
                             <div className="grid gap-5 sm:grid-cols-2">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="password">ContraseÃ±a <span className="text-destructive">*</span></Label>
+                                    <Label htmlFor="password">Contraseña <span className="text-destructive">*</span></Label>
                                     <Input
                                         id="password"
                                         type="password"
-                                        placeholder="MÃ­nimo 8 caracteres"
+                                        placeholder="Mínimo 8 caracteres"
                                         value={data.password}
                                         onChange={(e) => setData('password', e.target.value)}
                                         className={errors.password ? 'border-destructive' : ''}
                                     />
-                                    <p className="text-xs text-muted-foreground">Debe incluir mayÃºsculas, nÃºmeros y sÃ­mbolos.</p>
+                                    <p className="text-xs text-muted-foreground">Debe incluir mayúsculas, números y símbolos.</p>
                                     {errors.password && <p className="text-xs text-destructive">{errors.password}</p>}
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="password_confirmation">Confirmar contraseÃ±a <span className="text-destructive">*</span></Label>
+                                    <Label htmlFor="password_confirmation">Confirmar contraseña <span className="text-destructive">*</span></Label>
                                     <Input
                                         id="password_confirmation"
                                         type="password"
-                                        placeholder="Repite la contraseÃ±a"
+                                        placeholder="Repite la contraseña"
                                         value={data.password_confirmation}
                                         onChange={(e) => setData('password_confirmation', e.target.value)}
                                     />
@@ -116,7 +116,7 @@ export default function UsersCreate({ roles }: Props) {
                                     <SelectContent>
                                         {roles.map((role) => (
                                             <SelectItem key={role} value={role}>
-                                                {role === 'admin' ? 'ðŸ›¡ Administrador â€” acceso total' : 'ðŸ“‹ Coordinador â€” gestiÃ³n de NRCs'}
+                                                {role === 'admin' ? '�x:� Administrador � acceso total' : '�x9 Coordinador � gestión de NRCs'}
                                             </SelectItem>
                                         ))}
                                     </SelectContent>

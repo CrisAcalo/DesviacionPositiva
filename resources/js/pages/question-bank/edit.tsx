@@ -1,4 +1,4 @@
-﻿import { Head, Link, useForm } from '@inertiajs/react';
+�import { Head, Link, useForm } from '@inertiajs/react';
 import { ArrowLeft, PlusCircle, Trash2 } from 'lucide-react';
 import Heading from '@/components/heading';
 import { Button } from '@/components/ui/button';
@@ -107,9 +107,9 @@ export default function QuestionBankEdit({ question }: { question: Question }) {
                                     <Select value={data.type} onValueChange={(v) => handleTypeChange(v as typeof data.type)}>
                                         <SelectTrigger><SelectValue /></SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="likert">Escala Likert (1â€“5)</SelectItem>
-                                            <SelectItem value="single_choice">OpciÃ³n Ãºnica</SelectItem>
-                                            <SelectItem value="multiple_choice">OpciÃ³n mÃºltiple</SelectItem>
+                                            <SelectItem value="likert">Escala Likert (1�5)</SelectItem>
+                                            <SelectItem value="single_choice">Opción única</SelectItem>
+                                            <SelectItem value="multiple_choice">Opción múltiple</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>

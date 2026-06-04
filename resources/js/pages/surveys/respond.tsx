@@ -1,4 +1,4 @@
-﻿import { Head, useForm } from '@inertiajs/react';
+�import { Head, useForm } from '@inertiajs/react';
 import { CheckCircle, Clock, XCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -146,7 +146,7 @@ export default function SurveyRespond(props: Props) {
             <StateMessage
                 icon={<CheckCircle className="h-12 w-12 text-primary" />}
                 title="Ya respondiste esta encuesta"
-                message="Tu participaciÃ³n fue registrada. Gracias por tu tiempo."
+                message="Tu participación fue registrada. Gracias por tu tiempo."
             />
         );
     }
@@ -155,8 +155,8 @@ export default function SurveyRespond(props: Props) {
         return (
             <StateMessage
                 icon={<Clock className="h-12 w-12 text-muted-foreground" />}
-                title="Esta encuesta ya no estÃ¡ disponible"
-                message="El perÃ­odo de respuesta ha finalizado."
+                title="Esta encuesta ya no está disponible"
+                message="El período de respuesta ha finalizado."
             />
         );
     }
@@ -191,7 +191,7 @@ export default function SurveyRespond(props: Props) {
                     <div className="text-center space-y-1">
                         <h1 className="text-2xl font-bold">{survey.title}</h1>
                         <p className="text-sm text-muted-foreground">
-                            Responde con honestidad. Tus respuestas son anÃ³nimas y se usarÃ¡n solo con fines acadÃ©micos.
+                            Responde con honestidad. Tus respuestas son anónimas y se usarán solo con fines académicos.
                         </p>
                     </div>
 

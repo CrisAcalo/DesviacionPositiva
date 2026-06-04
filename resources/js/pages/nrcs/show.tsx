@@ -1,4 +1,4 @@
-﻿import { Head, Link, router, useForm } from '@inertiajs/react';
+�import { Head, Link, router, useForm } from '@inertiajs/react';
 import { ArrowLeft, BarChart2, CalendarClock, CheckCircle2, Copy, Download, Info, Lock, Trash2, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Heading from '@/components/heading';
@@ -50,14 +50,14 @@ const SEGMENTATION_RULES = [
         group: 'high' as const,
         label: 'Alto rendimiento',
         criterion: 'Nota final > 8.5',
-        description: 'Estudiantes con desempeÃ±o destacado. Candidatos a desviantes positivos.',
+        description: 'Estudiantes con desempeño destacado. Candidatos a desviantes positivos.',
         color: 'bg-primary/8 border-primary/20 text-primary',
         dot: 'bg-primary',
     },
     {
         group: 'medium' as const,
         label: 'Promedio',
-        criterion: '6.0 â‰¤ Nota final â‰¤ 8.5',
+        criterion: '6.0 �0� Nota final �0� 8.5',
         description: 'Estudiantes con rendimiento dentro del rango esperado.',
         color: 'bg-secondary/50 border-border text-secondary-foreground',
         dot: 'bg-secondary-foreground/50',
@@ -66,14 +66,14 @@ const SEGMENTATION_RULES = [
         group: 'at_risk' as const,
         label: 'En riesgo',
         criterion: 'Nota final < 6.0',
-        description: 'Estudiantes que requieren atenciÃ³n y acompaÃ±amiento acadÃ©mico.',
+        description: 'Estudiantes que requieren atención y acompañamiento académico.',
         color: 'bg-destructive/8 border-destructive/20 text-destructive',
         dot: 'bg-destructive',
     },
 ];
 
 function deleteNrc(id: number, code: string) {
-    if (!confirm(`Â¿Eliminar el NRC ${code}? Se borrarÃ¡n todos los estudiantes y calificaciones asociados. Esta acciÃ³n no se puede deshacer.`)) return;
+    if (!confirm(`¿Eliminar el NRC ${code}? Se borrarán todos los estudiantes y calificaciones asociados. Esta acción no se puede deshacer.`)) return;
     router.delete(`/nrcs/${id}`);
 }
 
@@ -103,7 +103,7 @@ function RunAnalysisSection({ nrcId, rerun = false }: { nrcId: number; rerun?: b
         return (
             <form onSubmit={handleRun} className="inline">
                 <Button type="submit" variant="outline" size="sm" disabled={processing}>
-                    {processing ? 'Analizando...' : 'Re-ejecutar anÃ¡lisis'}
+                    {processing ? 'Analizando...' : 'Re-ejecutar análisis'}
                 </Button>
             </form>
         );
@@ -114,18 +114,18 @@ function RunAnalysisSection({ nrcId, rerun = false }: { nrcId: number; rerun?: b
             <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center gap-2">
                     <BarChart2 className="h-4 w-4 text-primary" />
-                    Motor de anÃ¡lisis
+                    Motor de análisis
                 </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
                 <p className="text-sm text-muted-foreground">
-                    Ejecuta el anÃ¡lisis de desviaciÃ³n positiva para identificar prÃ¡cticas validadas del grupo de alto rendimiento
-                    y barreras del grupo en riesgo (umbral â‰¥ 60%).
+                    Ejecuta el análisis de desviación positiva para identificar prácticas validadas del grupo de alto rendimiento
+                    y barreras del grupo en riesgo (umbral �0� 60%).
                 </p>
                 <form onSubmit={handleRun}>
                     <Button type="submit" disabled={processing} className="gap-2">
                         <BarChart2 className="h-4 w-4" />
-                        {processing ? 'Analizando...' : 'Ejecutar anÃ¡lisis'}
+                        {processing ? 'Analizando...' : 'Ejecutar análisis'}
                     </Button>
                 </form>
             </CardContent>
@@ -151,7 +151,7 @@ function ActivateSurveysSection({ nrcId }: { nrcId: number }) {
             </CardHeader>
             <CardContent>
                 <p className="text-sm text-muted-foreground mb-4">
-                    Al activar se crearÃ¡n 3 encuestas (una por grupo) y se generarÃ¡n los enlaces de acceso para cada estudiante.
+                    Al activar se crearán 3 encuestas (una por grupo) y se generarán los enlaces de acceso para cada estudiante.
                 </p>
                 <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 items-end">
                     <div className="space-y-1.5 flex-1 max-w-xs">
@@ -217,7 +217,7 @@ function SurveyComplianceSection({
     const [tokens, setTokens] = useState<Record<string, TokenEntry[]>>({});
     const [loading, setLoading] = useState<Record<string, boolean>>({});
 
-    // Carga tokens automÃ¡ticamente al montar y cuando cambia surveys (tras cerrar/reabrir)
+    // Carga tokens automáticamente al montar y cuando cambia surveys (tras cerrar/reabrir)
     const loadTokens = async (group: string, surveyId: number, force = false) => {
         if (tokens[group] && !force) return;
         setLoading((prev) => ({ ...prev, [group]: true }));
@@ -239,7 +239,7 @@ function SurveyComplianceSection({
     }, []);
 
     const closeSurvey = (surveyId: number, group: string) => {
-        if (!confirm('Â¿Cerrar esta encuesta? Los tokens existentes seguirÃ¡n visibles pero no aceptarÃ¡n nuevas respuestas.')) return;
+        if (!confirm('¿Cerrar esta encuesta? Los tokens existentes seguirán visibles pero no aceptarán nuevas respuestas.')) return;
         router.post(`/nrcs/${nrcId}/surveys/${surveyId}/close`, {}, {
             onSuccess: () => loadTokens(group, surveyId, true),
         });
@@ -319,10 +319,10 @@ function SurveyComplianceSection({
                             <p className="text-xs text-muted-foreground">{c.percent}% de respuestas recibidas</p>
                         </CardHeader>
 
-                        {/* Lista de tokens â€” siempre visible */}
+                        {/* Lista de tokens � siempre visible */}
                         <CardContent className="p-0">
                             {isLoading ? (
-                                <div className="py-4 text-center text-xs text-muted-foreground">Cargando enlacesâ€¦</div>
+                                <div className="py-4 text-center text-xs text-muted-foreground">Cargando enlaces⬦</div>
                             ) : groupTokens.length === 0 ? (
                                 <div className="py-4 text-center text-xs text-muted-foreground">Sin enlaces generados</div>
                             ) : (
@@ -343,7 +343,7 @@ function SurveyComplianceSection({
                                                 <TableCell className="text-sm">
                                                     {t.email ?? (
                                                         <span className="font-mono text-xs text-muted-foreground">
-                                                            {t.token.substring(0, 12)}â€¦
+                                                            {t.token.substring(0, 12)}⬦
                                                         </span>
                                                     )}
                                                 </TableCell>
@@ -390,8 +390,8 @@ export default function NrcShow({
                             <Link href="/nrcs"><ArrowLeft className="h-4 w-4" /></Link>
                         </Button>
                         <Heading
-                            title={`NRC ${nrc.code} â€” ${nrc.subject.name}`}
-                            description={`${nrc.career.name} Â· ${nrc.career.department.name} Â· ${nrc.academic_period.name}`}
+                            title={`NRC ${nrc.code} � ${nrc.subject.name}`}
+                            description={`${nrc.career.name} · ${nrc.career.department.name} · ${nrc.academic_period.name}`}
                         />
                     </div>
                     <Button
@@ -425,7 +425,7 @@ export default function NrcShow({
                                 <CardTitle className="text-sm font-medium text-muted-foreground">{GROUP_LABELS[g]}</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <span className="text-2xl font-bold">{groupCounts[g] ?? 'â€”'}</span>
+                                <span className="text-2xl font-bold">{groupCounts[g] ?? '�'}</span>
                                 {total > 0 && groupCounts[g] != null && (
                                     <span className="ml-2 text-sm text-muted-foreground">
                                         ({Math.round((groupCounts[g] / total) * 100)}%)
@@ -436,11 +436,11 @@ export default function NrcShow({
                     ))}
                 </div>
 
-                {/* Criterios de segmentaciÃ³n */}
+                {/* Criterios de segmentación */}
                 <div className="rounded-xl border bg-muted/30 p-4 space-y-3">
                     <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
                         <Info className="h-4 w-4" />
-                        Criterios de segmentaciÃ³n (RN-01) â€” basados exclusivamente en la nota final promedio
+                        Criterios de segmentación (RN-01) � basados exclusivamente en la nota final promedio
                     </div>
                     <div className="grid gap-3 sm:grid-cols-3">
                         {SEGMENTATION_RULES.map((rule) => (
@@ -455,11 +455,11 @@ export default function NrcShow({
                         ))}
                     </div>
                     <p className="text-xs text-muted-foreground">
-                        Nota final = (Parcial 1 + Parcial 2 + Parcial 3) / 3 Â· Escala de 0 a 10
+                        Nota final = (Parcial 1 + Parcial 2 + Parcial 3) / 3 · Escala de 0 a 10
                     </p>
                 </div>
 
-                {/* SecciÃ³n de encuestas */}
+                {/* Sección de encuestas */}
                 {nrc.status === 'segmented' && (
                     <ActivateSurveysSection nrcId={nrc.id} />
                 )}
@@ -472,7 +472,7 @@ export default function NrcShow({
                     />
                 )}
 
-                {/* SecciÃ³n anÃ¡lisis */}
+                {/* Sección análisis */}
                 {nrc.status === 'surveying' && (
                     <RunAnalysisSection nrcId={nrc.id} />
                 )}
@@ -483,10 +483,10 @@ export default function NrcShow({
                             <div className="flex items-center gap-3">
                                 <BarChart2 className="h-5 w-5 text-primary" />
                                 <div>
-                                    <p className="font-medium text-sm">AnÃ¡lisis completado</p>
+                                    <p className="font-medium text-sm">Análisis completado</p>
                                     <p className="text-xs text-muted-foreground">
                                         Las encuestas activas siguen abiertas hasta que las cierres manualmente.
-                                        Puedes re-ejecutar el anÃ¡lisis si llegan nuevas respuestas.
+                                        Puedes re-ejecutar el análisis si llegan nuevas respuestas.
                                     </p>
                                 </div>
                             </div>
@@ -517,11 +517,11 @@ export default function NrcShow({
                             {nrc.students.map((s) => (
                                 <TableRow key={s.id}>
                                     <TableCell className="font-mono text-xs text-muted-foreground">
-                                        {s.uuid.substring(0, 8)}â€¦
+                                        {s.uuid.substring(0, 8)}⬦
                                     </TableCell>
-                                    <TableCell>{s.grade?.partial_1 ?? 'â€”'}</TableCell>
-                                    <TableCell>{s.grade?.partial_2 ?? 'â€”'}</TableCell>
-                                    <TableCell>{s.grade?.partial_3 ?? 'â€”'}</TableCell>
+                                    <TableCell>{s.grade?.partial_1 ?? '�'}</TableCell>
+                                    <TableCell>{s.grade?.partial_2 ?? '�'}</TableCell>
+                                    <TableCell>{s.grade?.partial_3 ?? '�'}</TableCell>
                                     <TableCell>
                                         {s.grade?.final_grade != null ? (
                                             <span className={`font-bold tabular-nums ${
@@ -531,7 +531,7 @@ export default function NrcShow({
                                             }`}>
                                                 {s.grade.final_grade}
                                             </span>
-                                        ) : 'â€”'}
+                                        ) : '�'}
                                     </TableCell>
                                     <TableCell>
                                         {s.group ? (
@@ -555,7 +555,7 @@ export default function NrcShow({
 NrcShow.layout = {
     breadcrumbs: [
         { title: 'Dashboard', href: '/dashboard' },
-        { title: 'GestiÃ³n de NRCs', href: '/nrcs' },
+        { title: 'Gestión de NRCs', href: '/nrcs' },
         { title: 'Detalle', href: '#' },
     ],
 };

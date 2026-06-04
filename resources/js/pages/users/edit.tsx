@@ -1,4 +1,4 @@
-﻿import { Head, Link } from '@inertiajs/react';
+�import { Head, Link } from '@inertiajs/react';
 import { useForm } from '@inertiajs/react';
 import { ArrowLeft, Loader2 } from 'lucide-react';
 import Heading from '@/components/heading';
@@ -47,13 +47,13 @@ export default function UsersEdit({ user, roles }: Props) {
                     </Button>
                     <Heading
                         title="Editar Usuario"
-                        description={`Modifica la informaciÃ³n de ${user.name}.`}
+                        description={`Modifica la información de ${user.name}.`}
                     />
                 </div>
 
                 <Card>
                     <CardHeader className="pb-3 border-b">
-                        <CardTitle className="text-base">InformaciÃ³n del usuario</CardTitle>
+                        <CardTitle className="text-base">Información del usuario</CardTitle>
                     </CardHeader>
                     <CardContent className="pt-6">
                         <form onSubmit={handleSubmit} className="space-y-5">
@@ -72,7 +72,7 @@ export default function UsersEdit({ user, roles }: Props) {
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="email">Correo electrÃ³nico <span className="text-destructive">*</span></Label>
+                                    <Label htmlFor="email">Correo electrónico <span className="text-destructive">*</span></Label>
                                     <Input
                                         id="email"
                                         type="email"
@@ -84,31 +84,31 @@ export default function UsersEdit({ user, roles }: Props) {
                                 </div>
                             </div>
 
-                            {/* ContraseÃ±a */}
+                            {/* Contraseña */}
                             <div className={`grid gap-5 ${data.password ? 'sm:grid-cols-2' : ''}`}>
                                 <div className="grid gap-2">
                                     <Label htmlFor="password">
-                                        Nueva contraseÃ±a <span className="text-muted-foreground text-xs font-normal">(opcional)</span>
+                                        Nueva contraseña <span className="text-muted-foreground text-xs font-normal">(opcional)</span>
                                     </Label>
                                     <Input
                                         id="password"
                                         type="password"
-                                        placeholder="VacÃ­o = mantiene la contraseÃ±a actual"
+                                        placeholder="Vacío = mantiene la contraseña actual"
                                         value={data.password}
                                         onChange={(e) => setData('password', e.target.value)}
                                         className={errors.password ? 'border-destructive' : ''}
                                     />
-                                    {data.password && <p className="text-xs text-muted-foreground">Debe incluir mayÃºsculas, nÃºmeros y sÃ­mbolos.</p>}
+                                    {data.password && <p className="text-xs text-muted-foreground">Debe incluir mayúsculas, números y símbolos.</p>}
                                     {errors.password && <p className="text-xs text-destructive">{errors.password}</p>}
                                 </div>
 
                                 {data.password && (
                                     <div className="grid gap-2">
-                                        <Label htmlFor="password_confirmation">Confirmar contraseÃ±a <span className="text-destructive">*</span></Label>
+                                        <Label htmlFor="password_confirmation">Confirmar contraseña <span className="text-destructive">*</span></Label>
                                         <Input
                                             id="password_confirmation"
                                             type="password"
-                                            placeholder="Repite la nueva contraseÃ±a"
+                                            placeholder="Repite la nueva contraseña"
                                             value={data.password_confirmation}
                                             onChange={(e) => setData('password_confirmation', e.target.value)}
                                         />
@@ -126,7 +126,7 @@ export default function UsersEdit({ user, roles }: Props) {
                                     <SelectContent>
                                         {roles.map((role) => (
                                             <SelectItem key={role} value={role}>
-                                                {role === 'admin' ? 'ðŸ›¡ Administrador â€” acceso total' : 'ðŸ“‹ Coordinador â€” gestiÃ³n de NRCs'}
+                                                {role === 'admin' ? '�x:� Administrador � acceso total' : '�x9 Coordinador � gestión de NRCs'}
                                             </SelectItem>
                                         ))}
                                     </SelectContent>
