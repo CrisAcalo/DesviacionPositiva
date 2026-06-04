@@ -76,7 +76,7 @@ class NrcController extends Controller
                 $results[] = [
                     'file'    => $file->getClientOriginalName(),
                     'success' => false,
-                    'errors'  => ['Este archivo contiene estudiantes que ya fueron importados en este NRC. Verifica que no estés subiendo el mismo archivo dos veces.'],
+                    'errors'  => ['El archivo contiene cédulas duplicadas en sus propias filas. Cada estudiante debe aparecer una sola vez por archivo. Nota: un mismo estudiante sí puede estar en NRCs de materias distintas.'],
                 ];
                 continue;
             }
@@ -106,17 +106,21 @@ class NrcController extends Controller
             }
         }
 
+        $total   = array_sum(array_column(array_filter($results, fn ($r) => $r['success']), 'count'));
+        $message = count($results) === 1
+            ? "{$total} estudiante(s) importados exitosamente."
+            : count(array_filter($results, fn ($r) => $r['success'])).' NRC(s) importados ('.$total.' estudiantes en total).';
+
         if ($hasErrors) {
+            $errorCount = count(array_filter($results, fn ($r) => ! $r['success']));
             return back()
                 ->withInput()
                 ->with('importResults', $results)
-                ->with('toast', ['type' => 'error', 'message' => 'Uno o más archivos tuvieron errores.']);
+                ->with('toast', [
+                    'type'    => 'error',
+                    'message' => "{$errorCount} archivo(s) con errores. Revisa los detalles y corrige el archivo antes de volver a subir.",
+                ]);
         }
-
-        $total   = array_sum(array_column(array_filter($results, fn ($r) => $r['success']), 'count'));
-        $message = count($results) === 1
-            ? "{$total} estudiantes importados exitosamente."
-            : count($results).' NRCs importados ('.$total.' estudiantes en total).';
 
         return redirect()->route('nrcs.index')
             ->with('toast', ['type' => 'success', 'message' => $message]);

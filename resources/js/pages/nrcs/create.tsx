@@ -1,4 +1,4 @@
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import * as XLSX from 'xlsx';
 import Papa from 'papaparse';
 import { useCallback, useRef, useState } from 'react';
@@ -12,6 +12,7 @@ import {
     Loader2,
     Trash2,
     Upload,
+    XCircle,
 } from 'lucide-react';
 import Heading from '@/components/heading';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -56,6 +57,78 @@ type FileEntry = {
 };
 
 type FormErrors = Record<string, string>;
+
+type ImportFileResult = {
+    file:    string;
+    success: boolean;
+    count?:  number;
+    queued?: boolean;
+    errors?: string[];
+};
+
+/* ─── Import results panel ───────────────────────────────────────── */
+
+function ImportResultsPanel({ results }: { results: ImportFileResult[] }) {
+    const hasErrors  = results.some((r) => !r.success);
+    const hasSuccess = results.some((r) => r.success);
+
+    return (
+        <div className={`rounded-xl border p-4 space-y-3 ${
+            hasErrors && !hasSuccess
+                ? 'border-destructive/40 bg-destructive/5'
+                : hasErrors
+                    ? 'border-amber-300 bg-amber-50 dark:border-amber-800 dark:bg-amber-950/20'
+                    : 'border-green-300 bg-green-50 dark:border-green-800 dark:bg-green-950/20'
+        }`}>
+            <div className="flex items-center gap-2 font-medium text-sm">
+                {hasErrors ? (
+                    <XCircle className="h-4 w-4 text-destructive shrink-0" />
+                ) : (
+                    <CheckCircle2 className="h-4 w-4 text-green-600 shrink-0" />
+                )}
+                <span>
+                    {hasErrors && !hasSuccess && 'La importación falló — revisa los errores antes de volver a intentar.'}
+                    {hasErrors && hasSuccess && 'Importación parcial: algunos archivos fallaron.'}
+                    {!hasErrors && 'Todos los archivos se importaron correctamente.'}
+                </span>
+            </div>
+
+            <div className="space-y-2">
+                {results.map((r, i) => (
+                    <div key={i} className={`rounded-lg border px-3 py-2.5 text-sm ${
+                        r.success ? 'border-green-200 bg-white dark:bg-background' : 'border-destructive/30 bg-white dark:bg-background'
+                    }`}>
+                        <div className="flex items-center gap-2">
+                            {r.success ? (
+                                <CheckCircle2 className="h-3.5 w-3.5 text-green-600 shrink-0" />
+                            ) : (
+                                <XCircle className="h-3.5 w-3.5 text-destructive shrink-0" />
+                            )}
+                            <span className="font-medium truncate">{r.file}</span>
+                            {r.success && (
+                                <Badge variant="secondary" className="ml-auto shrink-0 text-xs">
+                                    {r.queued ? 'En cola' : `${r.count} estudiantes`}
+                                </Badge>
+                            )}
+                            {!r.success && (
+                                <Badge variant="destructive" className="ml-auto shrink-0 text-xs">
+                                    {r.errors?.length ?? 0} error{(r.errors?.length ?? 0) !== 1 ? 'es' : ''}
+                                </Badge>
+                            )}
+                        </div>
+                        {!r.success && r.errors && r.errors.length > 0 && (
+                            <ul className="mt-2 ml-5 space-y-0.5 text-xs text-destructive">
+                                {r.errors.map((err, j) => (
+                                    <li key={j} className="list-disc">{err}</li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
 
 /* ─── Format guide ───────────────────────────────────────────────── */
 
@@ -117,6 +190,9 @@ function FormatGuide() {
 /* ─── Main component ─────────────────────────────────────────────── */
 
 export default function NrcCreate({ departments, careers, subjects, academicPeriods }: PageProps) {
+    const { props } = usePage<{ flash: { importResults?: ImportFileResult[] } }>();
+    const importResults = props.flash?.importResults ?? null;
+
     const [academicPeriod, setAcademicPeriod] = useState<string>('');
     const [entries, setEntries] = useState<FileEntry[]>([]);
     const [isDragging, setIsDragging] = useState(false);
@@ -266,6 +342,10 @@ export default function NrcCreate({ departments, careers, subjects, academicPeri
                     title="Cargar NRCs"
                     description="Sube uno o varios archivos de calificaciones. Cada archivo corresponde a un NRC."
                 />
+
+                {importResults && importResults.length > 0 && (
+                    <ImportResultsPanel results={importResults} />
+                )}
 
                 <FormatGuide />
 
