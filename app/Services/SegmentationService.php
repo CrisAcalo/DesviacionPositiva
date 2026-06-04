@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 class SegmentationService
 {
-    private const HIGH_THRESHOLD    = 8.5;
-    private const AT_RISK_THRESHOLD = 6.0;
+    private const HIGH_THRESHOLD    = 17.0; // >85% sobre 20 puntos
+    private const AT_RISK_THRESHOLD = 14.0; // <70% (nota mínima aprobatoria ESPE)
 
     public function segment(Nrc $nrc): void
     {

@@ -8,11 +8,11 @@ class AcademicPeriodFactory extends Factory
 {
     public function definition(): array
     {
-        $year = $this->faker->numberBetween(2024, 2027);
-        $term = $this->faker->randomElement(['I', 'II']);
-
+        static $seq = 0;
+        $seq++;
         return [
-            'name' => "{$year}-{$term}",
+            'name'      => "2024-TEST-{$seq}",
+            'is_active' => true,
         ];
     }
 }

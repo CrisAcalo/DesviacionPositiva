@@ -26,5 +26,12 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Coordinador Académico', 'password' => bcrypt('password')]
         );
         $coordinator->assignRole('coordinator');
+
+        //teacher Cristian Acalo
+        $teacher = User::firstOrCreate(
+            ['email' => 'docente@espe.edu.ec'],
+            ['name' => 'Cristian Acalo', 'password' => bcrypt('password')]
+        );
+        $teacher->assignRole('teacher');
     }
 }

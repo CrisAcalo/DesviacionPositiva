@@ -70,14 +70,14 @@ export function AppSidebar() {
                 icon: Library,
             },
             {
-                title: 'Análisis y Reportes',
+                title: 'Reportes',
                 href: '/reports',
                 icon: BarChart3,
             },
         );
     }
 
-    if (isAdmin || isCoordinator || isTeacher || isProjectDirector) {
+    if (isTeacher || isProjectDirector) {
         navItems.push({
             title: 'Reportes',
             href: '/reports',

@@ -24,4 +24,25 @@ class DashboardTest extends TestCase
         $response = $this->get(route('dashboard'));
         $response->assertOk();
     }
+
+    public function test_dashboard_returns_correct_inertia_props()
+    {
+        $this->seed(\Database\Seeders\RolesAndPermissionsSeeder::class);
+        $user = User::factory()->create();
+        $user->assignRole('admin');
+        $this->actingAs($user);
+
+        $this->get(route('dashboard'))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page
+                ->component('dashboard')
+                ->has('stats')
+                ->has('stats.totalNrcs')
+                ->has('stats.totalStudents')
+                ->has('stats.activeSurveys')
+                ->has('stats.completedAnalyses')
+                ->has('groupDistribution')
+                ->has('nrcsByStatus')
+            );
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Nrc;
+use App\Models\Recommendation;
 use App\Models\Survey;
 use App\Models\StudentGroup;
 use App\Models\AnalysisResult;
@@ -43,16 +44,21 @@ class DashboardController extends Controller
             ->pluck('count', 'status')
             ->toArray();
 
+        $totalPractices = Recommendation::where('type', 'practice')->count();
+        $totalBarriers  = Recommendation::where('type', 'barrier')->count();
+
         return inertia('dashboard', [
             'stats' => [
-                'totalNrcs' => $totalNrcs,
-                'totalStudents' => $totalStudents,
-                'activeSurveys' => $activeSurveys,
-                'completedAnalyses' => $completedAnalyses,
+                'totalNrcs'          => $totalNrcs,
+                'totalStudents'      => $totalStudents,
+                'activeSurveys'      => $activeSurveys,
+                'completedAnalyses'  => $completedAnalyses,
+                'totalPractices'     => $totalPractices,
+                'totalBarriers'      => $totalBarriers,
             ],
-            'groupDistribution' => $groupDistribution,
+            'groupDistribution'      => $groupDistribution,
             'validatedResultsPerNrc' => $validatedResultsPerNrc,
-            'nrcsByStatus' => $nrcsByStatus,
+            'nrcsByStatus'           => $nrcsByStatus,
         ]);
     }
 }

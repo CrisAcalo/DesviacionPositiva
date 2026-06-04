@@ -1,0 +1,656 @@
+
+> dev:frontend
+> vite
+
+Inertia SSR dev endpoint: /__inertia_ssr
+[2m3:13:02 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
+[2m3:13:03 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m Re-optimizing dependencies because vite config has changed
+Port 5173 is in use, trying another one...
+Warming up Inertia SSR module graph...
+
+  [32m[1mVITE[22m v8.0.13[39m  [2mready in [0m[1m10730[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5174[22m/[39m
+[2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+
+  [31m[1mLARAVEL[22m v13.11.2[39m  [2mplugin[22m [1mv3.1.0[22m
+
+  [32m➜[39m  [1mAPP_URL[22m: [36mhttp://127.0.0.1:[1m8000[22m[39m
+[2m3:13:10 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [optimizer] scanning dependencies...
+[2m3:13:50 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [optimizer] bundling dependencies...
+[2m3:13:59 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [optimizer] bundling dependencies...
+Inertia SSR module graph warmed up
+[32m2026-06-04 08:20:30[0m SSR welcome [90m143.16ms[0m
+[32m2026-06-04 08:50:17[0m SSR auth/login [90m762.08ms[0m
+[32m2026-06-04 08:50:18[0m SSR auth/login [90m20.17ms[0m
+[32m2026-06-04 08:50:24[0m SSR auth/login [90m22.34ms[0m
+[32m2026-06-04 08:50:25[0m SSR auth/login [90m18.20ms[0m
+[32m2026-06-04 08:50:28[0m SSR auth/login [90m22.35ms[0m
+[32m2026-06-04 08:50:31[0m SSR auth/login [90m19.24ms[0m
+[32m2026-06-04 08:50:33[0m SSR auth/login [90m21.38ms[0m
+[32m2026-06-04 08:50:34[0m SSR auth/login [90m18.53ms[0m
+[32m2026-06-04 08:50:35[0m SSR auth/login [90m21.22ms[0m
+[32m2026-06-04 08:50:36[0m SSR auth/login [90m25.12ms[0m
+[32m2026-06-04 08:50:39[0m SSR auth/login [90m24.89ms[0m
+[32m2026-06-04 08:50:41[0m SSR auth/login [90m20.84ms[0m
+[32m2026-06-04 08:50:42[0m SSR auth/login [90m19.94ms[0m
+[32m2026-06-04 08:50:43[0m SSR auth/login [90m20.66ms[0m
+[32m2026-06-04 08:50:45[0m SSR auth/login [90m20.32ms[0m
+[32m2026-06-04 08:50:46[0m SSR auth/login [90m29.08ms[0m
+[32m2026-06-04 08:50:47[0m SSR auth/login [90m36.06ms[0m
+[32m2026-06-04 08:50:49[0m SSR auth/login [90m40.33ms[0m
+[32m2026-06-04 08:50:50[0m SSR auth/login [90m39.72ms[0m
+[32m2026-06-04 08:50:52[0m SSR auth/login [90m40.04ms[0m
+[32m2026-06-04 08:50:54[0m SSR auth/login [90m38.44ms[0m
+[32m2026-06-04 08:50:58[0m SSR auth/login [90m39.16ms[0m
+[32m2026-06-04 08:51:00[0m SSR auth/login [90m38.79ms[0m
+[32m2026-06-04 08:51:01[0m SSR auth/login [90m36.77ms[0m
+[32m2026-06-04 08:51:03[0m SSR auth/login [90m37.72ms[0m
+[32m2026-06-04 08:51:05[0m SSR auth/login [90m55.30ms[0m
+[32m2026-06-04 08:51:06[0m SSR auth/login [90m40.94ms[0m
+[32m2026-06-04 08:51:07[0m SSR auth/login [90m39.12ms[0m
+[32m2026-06-04 08:51:08[0m SSR auth/login [90m36.04ms[0m
+[32m2026-06-04 08:51:10[0m SSR auth/login [90m34.79ms[0m
+[32m2026-06-04 08:51:11[0m SSR auth/login [90m36.37ms[0m
+[32m2026-06-04 08:51:13[0m SSR auth/login [90m39.32ms[0m
+[32m2026-06-04 08:51:15[0m SSR auth/login [90m36.97ms[0m
+[32m2026-06-04 08:51:17[0m SSR auth/login [90m38.02ms[0m
+[32m2026-06-04 08:51:19[0m SSR auth/login [90m46.26ms[0m
+[32m2026-06-04 08:51:20[0m SSR auth/login [90m39.76ms[0m
+[32m2026-06-04 08:51:21[0m SSR auth/login [90m39.59ms[0m
+[32m2026-06-04 08:51:22[0m SSR auth/login [90m37.13ms[0m
+[32m2026-06-04 08:51:24[0m SSR auth/login [90m38.31ms[0m
+[32m2026-06-04 08:51:26[0m SSR auth/login [90m37.31ms[0m
+[32m2026-06-04 08:51:28[0m SSR auth/login [90m50.34ms[0m
+[32m2026-06-04 08:51:29[0m SSR auth/login [90m35.68ms[0m
+[32m2026-06-04 08:51:31[0m SSR auth/login [90m36.32ms[0m
+[32m2026-06-04 08:51:32[0m SSR auth/login [90m43.00ms[0m
+[32m2026-06-04 08:51:33[0m SSR auth/login [90m38.47ms[0m
+[32m2026-06-04 08:51:34[0m SSR auth/login [90m40.48ms[0m
+[32m2026-06-04 08:51:35[0m SSR auth/login [90m40.72ms[0m
+[32m2026-06-04 08:51:37[0m SSR auth/login [90m66.31ms[0m
+[32m2026-06-04 08:51:38[0m SSR auth/login [90m36.97ms[0m
+[32m2026-06-04 08:51:40[0m SSR auth/login [90m40.40ms[0m
+[32m2026-06-04 08:51:42[0m SSR auth/login [90m42.29ms[0m
+[32m2026-06-04 08:51:45[0m SSR auth/login [90m40.19ms[0m
+[32m2026-06-04 08:51:46[0m SSR auth/login [90m35.99ms[0m
+[32m2026-06-04 08:51:49[0m SSR auth/login [90m40.21ms[0m
+[32m2026-06-04 08:51:50[0m SSR auth/login [90m36.35ms[0m
+[32m2026-06-04 08:51:53[0m SSR auth/login [90m37.03ms[0m
+[32m2026-06-04 08:51:54[0m SSR auth/login [90m37.26ms[0m
+[32m2026-06-04 08:51:58[0m SSR auth/login [90m38.31ms[0m
+[32m2026-06-04 08:51:59[0m SSR auth/login [90m39.50ms[0m
+[32m2026-06-04 08:52:01[0m SSR auth/login [90m40.20ms[0m
+[32m2026-06-04 08:52:02[0m SSR auth/login [90m36.24ms[0m
+[32m2026-06-04 08:52:05[0m SSR auth/login [90m40.88ms[0m
+[32m2026-06-04 08:52:08[0m SSR auth/login [90m40.21ms[0m
+[32m2026-06-04 08:52:10[0m SSR auth/login [90m42.41ms[0m
+[32m2026-06-04 08:52:11[0m SSR auth/login [90m40.03ms[0m
+[32m2026-06-04 08:52:14[0m SSR auth/login [90m36.50ms[0m
+[32m2026-06-04 08:52:17[0m SSR auth/login [90m28.34ms[0m
+[32m2026-06-04 08:52:19[0m SSR auth/login [90m38.33ms[0m
+[32m2026-06-04 08:52:21[0m SSR auth/login [90m23.76ms[0m
+[32m2026-06-04 08:52:25[0m SSR auth/login [90m15.21ms[0m
+[32m2026-06-04 08:52:28[0m SSR auth/login [90m20.51ms[0m
+[32m2026-06-04 08:52:30[0m SSR auth/login [90m15.71ms[0m
+[32m2026-06-04 08:52:32[0m SSR auth/login [90m18.63ms[0m
+[32m2026-06-04 08:52:35[0m SSR auth/login [90m20.85ms[0m
+[32m2026-06-04 08:52:36[0m SSR auth/login [90m21.77ms[0m
+[32m2026-06-04 08:52:39[0m SSR auth/login [90m18.85ms[0m
+[32m2026-06-04 08:52:40[0m SSR auth/login [90m18.31ms[0m
+[32m2026-06-04 08:52:44[0m SSR auth/login [90m18.24ms[0m
+[32m2026-06-04 08:52:45[0m SSR auth/login [90m18.16ms[0m
+[32m2026-06-04 08:52:48[0m SSR auth/login [90m17.42ms[0m
+[32m2026-06-04 08:52:50[0m SSR auth/login [90m18.62ms[0m
+[32m2026-06-04 08:52:54[0m SSR auth/login [90m21.37ms[0m
+[32m2026-06-04 08:52:57[0m SSR auth/login [90m19.36ms[0m
+[32m2026-06-04 08:53:00[0m SSR auth/login [90m25.36ms[0m
+[32m2026-06-04 08:53:02[0m SSR auth/login [90m19.32ms[0m
+[32m2026-06-04 08:53:04[0m SSR auth/login [90m21.68ms[0m
+[32m2026-06-04 08:53:05[0m SSR auth/login [90m19.82ms[0m
+[32m2026-06-04 08:53:08[0m SSR auth/login [90m20.72ms[0m
+[32m2026-06-04 08:53:12[0m SSR auth/login [90m22.57ms[0m
+[32m2026-06-04 08:53:14[0m SSR auth/login [90m23.56ms[0m
+[32m2026-06-04 08:53:17[0m SSR auth/login [90m20.94ms[0m
+[32m2026-06-04 08:53:19[0m SSR auth/login [90m27.84ms[0m
+[32m2026-06-04 08:53:22[0m SSR auth/login [90m22.32ms[0m
+[32m2026-06-04 08:53:24[0m SSR auth/login [90m19.17ms[0m
+[32m2026-06-04 08:53:26[0m SSR auth/login [90m21.60ms[0m
+[32m2026-06-04 08:53:29[0m SSR auth/login [90m21.07ms[0m
+[32m2026-06-04 08:53:31[0m SSR auth/login [90m18.61ms[0m
+[32m2026-06-04 08:53:34[0m SSR auth/login [90m18.98ms[0m
+[32m2026-06-04 08:53:36[0m SSR auth/login [90m22.13ms[0m
+[32m2026-06-04 08:53:39[0m SSR auth/login [90m20.81ms[0m
+[32m2026-06-04 08:53:40[0m SSR auth/login [90m20.36ms[0m
+[32m2026-06-04 08:53:43[0m SSR auth/login [90m20.24ms[0m
+[32m2026-06-04 08:53:45[0m SSR auth/login [90m20.77ms[0m
+[32m2026-06-04 08:53:48[0m SSR auth/login [90m21.18ms[0m
+[32m2026-06-04 08:53:49[0m SSR auth/login [90m21.51ms[0m
+[32m2026-06-04 08:53:52[0m SSR auth/login [90m22.78ms[0m
+[32m2026-06-04 08:53:53[0m SSR auth/login [90m19.80ms[0m
+[32m2026-06-04 08:53:57[0m SSR auth/login [90m18.88ms[0m
+[32m2026-06-04 08:53:59[0m SSR auth/login [90m21.13ms[0m
+[32m2026-06-04 08:54:01[0m SSR auth/login [90m20.90ms[0m
+[32m2026-06-04 08:54:03[0m SSR auth/login [90m20.19ms[0m
+[32m2026-06-04 08:54:06[0m SSR auth/login [90m17.42ms[0m
+[32m2026-06-04 08:54:08[0m SSR auth/login [90m20.10ms[0m
+[32m2026-06-04 08:54:10[0m SSR auth/login [90m18.04ms[0m
+[32m2026-06-04 08:54:13[0m SSR auth/login [90m25.69ms[0m
+[32m2026-06-04 08:54:16[0m SSR auth/login [90m17.32ms[0m
+[32m2026-06-04 08:54:18[0m SSR auth/login [90m17.39ms[0m
+[32m2026-06-04 08:54:20[0m SSR auth/login [90m19.47ms[0m
+[32m2026-06-04 08:54:22[0m SSR auth/login [90m25.43ms[0m
+[32m2026-06-04 08:54:24[0m SSR auth/login [90m18.23ms[0m
+[32m2026-06-04 08:54:26[0m SSR auth/login [90m21.97ms[0m
+[32m2026-06-04 08:54:29[0m SSR auth/login [90m16.40ms[0m
+[32m2026-06-04 08:54:32[0m SSR auth/login [90m17.15ms[0m
+[32m2026-06-04 08:54:34[0m SSR auth/login [90m18.38ms[0m
+[32m2026-06-04 08:54:36[0m SSR auth/login [90m16.98ms[0m
+[32m2026-06-04 08:54:38[0m SSR auth/login [90m18.88ms[0m
+[32m2026-06-04 08:54:42[0m SSR auth/login [90m18.56ms[0m
+[2m3:54:43 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/settings/profile.tsx, /resources/css/app.css?direct[22m
+[32m2026-06-04 08:54:45[0m SSR auth/login [90m38.63ms[0m
+[32m2026-06-04 08:54:46[0m SSR auth/login [90m30.52ms[0m
+[32m2026-06-04 08:54:47[0m SSR auth/login [90m29.10ms[0m
+[32m2026-06-04 08:54:49[0m SSR auth/login [90m26.20ms[0m
+[32m2026-06-04 08:54:50[0m SSR auth/login [90m28.22ms[0m
+[32m2026-06-04 08:54:51[0m SSR welcome [90m46.40ms[0m
+[32m2026-06-04 08:54:52[0m SSR welcome [90m45.42ms[0m
+[32m2026-06-04 08:54:53[0m SSR welcome [90m44.60ms[0m
+[32m2026-06-04 08:54:55[0m SSR welcome [90m40.96ms[0m
+[32m2026-06-04 08:54:56[0m SSR welcome [90m43.61ms[0m
+[32m2026-06-04 08:54:57[0m SSR auth/login [90m26.71ms[0m
+[32m2026-06-04 08:54:58[0m SSR auth/login [90m23.39ms[0m
+[32m2026-06-04 08:54:59[0m SSR auth/login [90m29.47ms[0m
+[32m2026-06-04 08:55:01[0m SSR auth/login [90m25.10ms[0m
+[32m2026-06-04 08:55:02[0m SSR auth/login [90m26.78ms[0m
+[32m2026-06-04 08:55:03[0m SSR auth/login [90m26.68ms[0m
+[32m2026-06-04 08:55:04[0m SSR auth/login [90m26.35ms[0m
+[32m2026-06-04 08:55:06[0m SSR auth/login [90m28.38ms[0m
+[32m2026-06-04 08:55:07[0m SSR auth/login [90m27.25ms[0m
+[32m2026-06-04 08:55:09[0m SSR auth/login [90m27.82ms[0m
+[32m2026-06-04 08:55:10[0m SSR auth/login [90m29.99ms[0m
+[32m2026-06-04 08:55:11[0m SSR auth/login [90m31.41ms[0m
+[2m3:55:12 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/settings/security.tsx, /resources/css/app.css?direct[22m
+[32m2026-06-04 08:55:12[0m SSR auth/login [90m32.98ms[0m
+[32m2026-06-04 08:55:13[0m SSR auth/login [90m31.01ms[0m
+[32m2026-06-04 08:55:14[0m SSR auth/login [90m27.47ms[0m
+[32m2026-06-04 08:55:15[0m SSR auth/login [90m28.99ms[0m
+[32m2026-06-04 08:55:17[0m SSR auth/login [90m91.26ms[0m
+[32m2026-06-04 08:55:18[0m SSR auth/login [90m36.19ms[0m
+[32m2026-06-04 08:55:20[0m SSR auth/login [90m42.36ms[0m
+[32m2026-06-04 08:55:20[0m SSR auth/login [90m31.42ms[0m
+[2m3:55:21 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/js/components/delete-user.tsx[22m
+[32m2026-06-04 08:55:21[0m SSR auth/login [90m35.43ms[0m
+[2m3:55:21 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/settings/profile.tsx, /resources/js/layouts/settings/layout.tsx, /resources/js/components/user-menu-content.tsx[22m
+[2m3:55:21 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2mresources/js/routes/profile/index.ts[22m
+[2m3:55:22 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
+[32m2026-06-04 08:55:23[0m SSR auth/login [90m73.81ms[0m
+[32m2026-06-04 08:55:24[0m SSR auth/login [90m34.50ms[0m
+[32m2026-06-04 08:55:25[0m SSR auth/login [90m31.91ms[0m
+[32m2026-06-04 08:55:27[0m SSR auth/login [90m43.95ms[0m
+[32m2026-06-04 08:55:28[0m SSR auth/login [90m49.82ms[0m
+[2m3:55:29 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
+[32m2026-06-04 08:55:29[0m SSR auth/login [90m33.64ms[0m
+[32m2026-06-04 08:55:30[0m SSR auth/login [90m32.96ms[0m
+[32m2026-06-04 08:55:31[0m SSR auth/login [90m33.88ms[0m
+[32m2026-06-04 08:55:34[0m SSR auth/login [90m35.60ms[0m
+[32m2026-06-04 08:55:35[0m SSR auth/login [90m35.24ms[0m
+[32m2026-06-04 08:55:38[0m SSR auth/login [90m36.06ms[0m
+[32m2026-06-04 08:55:40[0m SSR auth/login [90m37.82ms[0m
+[32m2026-06-04 08:55:41[0m SSR auth/login [90m32.66ms[0m
+[32m2026-06-04 08:55:43[0m SSR auth/login [90m32.11ms[0m
+[32m2026-06-04 08:55:44[0m SSR auth/login [90m32.30ms[0m
+[32m2026-06-04 08:55:45[0m SSR auth/login [90m58.24ms[0m
+[32m2026-06-04 08:55:46[0m SSR auth/login [90m34.47ms[0m
+[32m2026-06-04 08:55:48[0m SSR auth/login [90m34.66ms[0m
+[32m2026-06-04 08:55:49[0m SSR auth/login [90m32.13ms[0m
+[32m2026-06-04 08:55:50[0m SSR auth/login [90m30.62ms[0m
+[32m2026-06-04 08:55:53[0m SSR auth/login [90m30.75ms[0m
+[32m2026-06-04 08:55:55[0m SSR auth/login [90m32.99ms[0m
+[32m2026-06-04 08:55:57[0m SSR auth/login [90m35.32ms[0m
+[32m2026-06-04 08:55:59[0m SSR auth/login [90m31.37ms[0m
+[2m3:55:59 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/settings/security.tsx, /resources/css/app.css?direct[22m
+[32m2026-06-04 08:56:00[0m SSR auth/login [90m35.41ms[0m
+[32m2026-06-04 08:56:01[0m SSR auth/login [90m33.25ms[0m
+[32m2026-06-04 08:56:03[0m SSR auth/login [90m88.23ms[0m
+[32m2026-06-04 08:56:04[0m SSR auth/login [90m34.89ms[0m
+[32m2026-06-04 08:56:06[0m SSR auth/login [90m37.44ms[0m
+[32m2026-06-04 08:56:08[0m SSR auth/login [90m37.56ms[0m
+[32m2026-06-04 08:56:12[0m SSR auth/login [90m35.43ms[0m
+[32m2026-06-04 08:56:15[0m SSR auth/login [90m36.81ms[0m
+[32m2026-06-04 08:56:18[0m SSR auth/login [90m35.67ms[0m
+[32m2026-06-04 08:56:21[0m SSR auth/login [90m33.14ms[0m
+[32m2026-06-04 08:56:25[0m SSR auth/login [90m34.34ms[0m
+[32m2026-06-04 08:56:27[0m SSR auth/login [90m34.59ms[0m
+[32m2026-06-04 08:56:30[0m SSR auth/login [90m34.01ms[0m
+[32m2026-06-04 08:56:32[0m SSR auth/login [90m37.79ms[0m
+[32m2026-06-04 08:56:34[0m SSR auth/login [90m33.46ms[0m
+[32m2026-06-04 08:56:37[0m SSR auth/login [90m34.15ms[0m
+[32m2026-06-04 08:56:40[0m SSR auth/login [90m35.28ms[0m
+[32m2026-06-04 08:56:44[0m SSR auth/login [90m32.56ms[0m
+[32m2026-06-04 08:56:47[0m SSR auth/login [90m35.00ms[0m
+[32m2026-06-04 08:56:49[0m SSR auth/login [90m33.56ms[0m
+[32m2026-06-04 08:56:54[0m SSR auth/login [90m32.96ms[0m
+[32m2026-06-04 08:56:56[0m SSR auth/login [90m40.74ms[0m
+[32m2026-06-04 08:56:59[0m SSR auth/login [90m38.19ms[0m
+[32m2026-06-04 08:57:03[0m SSR auth/login [90m33.71ms[0m
+[32m2026-06-04 08:57:06[0m SSR auth/login [90m29.50ms[0m
+[32m2026-06-04 08:57:08[0m SSR auth/login [90m38.69ms[0m
+[32m2026-06-04 08:57:10[0m SSR auth/login [90m35.80ms[0m
+[32m2026-06-04 08:57:13[0m SSR auth/login [90m35.84ms[0m
+[32m2026-06-04 08:57:14[0m SSR auth/login [90m33.84ms[0m
+[32m2026-06-04 08:57:15[0m SSR auth/login [90m35.06ms[0m
+[32m2026-06-04 08:57:16[0m SSR auth/login [90m33.94ms[0m
+[32m2026-06-04 08:57:19[0m SSR auth/login [90m35.22ms[0m
+[32m2026-06-04 08:57:21[0m SSR auth/login [90m42.65ms[0m
+[32m2026-06-04 08:57:24[0m SSR auth/login [90m35.41ms[0m
+[32m2026-06-04 08:57:25[0m SSR auth/login [90m26.76ms[0m
+[32m2026-06-04 08:57:29[0m SSR auth/login [90m33.56ms[0m
+[32m2026-06-04 08:57:31[0m SSR auth/login [90m44.34ms[0m
+[32m2026-06-04 08:57:33[0m SSR auth/login [90m37.51ms[0m
+[32m2026-06-04 08:57:34[0m SSR auth/login [90m32.39ms[0m
+[32m2026-06-04 08:57:48[0m SSR auth/login [90m30.33ms[0m
+[32m2026-06-04 08:58:05[0m SSR auth/login [90m29.87ms[0m
+[32m2026-06-04 08:58:06[0m SSR auth/login [90m42.77ms[0m
+[32m2026-06-04 08:58:06[0m SSR auth/login [90m37.54ms[0m
+[32m2026-06-04 08:58:08[0m SSR auth/login [90m40.81ms[0m
+[32m2026-06-04 08:58:12[0m SSR auth/login [90m35.49ms[0m
+[32m2026-06-04 08:58:13[0m SSR auth/login [90m35.36ms[0m
+[32m2026-06-04 08:58:15[0m SSR auth/login [90m37.51ms[0m
+[32m2026-06-04 08:58:16[0m SSR auth/login [90m38.06ms[0m
+[32m2026-06-04 08:58:20[0m SSR auth/login [90m32.98ms[0m
+[32m2026-06-04 08:58:21[0m SSR auth/login [90m39.09ms[0m
+[32m2026-06-04 08:58:24[0m SSR auth/login [90m33.35ms[0m
+[32m2026-06-04 08:58:25[0m SSR auth/login [90m37.51ms[0m
+[32m2026-06-04 08:58:28[0m SSR auth/login [90m39.66ms[0m
+[32m2026-06-04 08:58:29[0m SSR auth/login [90m48.24ms[0m
+[32m2026-06-04 08:58:33[0m SSR auth/login [90m33.98ms[0m
+[32m2026-06-04 08:58:34[0m SSR auth/login [90m38.29ms[0m
+[32m2026-06-04 08:58:37[0m SSR auth/login [90m42.75ms[0m
+[32m2026-06-04 08:58:38[0m SSR auth/login [90m39.18ms[0m
+[32m2026-06-04 08:58:42[0m SSR auth/login [90m29.68ms[0m
+[32m2026-06-04 08:58:42[0m SSR auth/login [90m39.72ms[0m
+[32m2026-06-04 08:58:43[0m SSR auth/login [90m36.64ms[0m
+[32m2026-06-04 08:59:07[0m SSR settings/profile [90m307.59ms[0m
+[32m2026-06-04 08:59:07[0m SSR auth/login [90m29.14ms[0m
+[32m2026-06-04 08:59:10[0m SSR settings/profile [90m238.17ms[0m
+[32m2026-06-04 08:59:13[0m SSR auth/login [90m38.28ms[0m
+[32m2026-06-04 08:59:15[0m SSR settings/profile [90m223.50ms[0m
+[32m2026-06-04 08:59:18[0m SSR auth/login [90m41.51ms[0m
+[32m2026-06-04 08:59:19[0m SSR settings/profile [90m237.62ms[0m
+[32m2026-06-04 08:59:22[0m SSR auth/login [90m26.56ms[0m
+[32m2026-06-04 08:59:24[0m SSR settings/profile [90m218.78ms[0m
+[32m2026-06-04 08:59:27[0m SSR auth/login [90m37.17ms[0m
+[32m2026-06-04 08:59:29[0m SSR settings/profile [90m273.68ms[0m
+[32m2026-06-04 08:59:32[0m SSR auth/login [90m39.45ms[0m
+[32m2026-06-04 08:59:33[0m SSR settings/profile [90m208.91ms[0m
+[32m2026-06-04 08:59:36[0m SSR auth/login [90m35.85ms[0m
+[32m2026-06-04 08:59:38[0m SSR settings/profile [90m312.31ms[0m
+[32m2026-06-04 08:59:40[0m SSR auth/login [90m41.95ms[0m
+[32m2026-06-04 08:59:41[0m SSR settings/profile [90m206.01ms[0m
+[32m2026-06-04 08:59:44[0m SSR auth/login [90m36.73ms[0m
+[32m2026-06-04 08:59:45[0m SSR settings/profile [90m238.34ms[0m
+[32m2026-06-04 08:59:48[0m SSR auth/login [90m42.82ms[0m
+[32m2026-06-04 08:59:50[0m SSR settings/profile [90m239.97ms[0m
+[32m2026-06-04 08:59:53[0m SSR auth/login [90m39.32ms[0m
+[32m2026-06-04 08:59:54[0m SSR settings/profile [90m235.41ms[0m
+[32m2026-06-04 08:59:56[0m SSR auth/login [90m36.22ms[0m
+[32m2026-06-04 08:59:59[0m SSR settings/profile [90m244.33ms[0m
+[32m2026-06-04 09:00:02[0m SSR auth/login [90m40.84ms[0m
+[32m2026-06-04 09:00:03[0m SSR settings/profile [90m222.24ms[0m
+[32m2026-06-04 09:00:06[0m SSR auth/login [90m32.43ms[0m
+[32m2026-06-04 09:00:08[0m SSR settings/profile [90m290.60ms[0m
+[32m2026-06-04 09:00:10[0m SSR auth/login [90m38.55ms[0m
+[32m2026-06-04 09:00:11[0m SSR settings/profile [90m232.62ms[0m
+[32m2026-06-04 09:00:14[0m SSR auth/login [90m39.86ms[0m
+[32m2026-06-04 09:00:15[0m SSR settings/profile [90m217.45ms[0m
+[32m2026-06-04 09:00:18[0m SSR auth/login [90m35.89ms[0m
+[32m2026-06-04 09:00:20[0m SSR settings/profile [90m239.52ms[0m
+[32m2026-06-04 09:00:23[0m SSR auth/login [90m37.38ms[0m
+[32m2026-06-04 09:00:24[0m SSR settings/profile [90m217.83ms[0m
+[32m2026-06-04 09:00:27[0m SSR auth/login [90m37.70ms[0m
+[32m2026-06-04 09:00:29[0m SSR settings/profile [90m214.23ms[0m
+[32m2026-06-04 09:00:30[0m SSR auth/login [90m34.64ms[0m
+[32m2026-06-04 09:00:32[0m SSR settings/profile [90m241.10ms[0m
+[32m2026-06-04 09:00:35[0m SSR auth/login [90m39.75ms[0m
+[32m2026-06-04 09:00:37[0m SSR settings/profile [90m269.32ms[0m
+[32m2026-06-04 09:00:39[0m SSR auth/login [90m42.94ms[0m
+[32m2026-06-04 09:00:40[0m SSR settings/profile [90m226.28ms[0m
+[32m2026-06-04 09:00:43[0m SSR auth/login [90m42.39ms[0m
+[32m2026-06-04 09:00:44[0m SSR settings/profile [90m203.69ms[0m
+[32m2026-06-04 09:00:48[0m SSR auth/login [90m43.31ms[0m
+[32m2026-06-04 09:00:50[0m SSR settings/profile [90m232.12ms[0m
+[32m2026-06-04 09:00:52[0m SSR auth/login [90m37.38ms[0m
+[32m2026-06-04 09:00:53[0m SSR settings/profile [90m220.94ms[0m
+[32m2026-06-04 09:00:56[0m SSR auth/login [90m43.89ms[0m
+[32m2026-06-04 09:00:58[0m SSR settings/profile [90m290.55ms[0m
+[32m2026-06-04 09:01:01[0m SSR auth/login [90m36.52ms[0m
+[32m2026-06-04 09:01:02[0m SSR settings/profile [90m231.69ms[0m
+[32m2026-06-04 09:01:05[0m SSR auth/login [90m37.84ms[0m
+[32m2026-06-04 09:01:06[0m SSR settings/profile [90m211.68ms[0m
+[32m2026-06-04 09:01:09[0m SSR auth/login [90m31.66ms[0m
+[32m2026-06-04 09:01:10[0m SSR settings/profile [90m216.18ms[0m
+[32m2026-06-04 09:01:14[0m SSR auth/login [90m23.71ms[0m
+[32m2026-06-04 09:01:15[0m SSR settings/profile [90m220.85ms[0m
+[32m2026-06-04 09:01:18[0m SSR auth/login [90m39.21ms[0m
+[32m2026-06-04 09:01:22[0m SSR settings/profile [90m214.99ms[0m
+[32m2026-06-04 09:01:27[0m SSR auth/login [90m39.56ms[0m
+[32m2026-06-04 09:01:29[0m SSR settings/profile [90m221.19ms[0m
+[32m2026-06-04 09:01:33[0m SSR auth/login [90m36.57ms[0m
+[32m2026-06-04 09:01:35[0m SSR settings/profile [90m247.81ms[0m
+[32m2026-06-04 09:01:37[0m SSR auth/login [90m28.03ms[0m
+[32m2026-06-04 09:01:39[0m SSR settings/profile [90m271.96ms[0m
+[32m2026-06-04 09:01:41[0m SSR auth/login [90m41.70ms[0m
+[32m2026-06-04 09:01:42[0m SSR settings/profile [90m224.78ms[0m
+[32m2026-06-04 09:02:13[0m SSR settings/profile [90m217.34ms[0m
+[32m2026-06-04 09:02:14[0m SSR auth/login [90m36.32ms[0m
+[32m2026-06-04 09:02:15[0m SSR settings/profile [90m208.75ms[0m
+[32m2026-06-04 09:02:19[0m SSR auth/login [90m27.93ms[0m
+[32m2026-06-04 09:02:20[0m SSR settings/profile [90m237.89ms[0m
+[32m2026-06-04 09:02:24[0m SSR auth/login [90m30.33ms[0m
+[32m2026-06-04 09:02:25[0m SSR settings/profile [90m222.13ms[0m
+[32m2026-06-04 09:02:29[0m SSR auth/login [90m38.61ms[0m
+[32m2026-06-04 09:02:30[0m SSR settings/profile [90m245.27ms[0m
+[32m2026-06-04 09:02:33[0m SSR auth/login [90m38.90ms[0m
+[32m2026-06-04 09:02:34[0m SSR settings/profile [90m212.89ms[0m
+[32m2026-06-04 09:02:37[0m SSR auth/login [90m39.14ms[0m
+[32m2026-06-04 09:02:39[0m SSR settings/profile [90m277.26ms[0m
+[32m2026-06-04 09:02:41[0m SSR auth/login [90m50.54ms[0m
+[32m2026-06-04 09:02:42[0m SSR settings/profile [90m227.16ms[0m
+[32m2026-06-04 09:02:46[0m SSR auth/login [90m40.19ms[0m
+[32m2026-06-04 09:02:48[0m SSR settings/profile [90m231.69ms[0m
+[32m2026-06-04 09:02:50[0m SSR auth/login [90m43.54ms[0m
+[32m2026-06-04 09:02:52[0m SSR settings/profile [90m234.45ms[0m
+[32m2026-06-04 09:02:54[0m SSR auth/login [90m34.98ms[0m
+[32m2026-06-04 09:02:55[0m SSR settings/profile [90m218.20ms[0m
+[32m2026-06-04 09:02:59[0m SSR auth/login [90m38.59ms[0m
+[32m2026-06-04 09:03:01[0m SSR settings/profile [90m232.59ms[0m
+[32m2026-06-04 09:03:03[0m SSR auth/login [90m38.62ms[0m
+[32m2026-06-04 09:03:04[0m SSR settings/profile [90m221.52ms[0m
+[32m2026-06-04 09:03:07[0m SSR auth/login [90m39.58ms[0m
+[32m2026-06-04 09:03:09[0m SSR settings/profile [90m257.14ms[0m
+[32m2026-06-04 09:03:11[0m SSR auth/login [90m38.53ms[0m
+[32m2026-06-04 09:03:12[0m SSR settings/profile [90m242.20ms[0m
+[32m2026-06-04 09:03:16[0m SSR auth/login [90m39.45ms[0m
+[32m2026-06-04 09:03:20[0m SSR settings/profile [90m273.11ms[0m
+[32m2026-06-04 09:03:22[0m SSR auth/login [90m40.63ms[0m
+[32m2026-06-04 09:03:23[0m SSR settings/profile [90m117.87ms[0m
+[32m2026-06-04 09:03:24[0m SSR settings/profile [90m229.74ms[0m
+[32m2026-06-04 09:03:28[0m SSR auth/login [90m32.94ms[0m
+[32m2026-06-04 09:03:29[0m SSR settings/profile [90m232.38ms[0m
+[32m2026-06-04 09:03:32[0m SSR auth/login [90m36.34ms[0m
+[32m2026-06-04 09:03:34[0m SSR settings/profile [90m279.69ms[0m
+[32m2026-06-04 09:03:36[0m SSR auth/login [90m24.45ms[0m
+[32m2026-06-04 09:03:37[0m SSR settings/profile [90m238.89ms[0m
+[32m2026-06-04 09:03:40[0m SSR auth/login [90m46.11ms[0m
+[32m2026-06-04 09:03:43[0m SSR settings/profile [90m301.96ms[0m
+[32m2026-06-04 09:03:45[0m SSR auth/login [90m40.15ms[0m
+[32m2026-06-04 09:03:47[0m SSR settings/profile [90m233.37ms[0m
+[32m2026-06-04 09:03:50[0m SSR auth/login [90m60.85ms[0m
+[32m2026-06-04 09:03:53[0m SSR settings/profile [90m284.97ms[0m
+[32m2026-06-04 09:03:54[0m SSR auth/login [90m38.52ms[0m
+[32m2026-06-04 09:03:56[0m SSR settings/profile [90m243.83ms[0m
+[32m2026-06-04 09:03:57[0m SSR auth/login [90m37.08ms[0m
+[32m2026-06-04 09:03:59[0m SSR settings/profile [90m245.37ms[0m
+[32m2026-06-04 09:04:01[0m SSR auth/login [90m37.48ms[0m
+[32m2026-06-04 09:04:02[0m SSR settings/profile [90m240.82ms[0m
+[32m2026-06-04 09:04:05[0m SSR auth/login [90m38.93ms[0m
+[32m2026-06-04 09:04:06[0m SSR settings/profile [90m225.39ms[0m
+[32m2026-06-04 09:04:10[0m SSR auth/login [90m47.73ms[0m
+[32m2026-06-04 09:04:11[0m SSR settings/profile [90m250.02ms[0m
+[32m2026-06-04 09:04:14[0m SSR auth/login [90m42.38ms[0m
+[32m2026-06-04 09:04:15[0m SSR settings/profile [90m230.83ms[0m
+[32m2026-06-04 09:04:17[0m SSR auth/login [90m39.28ms[0m
+[32m2026-06-04 09:04:20[0m SSR settings/profile [90m282.51ms[0m
+[32m2026-06-04 09:04:22[0m SSR auth/login [90m38.26ms[0m
+[32m2026-06-04 09:04:23[0m SSR settings/profile [90m239.85ms[0m
+[32m2026-06-04 09:04:26[0m SSR auth/login [90m44.33ms[0m
+[2m4:04:26 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct, /resources/js/layouts/settings/layout.tsx[22m
+[2m4:04:26 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2mresources/js/layouts/settings/layout.tsx[22m
+[32m2026-06-04 09:04:28[0m SSR settings/profile [90m235.85ms[0m
+[32m2026-06-04 09:04:28[0m SSR auth/login [90m44.28ms[0m
+[32m2026-06-04 09:04:30[0m SSR settings/profile [90m280.79ms[0m
+[32m2026-06-04 09:04:33[0m SSR auth/login [90m37.76ms[0m
+[32m2026-06-04 09:04:34[0m SSR settings/profile [90m238.86ms[0m
+[32m2026-06-04 09:04:36[0m SSR auth/login [90m48.24ms[0m
+[32m2026-06-04 09:04:39[0m SSR settings/profile [90m263.13ms[0m
+[32m2026-06-04 09:04:41[0m SSR auth/login [90m45.19ms[0m
+[32m2026-06-04 09:04:43[0m SSR settings/profile [90m234.23ms[0m
+[32m2026-06-04 09:04:45[0m SSR auth/login [90m41.23ms[0m
+[32m2026-06-04 09:04:48[0m SSR settings/profile [90m251.46ms[0m
+[2m4:04:48 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/js/components/delete-user.tsx, /resources/css/app.css?direct[22m
+[2m4:04:48 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2mresources/js/components/delete-user.tsx[22m
+[32m2026-06-04 09:04:50[0m SSR auth/login [90m42.98ms[0m
+[32m2026-06-04 09:04:51[0m SSR settings/profile [90m318.52ms[0m
+[32m2026-06-04 09:04:52[0m SSR auth/login [90m41.39ms[0m
+[32m2026-06-04 09:04:53[0m SSR auth/login [90m37.23ms[0m
+[32m2026-06-04 09:04:55[0m SSR settings/profile [90m250.08ms[0m
+[32m2026-06-04 09:04:57[0m SSR auth/login [90m35.17ms[0m
+[32m2026-06-04 09:05:00[0m SSR settings/profile [90m243.32ms[0m
+[32m2026-06-04 09:05:02[0m SSR auth/login [90m40.69ms[0m
+[32m2026-06-04 09:05:04[0m SSR settings/profile [90m253.44ms[0m
+[32m2026-06-04 09:05:06[0m SSR auth/login [90m40.59ms[0m
+[32m2026-06-04 09:05:09[0m SSR settings/profile [90m289.63ms[0m
+[32m2026-06-04 09:05:11[0m SSR auth/login [90m38.52ms[0m
+[32m2026-06-04 09:05:13[0m SSR settings/profile [90m240.52ms[0m
+[32m2026-06-04 09:05:16[0m SSR auth/login [90m35.89ms[0m
+[32m2026-06-04 09:05:20[0m SSR settings/profile [90m271.99ms[0m
+[32m2026-06-04 09:05:22[0m SSR auth/login [90m46.46ms[0m
+[32m2026-06-04 09:05:24[0m SSR settings/profile [90m249.47ms[0m
+[32m2026-06-04 09:05:29[0m SSR settings/profile [90m277.02ms[0m
+[32m2026-06-04 09:05:29[0m SSR auth/login [90m40.56ms[0m
+[32m2026-06-04 09:05:32[0m SSR settings/profile [90m269.98ms[0m
+[32m2026-06-04 09:05:34[0m SSR auth/login [90m44.52ms[0m
+[32m2026-06-04 09:05:37[0m SSR settings/profile [90m313.36ms[0m
+[32m2026-06-04 09:05:40[0m SSR auth/login [90m42.02ms[0m
+[32m2026-06-04 09:05:42[0m SSR settings/profile [90m246.47ms[0m
+[32m2026-06-04 09:05:44[0m SSR auth/login [90m43.66ms[0m
+[32m2026-06-04 09:05:46[0m SSR settings/profile [90m246.28ms[0m
+[32m2026-06-04 09:05:49[0m SSR auth/login [90m45.27ms[0m
+[32m2026-06-04 09:05:50[0m SSR settings/profile [90m227.96ms[0m
+[32m2026-06-04 09:05:53[0m SSR auth/login [90m41.62ms[0m
+[32m2026-06-04 09:05:54[0m SSR settings/profile [90m238.55ms[0m
+[32m2026-06-04 09:05:57[0m SSR auth/login [90m39.27ms[0m
+[32m2026-06-04 09:05:59[0m SSR settings/profile [90m250.88ms[0m
+[32m2026-06-04 09:06:02[0m SSR auth/login [90m39.69ms[0m
+[32m2026-06-04 09:06:03[0m SSR settings/profile [90m247.72ms[0m
+[32m2026-06-04 09:06:07[0m SSR auth/login [90m29.89ms[0m
+[32m2026-06-04 09:06:09[0m SSR settings/profile [90m292.36ms[0m
+[32m2026-06-04 09:06:12[0m SSR auth/login [90m38.70ms[0m
+[32m2026-06-04 09:06:14[0m SSR settings/profile [90m237.92ms[0m
+[32m2026-06-04 09:06:16[0m SSR auth/login [90m40.57ms[0m
+[32m2026-06-04 09:06:17[0m SSR settings/profile [90m214.50ms[0m
+[32m2026-06-04 09:06:21[0m SSR auth/login [90m25.30ms[0m
+[32m2026-06-04 09:06:23[0m SSR settings/profile [90m223.67ms[0m
+[32m2026-06-04 09:06:26[0m SSR auth/login [90m37.64ms[0m
+[32m2026-06-04 09:06:27[0m SSR settings/profile [90m224.40ms[0m
+[32m2026-06-04 09:06:30[0m SSR auth/login [90m42.41ms[0m
+[32m2026-06-04 09:06:32[0m SSR settings/profile [90m240.39ms[0m
+[32m2026-06-04 09:06:35[0m SSR auth/login [90m39.99ms[0m
+[32m2026-06-04 09:06:37[0m SSR settings/profile [90m264.42ms[0m
+[32m2026-06-04 09:06:39[0m SSR auth/login [90m43.20ms[0m
+[32m2026-06-04 09:06:40[0m SSR settings/profile [90m212.41ms[0m
+[32m2026-06-04 09:06:42[0m SSR auth/login [90m42.43ms[0m
+[32m2026-06-04 09:06:45[0m SSR settings/profile [90m232.10ms[0m
+[32m2026-06-04 09:06:48[0m SSR auth/login [90m43.03ms[0m
+[32m2026-06-04 09:06:50[0m SSR settings/profile [90m231.32ms[0m
+[32m2026-06-04 09:06:53[0m SSR auth/login [90m36.58ms[0m
+[32m2026-06-04 09:06:54[0m SSR settings/profile [90m209.86ms[0m
+[32m2026-06-04 09:06:57[0m SSR auth/login [90m36.47ms[0m
+[32m2026-06-04 09:06:59[0m SSR settings/profile [90m286.63ms[0m
+[32m2026-06-04 09:07:01[0m SSR auth/login [90m41.39ms[0m
+[32m2026-06-04 09:07:03[0m SSR settings/profile [90m241.20ms[0m
+[32m2026-06-04 09:07:04[0m SSR auth/login [90m38.92ms[0m
+[32m2026-06-04 09:07:07[0m SSR settings/profile [90m243.77ms[0m
+[32m2026-06-04 09:07:09[0m SSR auth/login [90m41.93ms[0m
+[32m2026-06-04 09:07:11[0m SSR settings/profile [90m263.17ms[0m
+[32m2026-06-04 09:07:13[0m SSR auth/login [90m45.35ms[0m
+[32m2026-06-04 09:07:15[0m SSR settings/profile [90m249.06ms[0m
+[32m2026-06-04 09:07:17[0m SSR auth/login [90m40.40ms[0m
+[32m2026-06-04 09:07:20[0m SSR settings/profile [90m275.39ms[0m
+[32m2026-06-04 09:07:23[0m SSR auth/login [90m45.61ms[0m
+[32m2026-06-04 09:07:25[0m SSR settings/profile [90m240.15ms[0m
+[2m4:07:25 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/settings/profile.tsx, /resources/css/app.css?direct[22m
+[2m4:07:25 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2mresources/js/pages/settings/profile.tsx[22m
+[32m2026-06-04 09:07:28[0m SSR auth/login [90m42.53ms[0m
+[2m4:07:29 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/settings/security.tsx, /resources/css/app.css?direct[22m
+[32m2026-06-04 09:07:31[0m SSR settings/profile [90m257.41ms[0m
+[32m2026-06-04 09:07:33[0m SSR auth/login [90m55.19ms[0m
+[32m2026-06-04 09:07:52[0m SSR settings/profile [90m270.04ms[0m
+[32m2026-06-04 09:07:53[0m SSR auth/login [90m43.35ms[0m
+[32m2026-06-04 09:07:55[0m SSR settings/profile [90m246.80ms[0m
+[32m2026-06-04 09:07:57[0m SSR auth/login [90m39.59ms[0m
+[32m2026-06-04 09:07:59[0m SSR settings/profile [90m279.14ms[0m
+[2m4:08:02 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/users/create.tsx, /resources/css/app.css?direct[22m
+[32m2026-06-04 09:08:02[0m SSR auth/login [90m43.41ms[0m
+[32m2026-06-04 09:08:03[0m SSR settings/profile [90m215.36ms[0m
+[2m4:08:08 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/users/edit.tsx, /resources/css/app.css?direct[22m
+[32m2026-06-04 09:08:10[0m SSR settings/profile [90m229.74ms[0m
+[32m2026-06-04 09:08:10[0m SSR auth/login [90m72.35ms[0m
+[32m2026-06-04 09:08:13[0m SSR settings/profile [90m247.78ms[0m
+[2m4:08:14 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/question-bank/create.tsx, /resources/css/app.css?direct[22m
+[32m2026-06-04 09:08:15[0m SSR settings/profile [90m216.97ms[0m
+[32m2026-06-04 09:08:17[0m SSR auth/login [90m40.41ms[0m
+[32m2026-06-04 09:08:19[0m SSR settings/profile [90m259.54ms[0m
+[2m4:08:20 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/question-bank/edit.tsx, /resources/css/app.css?direct[22m
+[32m2026-06-04 09:08:21[0m SSR auth/login [90m44.32ms[0m
+[32m2026-06-04 09:08:22[0m SSR auth/login [90m47.45ms[0m
+[32m2026-06-04 09:08:23[0m SSR settings/profile [90m249.29ms[0m
+[32m2026-06-04 09:08:24[0m SSR settings/profile [90m235.67ms[0m
+[32m2026-06-04 09:08:28[0m SSR auth/login [90m39.34ms[0m
+[32m2026-06-04 09:08:30[0m SSR settings/profile [90m233.73ms[0m
+[32m2026-06-04 09:08:32[0m SSR auth/login [90m48.41ms[0m
+[32m2026-06-04 09:08:35[0m SSR settings/profile [90m262.02ms[0m
+[32m2026-06-04 09:08:37[0m SSR auth/login [90m38.96ms[0m
+[2m4:08:38 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/show.tsx, /resources/css/app.css?direct[22m
+[32m2026-06-04 09:08:39[0m SSR settings/profile [90m271.60ms[0m
+[32m2026-06-04 09:08:41[0m SSR auth/login [90m45.61ms[0m
+[2m4:08:43 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/surveys/respond.tsx, /resources/css/app.css?direct[22m
+[32m2026-06-04 09:08:45[0m SSR settings/profile [90m246.73ms[0m
+[32m2026-06-04 09:08:45[0m SSR auth/login [90m40.57ms[0m
+[32m2026-06-04 09:08:48[0m SSR settings/profile [90m258.23ms[0m
+[32m2026-06-04 09:08:49[0m SSR auth/login [90m35.50ms[0m
+[32m2026-06-04 09:08:52[0m SSR settings/profile [90m231.14ms[0m
+[32m2026-06-04 09:08:55[0m SSR auth/login [90m38.82ms[0m
+[32m2026-06-04 09:08:57[0m SSR settings/profile [90m246.96ms[0m
+[32m2026-06-04 09:08:59[0m SSR auth/login [90m43.06ms[0m
+[32m2026-06-04 09:09:02[0m SSR settings/profile [90m292.01ms[0m
+[32m2026-06-04 09:09:05[0m SSR auth/login [90m44.96ms[0m
+[32m2026-06-04 09:09:07[0m SSR settings/profile [90m258.46ms[0m
+[32m2026-06-04 09:09:20[0m SSR settings/profile [90m268.07ms[0m
+[32m2026-06-04 09:09:20[0m SSR auth/login [90m44.08ms[0m
+[32m2026-06-04 09:09:23[0m SSR settings/profile [90m255.09ms[0m
+[32m2026-06-04 09:09:25[0m SSR auth/login [90m42.63ms[0m
+[32m2026-06-04 09:09:28[0m SSR settings/profile [90m402.66ms[0m
+[32m2026-06-04 09:09:32[0m SSR auth/login [90m42.13ms[0m
+[32m2026-06-04 09:09:34[0m SSR settings/profile [90m278.92ms[0m
+[32m2026-06-04 09:09:36[0m SSR auth/login [90m46.99ms[0m
+[32m2026-06-04 09:09:38[0m SSR settings/profile [90m245.67ms[0m
+[32m2026-06-04 09:09:40[0m SSR auth/login [90m36.56ms[0m
+[32m2026-06-04 09:09:42[0m SSR settings/profile [90m246.16ms[0m
+[32m2026-06-04 09:09:43[0m SSR settings/profile [90m234.45ms[0m
+[32m2026-06-04 09:09:45[0m SSR auth/login [90m31.61ms[0m
+[32m2026-06-04 09:09:47[0m SSR settings/profile [90m256.48ms[0m
+[32m2026-06-04 09:09:49[0m SSR auth/login [90m49.55ms[0m
+[32m2026-06-04 09:09:52[0m SSR settings/profile [90m241.15ms[0m
+[32m2026-06-04 09:09:54[0m SSR auth/login [90m38.94ms[0m
+[32m2026-06-04 09:09:57[0m SSR settings/profile [90m240.26ms[0m
+[32m2026-06-04 09:09:59[0m SSR auth/login [90m46.18ms[0m
+[32m2026-06-04 09:10:02[0m SSR settings/profile [90m280.57ms[0m
+[32m2026-06-04 09:10:04[0m SSR auth/login [90m42.53ms[0m
+[32m2026-06-04 09:10:07[0m SSR settings/profile [90m253.80ms[0m
+[32m2026-06-04 09:10:09[0m SSR auth/login [90m39.92ms[0m
+[32m2026-06-04 09:10:12[0m SSR settings/profile [90m245.81ms[0m
+[32m2026-06-04 09:10:14[0m SSR auth/login [90m39.92ms[0m
+[32m2026-06-04 09:10:16[0m SSR settings/profile [90m256.60ms[0m
+[32m2026-06-04 09:10:18[0m SSR auth/login [90m39.98ms[0m
+[32m2026-06-04 09:10:21[0m SSR settings/profile [90m267.25ms[0m
+[32m2026-06-04 09:10:23[0m SSR auth/login [90m40.17ms[0m
+[32m2026-06-04 09:10:25[0m SSR settings/profile [90m264.32ms[0m
+[32m2026-06-04 09:10:28[0m SSR auth/login [90m38.81ms[0m
+[32m2026-06-04 09:10:30[0m SSR settings/profile [90m245.79ms[0m
+[32m2026-06-04 09:10:32[0m SSR auth/login [90m39.28ms[0m
+[32m2026-06-04 09:10:35[0m SSR settings/profile [90m249.50ms[0m
+[32m2026-06-04 09:10:37[0m SSR auth/login [90m42.75ms[0m
+[32m2026-06-04 09:10:39[0m SSR settings/profile [90m278.93ms[0m
+[32m2026-06-04 09:10:41[0m SSR auth/login [90m43.10ms[0m
+[32m2026-06-04 09:10:43[0m SSR settings/profile [90m258.43ms[0m
+[32m2026-06-04 09:10:44[0m SSR auth/login [90m37.99ms[0m
+[32m2026-06-04 09:10:47[0m SSR settings/profile [90m255.05ms[0m
+[32m2026-06-04 09:10:50[0m SSR auth/login [90m38.11ms[0m
+[32m2026-06-04 09:10:52[0m SSR settings/profile [90m284.53ms[0m
+[32m2026-06-04 09:10:55[0m SSR auth/login [90m39.88ms[0m
+[32m2026-06-04 09:10:57[0m SSR settings/profile [90m240.71ms[0m
+[32m2026-06-04 09:10:59[0m SSR auth/login [90m42.58ms[0m
+[32m2026-06-04 09:11:01[0m SSR settings/profile [90m247.78ms[0m
+[32m2026-06-04 09:11:03[0m SSR auth/login [90m42.50ms[0m
+[32m2026-06-04 09:11:06[0m SSR settings/profile [90m232.77ms[0m
+[32m2026-06-04 09:11:08[0m SSR auth/login [90m39.15ms[0m
+[32m2026-06-04 09:11:10[0m SSR settings/profile [90m278.07ms[0m
+[32m2026-06-04 09:11:12[0m SSR auth/login [90m39.83ms[0m
+[32m2026-06-04 09:11:14[0m SSR settings/profile [90m241.97ms[0m
+[32m2026-06-04 09:11:16[0m SSR auth/login [90m39.61ms[0m
+[32m2026-06-04 09:11:18[0m SSR settings/profile [90m239.46ms[0m
+[32m2026-06-04 09:11:20[0m SSR auth/login [90m45.41ms[0m
+[32m2026-06-04 09:11:22[0m SSR settings/profile [90m224.90ms[0m
+[2m4:11:22 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/settings/profile.tsx, /resources/css/app.css?direct[22m
+[2m4:11:22 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2mresources/js/pages/settings/profile.tsx[22m
+[32m2026-06-04 09:11:24[0m SSR auth/login [90m47.45ms[0m
+[2m4:11:29 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/settings/profile.tsx, /resources/css/app.css?direct[22m
+[2m4:11:29 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2mresources/js/pages/settings/profile.tsx[22m
+[32m2026-06-04 09:11:31[0m SSR settings/profile [90m265.50ms[0m
+[32m2026-06-04 09:11:31[0m SSR auth/login [90m38.72ms[0m
+[32m2026-06-04 09:11:34[0m SSR settings/profile [90m260.84ms[0m
+[2m4:11:35 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/settings/security.tsx, /resources/css/app.css?direct[22m
+[32m2026-06-04 09:11:35[0m SSR auth/login [90m50.59ms[0m
+[32m2026-06-04 09:11:37[0m SSR settings/profile [90m261.26ms[0m
+[2m4:11:41 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/settings/security.tsx, /resources/css/app.css?direct[22m
+[32m2026-06-04 09:11:43[0m SSR settings/profile [90m248.06ms[0m
+[32m2026-06-04 09:11:43[0m SSR auth/login [90m42.68ms[0m
+[32m2026-06-04 09:11:47[0m SSR settings/profile [90m236.55ms[0m
+[32m2026-06-04 09:11:49[0m SSR auth/login [90m40.81ms[0m
+[32m2026-06-04 09:11:51[0m SSR settings/profile [90m237.49ms[0m
+[32m2026-06-04 09:11:53[0m SSR auth/login [90m36.06ms[0m
+[32m2026-06-04 09:11:55[0m SSR settings/profile [90m322.81ms[0m
+[2m4:11:56 AM[22m [36m[1m[vite][22m[39m [32mvite.config.ts changed, restarting server...[39m
+Inertia SSR dev endpoint: /__inertia_ssr
+[2m4:12:02 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
+[2m4:12:02 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m Re-optimizing dependencies because vite config has changed
+Warming up Inertia SSR module graph...
+[2m4:12:10 AM[22m [36m[1m[vite][22m[39m server restarted.
+
+  [31m[1mLARAVEL[22m v13.11.2[39m  [2mplugin[22m [1mv3.1.0[22m
+
+  [32m➜[39m  [1mAPP_URL[22m: [36mhttp://127.0.0.1:[1m8000[22m[39m
+[2m4:12:10 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [optimizer] scanning dependencies...
+[2m4:12:51 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [optimizer] bundling dependencies...
+[2m4:12:57 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [optimizer] bundling dependencies...
+Inertia SSR module graph warmed up
+[2m7:48:58 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2mresources/js/components/app-logo-icon.tsx[22m
+[2m7:49:18 AM[22m [36m[1m[vite][22m[39m [32mvite.config.ts changed, restarting server...[39m
+Inertia SSR dev endpoint: /__inertia_ssr
+[2m7:49:34 AM[22m [36m[1m[vite][22m[39m [32m.env changed, restarting server...[39m
+Inertia SSR dev endpoint: /__inertia_ssr
+[2m7:50:51 AM[22m [36m[1m[vite][22m[39m [32mvite.config.ts changed, restarting server...[39m
+Inertia SSR dev endpoint: /__inertia_ssr
+[2m7:50:55 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
+[2m7:50:55 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m Re-optimizing dependencies because vite config has changed
+Warming up Inertia SSR module graph...
+[2m7:51:02 AM[22m [36m[1m[vite][22m[39m server restarted.
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5174[22m/[39m
+[2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+
+  [31m[1mLARAVEL[22m v13.11.2[39m  [2mplugin[22m [1mv3.1.0[22m
+
+  [32m➜[39m  [1mAPP_URL[22m: [36mhttp://127.0.0.1:[1m8000[22m[39m
+[2m7:51:08 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [optimizer] scanning dependencies...
+[2m7:51:35 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [optimizer] bundling dependencies...
+Inertia SSR module graph warmed up
+[2m7:51:37 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [optimizer] bundling dependencies...

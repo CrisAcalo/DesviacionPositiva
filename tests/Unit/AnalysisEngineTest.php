@@ -15,6 +15,7 @@ use App\Models\SurveyResponse;
 use App\Services\AnalysisEngine;
 use App\Services\SurveyActivationService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class AnalysisEngineTest extends TestCase
@@ -88,7 +89,7 @@ class AnalysisEngineTest extends TestCase
         return [$nrc, $survey, $surveyQ];
     }
 
-    /** @test */
+    #[Test]
     public function it_creates_analysis_results_for_each_question(): void
     {
         [$nrc, $survey, $surveyQ] = $this->makeNrcWithSurveyAndResponses(
@@ -108,7 +109,7 @@ class AnalysisEngineTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_marks_result_as_validated_when_above_threshold(): void
     {
         [$nrc] = $this->makeNrcWithSurveyAndResponses(
@@ -123,7 +124,7 @@ class AnalysisEngineTest extends TestCase
         $this->assertEquals(80.0, (float) $result->top_percentage);
     }
 
-    /** @test */
+    #[Test]
     public function it_does_not_validate_when_below_threshold(): void
     {
         [$nrc] = $this->makeNrcWithSurveyAndResponses(
@@ -137,7 +138,7 @@ class AnalysisEngineTest extends TestCase
         $this->assertFalse($result->is_validated);
     }
 
-    /** @test */
+    #[Test]
     public function it_generates_practice_recommendation_for_validated_high_group(): void
     {
         [$nrc] = $this->makeNrcWithSurveyAndResponses(
@@ -153,7 +154,7 @@ class AnalysisEngineTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_generates_barrier_recommendation_for_validated_at_risk_group(): void
     {
         [$nrc] = $this->makeNrcWithSurveyAndResponses(
@@ -169,7 +170,7 @@ class AnalysisEngineTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_updates_nrc_status_to_analyzed(): void
     {
         [$nrc] = $this->makeNrcWithSurveyAndResponses('high', ['a', 'b']);
@@ -179,7 +180,7 @@ class AnalysisEngineTest extends TestCase
         $this->assertEquals('analyzed', $nrc->fresh()->status);
     }
 
-    /** @test */
+    #[Test]
     public function it_clears_previous_results_on_rerun(): void
     {
         [$nrc] = $this->makeNrcWithSurveyAndResponses(
@@ -196,7 +197,7 @@ class AnalysisEngineTest extends TestCase
         $this->assertEquals($firstCount, $secondCount);
     }
 
-    /** @test */
+    #[Test]
     public function it_skips_questions_with_no_responses(): void
     {
         $nrc = Nrc::factory()->create(['status' => 'surveying']);

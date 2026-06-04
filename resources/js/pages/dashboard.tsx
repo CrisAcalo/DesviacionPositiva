@@ -1,7 +1,8 @@
-import { Head } from '@inertiajs/react';
-import { BarChart3, Users, BookOpen, TrendingUp, CheckCircle2 } from 'lucide-react';
+import { Head, Link } from '@inertiajs/react';
+import { BarChart3, Users, BookOpen, TrendingUp, CheckCircle2, AlertTriangle, Activity } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 
 type Props = {
     stats: {
@@ -9,13 +10,15 @@ type Props = {
         totalStudents: number;
         activeSurveys: number;
         completedAnalyses: number;
+        totalPractices: number;
+        totalBarriers: number;
     };
     groupDistribution: Record<string, number>;
     validatedResultsPerNrc: Record<number, number>;
     nrcsByStatus: Record<string, number>;
 };
 
-export default function Dashboard({ stats, groupDistribution, validatedResultsPerNrc, nrcsByStatus }: Props) {
+export default function Dashboard({ stats, groupDistribution, nrcsByStatus }: Props) {
     const GROUP_CONFIG = {
         high: { label: 'Alto rendimiento', color: '#3b82f6' },
         medium: { label: 'Promedio', color: '#94a3b8' },
@@ -181,47 +184,81 @@ export default function Dashboard({ stats, groupDistribution, validatedResultsPe
                     </Card>
                 </div>
 
-                {/* Información adicional */}
+                {/* Hallazgos + Métricas */}
                 <div className="grid gap-6 lg:grid-cols-3">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle className="text-sm">Total Preguntas Validadas</CardTitle>
+                    {/* Prácticas validadas */}
+                    <Card className="border-green-200 bg-green-50/30 dark:border-green-900 dark:bg-green-950/10">
+                        <CardHeader className="pb-2">
+                            <CardTitle className="text-sm font-medium flex items-center gap-2">
+                                <TrendingUp className="h-4 w-4 text-green-600" />
+                                Prácticas validadas
+                            </CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <span className="text-3xl font-bold text-green-600">
-                                {Object.values(validatedResultsPerNrc).reduce((a, b) => a + b, 0)}
-                            </span>
-                            <p className="text-xs text-muted-foreground mt-2">
-                                Preguntas con validación ≥60%
+                            <span className="text-3xl font-bold text-green-700">{stats.totalPractices}</span>
+                            <p className="text-xs text-muted-foreground mt-1">
+                                Estrategias de alto rendimiento (≥60%)
                             </p>
+                            {stats.totalPractices > 0 && (
+                                <Button asChild variant="outline" size="sm" className="mt-3 w-full border-green-200 text-green-700 hover:bg-green-50">
+                                    <Link href="/reports">Ver reportes →</Link>
+                                </Button>
+                            )}
                         </CardContent>
                     </Card>
 
-                    <Card>
-                        <CardHeader>
-                            <CardTitle className="text-sm">Tasa de Análisis</CardTitle>
+                    {/* Barreras detectadas */}
+                    <Card className="border-orange-200 bg-orange-50/30 dark:border-orange-900 dark:bg-orange-950/10">
+                        <CardHeader className="pb-2">
+                            <CardTitle className="text-sm font-medium flex items-center gap-2">
+                                <AlertTriangle className="h-4 w-4 text-orange-500" />
+                                Barreras detectadas
+                            </CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <span className="text-3xl font-bold text-blue-600">
-                                {stats.totalNrcs > 0 ? Math.round((stats.completedAnalyses / stats.totalNrcs) * 100) : 0}%
-                            </span>
-                            <p className="text-xs text-muted-foreground mt-2">
-                                {stats.completedAnalyses} de {stats.totalNrcs} completados
+                            <span className="text-3xl font-bold text-orange-600">{stats.totalBarriers}</span>
+                            <p className="text-xs text-muted-foreground mt-1">
+                                Obstáculos en grupo en riesgo (≥60%)
                             </p>
+                            {stats.totalBarriers > 0 && (
+                                <Button asChild variant="outline" size="sm" className="mt-3 w-full border-orange-200 text-orange-600 hover:bg-orange-50">
+                                    <Link href="/reports">Ver reportes →</Link>
+                                </Button>
+                            )}
                         </CardContent>
                     </Card>
 
+                    {/* Métricas operativas */}
                     <Card>
-                        <CardHeader>
-                            <CardTitle className="text-sm">Estudiantes por NRC</CardTitle>
+                        <CardHeader className="pb-2">
+                            <CardTitle className="text-sm font-medium flex items-center gap-2">
+                                <Activity className="h-4 w-4 text-primary" />
+                                Métricas operativas
+                            </CardTitle>
                         </CardHeader>
-                        <CardContent>
-                            <span className="text-3xl font-bold text-purple-600">
-                                {stats.totalNrcs > 0 ? Math.round(stats.totalStudents / stats.totalNrcs) : 0}
-                            </span>
-                            <p className="text-xs text-muted-foreground mt-2">
-                                Promedio de estudiantes
-                            </p>
+                        <CardContent className="space-y-3 pt-1">
+                            <div className="flex justify-between items-center text-sm">
+                                <span className="text-muted-foreground">Tasa de análisis</span>
+                                <span className="font-bold text-blue-600">
+                                    {stats.totalNrcs > 0 ? Math.round((stats.completedAnalyses / stats.totalNrcs) * 100) : 0}%
+                                </span>
+                            </div>
+                            <div className="h-1.5 rounded-full bg-muted overflow-hidden">
+                                <div
+                                    className="h-full rounded-full bg-blue-500 transition-all"
+                                    style={{ width: `${stats.totalNrcs > 0 ? Math.round((stats.completedAnalyses / stats.totalNrcs) * 100) : 0}%` }}
+                                />
+                            </div>
+                            <div className="flex justify-between items-center text-sm pt-1">
+                                <span className="text-muted-foreground">Promedio est./NRC</span>
+                                <span className="font-bold text-purple-600">
+                                    {stats.totalNrcs > 0 ? Math.round(stats.totalStudents / stats.totalNrcs) : 0}
+                                </span>
+                            </div>
+                            <div className="flex justify-between items-center text-sm">
+                                <span className="text-muted-foreground">NRCs analizados</span>
+                                <span className="font-bold">{stats.completedAnalyses} / {stats.totalNrcs}</span>
+                            </div>
                         </CardContent>
                     </Card>
                 </div>
