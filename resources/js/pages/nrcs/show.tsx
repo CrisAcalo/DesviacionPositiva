@@ -73,7 +73,7 @@ const SEGMENTATION_RULES = [
 ];
 
 function deleteNrc(id: number, code: string) {
-    if (!confirm(`Â¿Eliminar el NRC ${code}? Se borrarán todos los estudiantes y calificaciones asociados. Esta acción no se puede deshacer.`)) return;
+    if (!confirm(`¿Eliminar el NRC ${code}? Se borrarán todos los estudiantes y calificaciones asociados. Esta acción no se puede deshacer.`)) return;
     router.delete(`/nrcs/${id}`);
 }
 
@@ -239,7 +239,7 @@ function SurveyComplianceSection({
     }, []);
 
     const closeSurvey = (surveyId: number, group: string) => {
-        if (!confirm('Â¿Cerrar esta encuesta? Los tokens existentes seguirán visibles pero no aceptarán nuevas respuestas.')) return;
+        if (!confirm('¿Cerrar esta encuesta? Los tokens existentes seguirán visibles pero no aceptarán nuevas respuestas.')) return;
         router.post(`/nrcs/${nrcId}/surveys/${surveyId}/close`, {}, {
             onSuccess: () => loadTokens(group, surveyId, true),
         });
@@ -391,7 +391,7 @@ export default function NrcShow({
                         </Button>
                         <Heading
                             title={`NRC ${nrc.code} — ${nrc.subject.name}`}
-                            description={`${nrc.career.name} Â· ${nrc.career.department.name} Â· ${nrc.academic_period.name}`}
+                            description={`${nrc.career.name} · ${nrc.career.department.name} · ${nrc.academic_period.name}`}
                         />
                     </div>
                     <Button
@@ -455,7 +455,7 @@ export default function NrcShow({
                         ))}
                     </div>
                     <p className="text-xs text-muted-foreground">
-                        Nota final = (Parcial 1 + Parcial 2 + Parcial 3) / 3 Â· Escala de 0 a 10
+                        Nota final = (Parcial 1 + Parcial 2 + Parcial 3) / 3 · Escala de 0 a 10
                     </p>
                 </div>
 

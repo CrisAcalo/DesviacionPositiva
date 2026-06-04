@@ -84,7 +84,7 @@ export default function QuestionBankCreate() {
                                     id="question_text"
                                     value={data.question_text}
                                     onChange={(e) => setData('question_text', e.target.value)}
-                                    placeholder="Â¿Qué estrategias de estudio aplicas...?"
+                                    placeholder="¿Qué estrategias de estudio aplicas...?"
                                 />
                                 {errors.question_text && <p className="text-xs text-destructive">{errors.question_text}</p>}
                             </div>
