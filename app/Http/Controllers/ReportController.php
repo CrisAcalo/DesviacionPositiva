@@ -82,7 +82,7 @@ class ReportController extends Controller
 
         // Recomendaciones
         $recommendations = Recommendation::where('nrc_id', $nrc->id)
-            ->orderByRaw("FIELD(type, 'practice', 'barrier')")
+            ->orderByRaw("CASE WHEN type = 'practice' THEN 0 WHEN type = 'barrier' THEN 1 ELSE 2 END")
             ->orderByDesc('percentage')
             ->get()
             ->groupBy('type');
@@ -120,7 +120,7 @@ class ReportController extends Controller
         abort_unless($nrc->status === 'analyzed', 404);
 
         $recommendations = Recommendation::where('nrc_id', $nrc->id)
-            ->orderByRaw("FIELD(type, 'practice', 'barrier')")
+            ->orderByRaw("CASE WHEN type = 'practice' THEN 0 WHEN type = 'barrier' THEN 1 ELSE 2 END")
             ->orderByDesc('percentage')
             ->get();
 

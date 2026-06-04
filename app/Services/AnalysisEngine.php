@@ -169,7 +169,7 @@ class AnalysisEngine
             ->get();
 
         $recommendations = Recommendation::where('nrc_id', $nrc->id)
-            ->orderByRaw("FIELD(type, 'practice', 'barrier')")
+            ->orderByRaw("CASE WHEN type = 'practice' THEN 0 WHEN type = 'barrier' THEN 1 ELSE 2 END")
             ->orderBy('percentage', 'desc')
             ->get();
 
