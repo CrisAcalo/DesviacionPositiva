@@ -7,6 +7,7 @@ use App\Models\Nrc;
 use App\Models\Recommendation;
 use App\Models\StudentGroup;
 use Illuminate\Http\Response as HttpResponse;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -29,7 +30,7 @@ class ReportController extends Controller
                 $barriers  = Recommendation::where('nrc_id', $nrc->id)->where('type', 'barrier')->count();
 
                 $groups = StudentGroup::where('nrc_id', $nrc->id)
-                    ->selectRaw('`group`, COUNT(*) as total')
+                    ->select('group', DB::raw('COUNT(*) as total'))
                     ->groupBy('group')
                     ->pluck('total', 'group')
                     ->toArray();
@@ -64,7 +65,7 @@ class ReportController extends Controller
 
         // Distribución de grupos
         $groupDist = StudentGroup::where('nrc_id', $nrc->id)
-            ->selectRaw('`group`, COUNT(*) as total')
+            ->select('group', DB::raw('COUNT(*) as total'))
             ->groupBy('group')
             ->pluck('total', 'group')
             ->toArray();

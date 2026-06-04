@@ -7,6 +7,7 @@ use App\Models\Recommendation;
 use App\Models\Survey;
 use App\Models\StudentGroup;
 use App\Models\AnalysisResult;
+use Illuminate\Support\Facades\DB;
 use Inertia\Response;
 
 class DashboardController extends Controller
@@ -26,7 +27,7 @@ class DashboardController extends Controller
         $completedAnalyses = Nrc::where('status', 'analyzed')->count();
 
         // Student distribution by group
-        $groupDistribution = StudentGroup::selectRaw('`group`, COUNT(*) as total')
+        $groupDistribution = StudentGroup::select('group', DB::raw('COUNT(*) as total'))
             ->groupBy('group')
             ->pluck('total', 'group')
             ->toArray();

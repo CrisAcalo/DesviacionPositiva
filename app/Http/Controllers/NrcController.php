@@ -12,6 +12,7 @@ use App\Models\Subject;
 use App\Services\GradeImportService;
 use App\Services\SurveyActivationService;
 use Illuminate\Database\UniqueConstraintViolationException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Response;
@@ -128,7 +129,7 @@ class NrcController extends Controller
         $nrc->load(['uploader', 'subject', 'career.department', 'academicPeriod', 'students.grade', 'students.group']);
 
         $groupCounts = $nrc->studentGroups()
-            ->selectRaw('`group`, count(*) as total')
+            ->select('group', DB::raw('count(*) as total'))
             ->groupBy('group')
             ->pluck('total', 'group');
 
