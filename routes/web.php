@@ -1,10 +1,14 @@
 <?php
 
 use App\Http\Controllers\AnalysisController;
+use App\Http\Controllers\CareerController;
+use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\NrcController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\QuestionBankController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\SurveyResponseController;
 use App\Http\Controllers\UserController;
@@ -22,6 +26,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['role:admin'])->group(function () {
         // Gestión de usuarios (solo admin)
         Route::resource('users', UserController::class)->except(['show']);
+
+        // Catálogos (departamentos, carreras, materias)
+        Route::get('catalogs', [CatalogController::class, 'index'])->name('catalogs.index');
+        Route::post('departments', [DepartmentController::class, 'store'])->name('departments.store');
+        Route::put('departments/{department}', [DepartmentController::class, 'update'])->name('departments.update');
+        Route::delete('departments/{department}', [DepartmentController::class, 'destroy'])->name('departments.destroy');
+        Route::post('careers', [CareerController::class, 'store'])->name('careers.store');
+        Route::put('careers/{career}', [CareerController::class, 'update'])->name('careers.update');
+        Route::delete('careers/{career}', [CareerController::class, 'destroy'])->name('careers.destroy');
+        Route::post('subjects', [SubjectController::class, 'store'])->name('subjects.store');
+        Route::put('subjects/{subject}', [SubjectController::class, 'update'])->name('subjects.update');
+        Route::delete('subjects/{subject}', [SubjectController::class, 'destroy'])->name('subjects.destroy');
     });
 
     Route::middleware(['role:admin|coordinator'])->group(function () {

@@ -3,6 +3,7 @@ import {
     BarChart3,
     BookOpen,
     ClipboardList,
+    Database,
     FileText,
     FolderGit2,
     LayoutGrid,
@@ -94,19 +95,23 @@ export function AppSidebar() {
     }
 
     if (isAdmin) {
-        navItems.push({
-            title: 'Usuarios',
-            href: '/users',
-            icon: Users,
-        });
-    }
-
-    if (isAdmin) {
-        navItems.push({
-            title: 'Configuración',
-            href: '/settings/profile',
-            icon: Settings,
-        });
+        navItems.push(
+            {
+                title: 'Usuarios',
+                href: '/users',
+                icon: Users,
+            },
+            {
+                title: 'Catálogos',
+                href: '/catalogs',
+                icon: Database,
+            },
+            {
+                title: 'Configuración',
+                href: '/settings/profile',
+                icon: Settings,
+            },
+        );
     }
 
     return (
