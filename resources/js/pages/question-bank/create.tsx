@@ -1,4 +1,4 @@
-�import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { PlusCircle, Trash2, ArrowLeft } from 'lucide-react';
 import Heading from '@/components/heading';
 import { Button } from '@/components/ui/button';
@@ -84,7 +84,7 @@ export default function QuestionBankCreate() {
                                     id="question_text"
                                     value={data.question_text}
                                     onChange={(e) => setData('question_text', e.target.value)}
-                                    placeholder="¿Qué estrategias de estudio aplicas...?"
+                                    placeholder="Â¿Qué estrategias de estudio aplicas...?"
                                 />
                                 {errors.question_text && <p className="text-xs text-destructive">{errors.question_text}</p>}
                             </div>
@@ -112,7 +112,7 @@ export default function QuestionBankCreate() {
                                             <SelectValue placeholder="Selecciona un tipo" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="likert">Escala Likert (1�5)</SelectItem>
+                                            <SelectItem value="likert">Escala Likert (1â€“5)</SelectItem>
                                             <SelectItem value="single_choice">Opción única</SelectItem>
                                             <SelectItem value="multiple_choice">Opción múltiple</SelectItem>
                                         </SelectContent>

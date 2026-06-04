@@ -1,4 +1,4 @@
-�import { Head, Link, router, useForm } from '@inertiajs/react';
+import { Head, Link, router, useForm } from '@inertiajs/react';
 import { ArrowLeft, BarChart2, CalendarClock, CheckCircle2, Copy, Download, Info, Lock, Trash2, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Heading from '@/components/heading';
@@ -57,7 +57,7 @@ const SEGMENTATION_RULES = [
     {
         group: 'medium' as const,
         label: 'Promedio',
-        criterion: '6.0 �0� Nota final �0� 8.5',
+        criterion: '6.0 â‰¤ Nota final â‰¤ 8.5',
         description: 'Estudiantes con rendimiento dentro del rango esperado.',
         color: 'bg-secondary/50 border-border text-secondary-foreground',
         dot: 'bg-secondary-foreground/50',
@@ -73,7 +73,7 @@ const SEGMENTATION_RULES = [
 ];
 
 function deleteNrc(id: number, code: string) {
-    if (!confirm(`¿Eliminar el NRC ${code}? Se borrarán todos los estudiantes y calificaciones asociados. Esta acción no se puede deshacer.`)) return;
+    if (!confirm(`Â¿Eliminar el NRC ${code}? Se borrarán todos los estudiantes y calificaciones asociados. Esta acción no se puede deshacer.`)) return;
     router.delete(`/nrcs/${id}`);
 }
 
@@ -120,7 +120,7 @@ function RunAnalysisSection({ nrcId, rerun = false }: { nrcId: number; rerun?: b
             <CardContent className="space-y-3">
                 <p className="text-sm text-muted-foreground">
                     Ejecuta el análisis de desviación positiva para identificar prácticas validadas del grupo de alto rendimiento
-                    y barreras del grupo en riesgo (umbral �0� 60%).
+                    y barreras del grupo en riesgo (umbral â‰¥ 60%).
                 </p>
                 <form onSubmit={handleRun}>
                     <Button type="submit" disabled={processing} className="gap-2">
@@ -239,7 +239,7 @@ function SurveyComplianceSection({
     }, []);
 
     const closeSurvey = (surveyId: number, group: string) => {
-        if (!confirm('¿Cerrar esta encuesta? Los tokens existentes seguirán visibles pero no aceptarán nuevas respuestas.')) return;
+        if (!confirm('Â¿Cerrar esta encuesta? Los tokens existentes seguirán visibles pero no aceptarán nuevas respuestas.')) return;
         router.post(`/nrcs/${nrcId}/surveys/${surveyId}/close`, {}, {
             onSuccess: () => loadTokens(group, surveyId, true),
         });
@@ -319,10 +319,10 @@ function SurveyComplianceSection({
                             <p className="text-xs text-muted-foreground">{c.percent}% de respuestas recibidas</p>
                         </CardHeader>
 
-                        {/* Lista de tokens � siempre visible */}
+                        {/* Lista de tokens — siempre visible */}
                         <CardContent className="p-0">
                             {isLoading ? (
-                                <div className="py-4 text-center text-xs text-muted-foreground">Cargando enlaces⬦</div>
+                                <div className="py-4 text-center text-xs text-muted-foreground">Cargando enlacesâ€¦</div>
                             ) : groupTokens.length === 0 ? (
                                 <div className="py-4 text-center text-xs text-muted-foreground">Sin enlaces generados</div>
                             ) : (
@@ -343,7 +343,7 @@ function SurveyComplianceSection({
                                                 <TableCell className="text-sm">
                                                     {t.email ?? (
                                                         <span className="font-mono text-xs text-muted-foreground">
-                                                            {t.token.substring(0, 12)}⬦
+                                                            {t.token.substring(0, 12)}â€¦
                                                         </span>
                                                     )}
                                                 </TableCell>
@@ -390,8 +390,8 @@ export default function NrcShow({
                             <Link href="/nrcs"><ArrowLeft className="h-4 w-4" /></Link>
                         </Button>
                         <Heading
-                            title={`NRC ${nrc.code} � ${nrc.subject.name}`}
-                            description={`${nrc.career.name} · ${nrc.career.department.name} · ${nrc.academic_period.name}`}
+                            title={`NRC ${nrc.code} — ${nrc.subject.name}`}
+                            description={`${nrc.career.name} Â· ${nrc.career.department.name} Â· ${nrc.academic_period.name}`}
                         />
                     </div>
                     <Button
@@ -425,7 +425,7 @@ export default function NrcShow({
                                 <CardTitle className="text-sm font-medium text-muted-foreground">{GROUP_LABELS[g]}</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <span className="text-2xl font-bold">{groupCounts[g] ?? '�'}</span>
+                                <span className="text-2xl font-bold">{groupCounts[g] ?? '—'}</span>
                                 {total > 0 && groupCounts[g] != null && (
                                     <span className="ml-2 text-sm text-muted-foreground">
                                         ({Math.round((groupCounts[g] / total) * 100)}%)
@@ -440,7 +440,7 @@ export default function NrcShow({
                 <div className="rounded-xl border bg-muted/30 p-4 space-y-3">
                     <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
                         <Info className="h-4 w-4" />
-                        Criterios de segmentación (RN-01) � basados exclusivamente en la nota final promedio
+                        Criterios de segmentación (RN-01) — basados exclusivamente en la nota final promedio
                     </div>
                     <div className="grid gap-3 sm:grid-cols-3">
                         {SEGMENTATION_RULES.map((rule) => (
@@ -455,7 +455,7 @@ export default function NrcShow({
                         ))}
                     </div>
                     <p className="text-xs text-muted-foreground">
-                        Nota final = (Parcial 1 + Parcial 2 + Parcial 3) / 3 · Escala de 0 a 10
+                        Nota final = (Parcial 1 + Parcial 2 + Parcial 3) / 3 Â· Escala de 0 a 10
                     </p>
                 </div>
 
@@ -517,11 +517,11 @@ export default function NrcShow({
                             {nrc.students.map((s) => (
                                 <TableRow key={s.id}>
                                     <TableCell className="font-mono text-xs text-muted-foreground">
-                                        {s.uuid.substring(0, 8)}⬦
+                                        {s.uuid.substring(0, 8)}â€¦
                                     </TableCell>
-                                    <TableCell>{s.grade?.partial_1 ?? '�'}</TableCell>
-                                    <TableCell>{s.grade?.partial_2 ?? '�'}</TableCell>
-                                    <TableCell>{s.grade?.partial_3 ?? '�'}</TableCell>
+                                    <TableCell>{s.grade?.partial_1 ?? '—'}</TableCell>
+                                    <TableCell>{s.grade?.partial_2 ?? '—'}</TableCell>
+                                    <TableCell>{s.grade?.partial_3 ?? '—'}</TableCell>
                                     <TableCell>
                                         {s.grade?.final_grade != null ? (
                                             <span className={`font-bold tabular-nums ${
@@ -531,7 +531,7 @@ export default function NrcShow({
                                             }`}>
                                                 {s.grade.final_grade}
                                             </span>
-                                        ) : '�'}
+                                        ) : '—'}
                                     </TableCell>
                                     <TableCell>
                                         {s.group ? (

@@ -1,4 +1,4 @@
-�import { Head, Link } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { useForm } from '@inertiajs/react';
 import { ArrowLeft, Loader2 } from 'lucide-react';
 import Heading from '@/components/heading';
@@ -116,7 +116,7 @@ export default function UsersCreate({ roles }: Props) {
                                     <SelectContent>
                                         {roles.map((role) => (
                                             <SelectItem key={role} value={role}>
-                                                {role === 'admin' ? '�x:� Administrador � acceso total' : '�x9 Coordinador � gestión de NRCs'}
+                                                {role === 'admin' ? '🛡 Administrador — acceso total' : '📋 Coordinador — gestión de NRCs'}
                                             </SelectItem>
                                         ))}
                                     </SelectContent>
