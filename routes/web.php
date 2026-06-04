@@ -32,6 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('nrcs/{nrc}/surveys/activate', [SurveyController::class, 'activate'])->name('nrcs.surveys.activate');
         Route::post('nrcs/{nrc}/surveys/{survey}/close', [SurveyController::class, 'close'])->name('nrcs.surveys.close');
         Route::post('nrcs/{nrc}/surveys/{survey}/reopen', [SurveyController::class, 'reopen'])->name('nrcs.surveys.reopen');
+        Route::post('nrcs/{nrc}/surveys/{survey}/send-emails', [SurveyController::class, 'sendEmails'])->name('nrcs.surveys.send-emails');
         Route::get('nrcs/{nrc}/surveys/tokens.csv', [SurveyController::class, 'downloadCsv'])->name('nrcs.surveys.csv');
         Route::get('api/surveys/{survey}/tokens', [SurveyController::class, 'tokens'])->name('surveys.tokens');
 

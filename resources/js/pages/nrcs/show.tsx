@@ -1,5 +1,5 @@
 import { Head, Link, router, useForm } from '@inertiajs/react';
-import { ArrowLeft, BarChart2, CalendarClock, CheckCircle2, Copy, Download, Info, Lock, Trash2, Users } from 'lucide-react';
+import { ArrowLeft, BarChart2, CalendarClock, CheckCircle2, Copy, Download, Info, Lock, Mail, Trash2, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Heading from '@/components/heading';
 import { Badge } from '@/components/ui/badge';
@@ -49,7 +49,7 @@ const SEGMENTATION_RULES = [
     {
         group: 'high' as const,
         label: 'Alto rendimiento',
-        criterion: 'Nota final > 8.5',
+        criterion: 'Nota final > 17.0',
         description: 'Estudiantes con desempeño destacado. Candidatos a desviantes positivos.',
         color: 'bg-primary/8 border-primary/20 text-primary',
         dot: 'bg-primary',
@@ -57,7 +57,7 @@ const SEGMENTATION_RULES = [
     {
         group: 'medium' as const,
         label: 'Promedio',
-        criterion: '6.0 ≤ Nota final ≤ 8.5',
+        criterion: '14.0 ≤ Nota final ≤ 17.0',
         description: 'Estudiantes con rendimiento dentro del rango esperado.',
         color: 'bg-secondary/50 border-border text-secondary-foreground',
         dot: 'bg-secondary-foreground/50',
@@ -65,7 +65,7 @@ const SEGMENTATION_RULES = [
     {
         group: 'at_risk' as const,
         label: 'En riesgo',
-        criterion: 'Nota final < 6.0',
+        criterion: 'Nota final < 14.0',
         description: 'Estudiantes que requieren atención y acompañamiento académico.',
         color: 'bg-destructive/8 border-destructive/20 text-destructive',
         dot: 'bg-destructive',
@@ -216,6 +216,7 @@ function SurveyComplianceSection({
 }) {
     const [tokens, setTokens] = useState<Record<string, TokenEntry[]>>({});
     const [loading, setLoading] = useState<Record<string, boolean>>({});
+    const [sendingEmails, setSendingEmails] = useState<Record<string, boolean>>({});
 
     // Carga tokens automáticamente al montar y cuando cambia surveys (tras cerrar/reabrir)
     const loadTokens = async (group: string, surveyId: number, force = false) => {
@@ -251,6 +252,13 @@ function SurveyComplianceSection({
         });
     };
 
+    const sendEmails = (surveyId: number, group: string) => {
+        setSendingEmails((prev) => ({ ...prev, [group]: true }));
+        router.post(`/nrcs/${nrcId}/surveys/${surveyId}/send-emails`, {}, {
+            onFinish: () => setSendingEmails((prev) => ({ ...prev, [group]: false })),
+        });
+    };
+
     return (
         <div className="space-y-4">
             <div className="flex items-center justify-between">
@@ -271,6 +279,8 @@ function SurveyComplianceSection({
                 const isActive = survey.status === 'active';
                 const groupTokens = tokens[group] ?? [];
                 const isLoading = loading[group] ?? false;
+                const isSendingEmails = sendingEmails[group] ?? false;
+                const emailCount = groupTokens.filter((t) => t.email && !t.used).length;
 
                 return (
                     <Card key={group} className={!isActive ? 'opacity-80' : ''}>
@@ -285,6 +295,19 @@ function SurveyComplianceSection({
                                     </Badge>
                                 </div>
                                 <div className="flex items-center gap-2">
+                                    {isActive && emailCount > 0 && (
+                                        <Button
+                                            variant="outline"
+                                            size="sm"
+                                            disabled={isSendingEmails}
+                                            onClick={() => sendEmails(survey.id, group)}
+                                        >
+                                            <Mail className="mr-1.5 h-3 w-3" />
+                                            {isSendingEmails
+                                                ? 'Enviando…'
+                                                : `Enviar correos (${emailCount})`}
+                                        </Button>
+                                    )}
                                     {isActive ? (
                                         <Button
                                             variant="outline"
@@ -455,7 +478,7 @@ export default function NrcShow({
                         ))}
                     </div>
                     <p className="text-xs text-muted-foreground">
-                        Nota final = (Parcial 1 + Parcial 2 + Parcial 3) / 3 · Escala de 0 a 10
+                        Nota final = (Parcial 1 + Parcial 2 + Parcial 3) / 3 · Escala de 0 a 20
                     </p>
                 </div>
 

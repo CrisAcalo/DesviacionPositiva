@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ActivateSurveyRequest;
+use App\Mail\SurveyInvitation;
 use App\Models\Nrc;
 use App\Models\QuestionBank;
 use App\Models\Survey;
@@ -10,6 +11,7 @@ use App\Services\SurveyActivationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class SurveyController extends Controller
@@ -60,6 +62,43 @@ class SurveyController extends Controller
         return response()->json(
             $this->activationService->getTokensForSurvey($survey)
         );
+    }
+
+    public function sendEmails(Nrc $nrc, Survey $survey): RedirectResponse
+    {
+        Gate::authorize('view', $nrc);
+
+        if ($survey->status !== 'active') {
+            return back()->with('toast', ['type' => 'error', 'message' => 'Solo se pueden enviar correos a encuestas activas.']);
+        }
+
+        $nrc->load('subject');
+
+        $tokens = $survey->accessTokens()
+            ->with('student')
+            ->whereNull('used_at')
+            ->get()
+            ->filter(fn ($t) => filled($t->student?->email));
+
+        if ($tokens->isEmpty()) {
+            return back()->with('toast', ['type' => 'warning', 'message' => 'No hay estudiantes con correo electrónico pendientes de responder.']);
+        }
+
+        $groupLabels = ['high' => 'Alto rendimiento', 'medium' => 'Promedio', 'at_risk' => 'En riesgo'];
+
+        $sent = 0;
+        foreach ($tokens as $token) {
+            Mail::to($token->student->email)->send(new SurveyInvitation(
+                accessToken: $token,
+                surveyUrl: route('survey.respond', $token->token),
+                nrcCode: $nrc->code,
+                subjectName: $nrc->subject->name,
+                groupLabel: $groupLabels[$survey->group] ?? $survey->group,
+            ));
+            $sent++;
+        }
+
+        return back()->with('toast', ['type' => 'success', 'message' => "{$sent} correo(s) de invitación enviados correctamente."]);
     }
 
     public function downloadCsv(Nrc $nrc): StreamedResponse

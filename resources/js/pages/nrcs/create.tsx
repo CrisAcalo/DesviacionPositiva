@@ -76,16 +76,23 @@ function FormatGuide() {
                     <table className="w-full text-xs">
                         <thead className="bg-muted">
                             <tr>
-                                {['cedula *', 'parcial_1 *', 'parcial_2 *', 'parcial_3 *'].map((h) => (
-                                    <th key={h} className="px-3 py-2 text-left font-mono font-medium">
-                                        {h}
+                                {[
+                                    { col: 'cedula *', req: true },
+                                    { col: 'parcial_1 *', req: true },
+                                    { col: 'parcial_2 *', req: true },
+                                    { col: 'parcial_3 *', req: true },
+                                    { col: 'email', req: false },
+                                ].map(({ col, req }) => (
+                                    <th key={col} className={`px-3 py-2 text-left font-mono font-medium ${!req ? 'text-muted-foreground' : ''}`}>
+                                        {col}
+                                        {!req && <span className="ml-1 font-sans font-normal text-[10px] text-muted-foreground">(opcional)</span>}
                                     </th>
                                 ))}
                             </tr>
                         </thead>
                         <tbody>
                             <tr className="border-t">
-                                {['0912345678', '17.50', '14.00', '18.00'].map((v, i) => (
+                                {['0912345678', '17.50', '14.00', '18.00', 'est01@espe.edu.ec'].map((v, i) => (
                                     <td key={i} className="px-3 py-2 font-mono text-muted-foreground">
                                         {v}
                                     </td>
@@ -95,7 +102,8 @@ function FormatGuide() {
                     </table>
                 </div>
                 <ul className="space-y-1 text-muted-foreground">
-                    <li>• Todas las columnas son <strong>obligatorias</strong>.</li>
+                    <li>• Las columnas marcadas con <strong>*</strong> son obligatorias.</li>
+                    <li>• La columna <strong>email</strong> es opcional, pero necesaria para enviar las invitaciones por correo.</li>
                     <li>• La <strong>nota final</strong> se calcula automáticamente como el promedio de los 3 parciales.</li>
                     <li>• La <strong>cédula</strong> se anonimiza irreversiblemente al importar — nunca se almacena.</li>
                     <li>• Las notas deben estar en escala de <strong>0 a 20</strong>.</li>
