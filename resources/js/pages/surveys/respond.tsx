@@ -1,5 +1,6 @@
 import { Head, useForm } from '@inertiajs/react';
 import { CheckCircle, Clock, XCircle } from 'lucide-react';
+import AppLogoIcon from '@/components/app-logo-icon';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -34,16 +35,33 @@ const LIKERT_COLORS: Record<string, string> = {
     '5': 'border-green-500/60 data-[state=checked]:bg-green-500/80',
 };
 
+function SurveyHeader() {
+    return (
+        <header className="border-b bg-white dark:bg-background">
+            <div className="mx-auto flex max-w-2xl items-center gap-3 px-4 py-3">
+                <AppLogoIcon className="h-7 w-7 text-primary" />
+                <div className="leading-tight">
+                    <p className="text-sm font-semibold">Desviación Positiva ESPE</p>
+                    <p className="text-xs text-muted-foreground">Encuesta estudiantil — acceso único y personal</p>
+                </div>
+            </div>
+        </header>
+    );
+}
+
 function StateMessage({ icon, title, message }: { icon: React.ReactNode; title: string; message: string }) {
     return (
-        <div className="flex min-h-screen items-center justify-center bg-muted/30 p-6">
-            <Card className="w-full max-w-md text-center">
-                <CardContent className="pt-10 pb-8">
-                    <div className="mb-4 flex justify-center">{icon}</div>
-                    <h2 className="text-xl font-bold mb-2">{title}</h2>
-                    <p className="text-sm text-muted-foreground">{message}</p>
-                </CardContent>
-            </Card>
+        <div className="flex min-h-screen flex-col bg-muted/30">
+            <SurveyHeader />
+            <div className="flex flex-1 items-center justify-center p-6">
+                <Card className="w-full max-w-md text-center">
+                    <CardContent className="pt-10 pb-8">
+                        <div className="mb-4 flex justify-center">{icon}</div>
+                        <h2 className="text-xl font-bold mb-2">{title}</h2>
+                        <p className="text-sm text-muted-foreground">{message}</p>
+                    </CardContent>
+                </Card>
+            </div>
         </div>
     );
 }
@@ -186,7 +204,10 @@ export default function SurveyRespond(props: Props) {
         <>
             <Head title={survey.title} />
 
-            <div className="min-h-screen bg-muted/30 py-10 px-4">
+            <div className="min-h-screen flex flex-col bg-muted/30">
+                <SurveyHeader />
+
+                <div className="flex-1 py-8 px-4">
                 <div className="mx-auto max-w-2xl space-y-6">
                     <div className="text-center space-y-1">
                         <h1 className="text-2xl font-bold">{survey.title}</h1>
@@ -251,6 +272,7 @@ export default function SurveyRespond(props: Props) {
                             </p>
                         )}
                     </form>
+                </div>
                 </div>
             </div>
         </>
