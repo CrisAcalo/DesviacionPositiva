@@ -112,7 +112,7 @@ export default function QuestionBankCreate() {
                                             <SelectValue placeholder="Selecciona un tipo" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="likert">Escala Likert (1â€“5)</SelectItem>
+                                            <SelectItem value="likert">Escala Likert (1–5)</SelectItem>
                                             <SelectItem value="single_choice">Opción única</SelectItem>
                                             <SelectItem value="multiple_choice">Opción múltiple</SelectItem>
                                         </SelectContent>

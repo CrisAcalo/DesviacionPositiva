@@ -57,7 +57,7 @@ const SEGMENTATION_RULES = [
     {
         group: 'medium' as const,
         label: 'Promedio',
-        criterion: '6.0 â‰¤ Nota final â‰¤ 8.5',
+        criterion: '6.0 ≤ Nota final ≤ 8.5',
         description: 'Estudiantes con rendimiento dentro del rango esperado.',
         color: 'bg-secondary/50 border-border text-secondary-foreground',
         dot: 'bg-secondary-foreground/50',
@@ -120,7 +120,7 @@ function RunAnalysisSection({ nrcId, rerun = false }: { nrcId: number; rerun?: b
             <CardContent className="space-y-3">
                 <p className="text-sm text-muted-foreground">
                     Ejecuta el análisis de desviación positiva para identificar prácticas validadas del grupo de alto rendimiento
-                    y barreras del grupo en riesgo (umbral â‰¥ 60%).
+                    y barreras del grupo en riesgo (umbral ≥ 60%).
                 </p>
                 <form onSubmit={handleRun}>
                     <Button type="submit" disabled={processing} className="gap-2">
@@ -322,7 +322,7 @@ function SurveyComplianceSection({
                         {/* Lista de tokens — siempre visible */}
                         <CardContent className="p-0">
                             {isLoading ? (
-                                <div className="py-4 text-center text-xs text-muted-foreground">Cargando enlacesâ€¦</div>
+                                <div className="py-4 text-center text-xs text-muted-foreground">Cargando enlaces…</div>
                             ) : groupTokens.length === 0 ? (
                                 <div className="py-4 text-center text-xs text-muted-foreground">Sin enlaces generados</div>
                             ) : (
@@ -343,7 +343,7 @@ function SurveyComplianceSection({
                                                 <TableCell className="text-sm">
                                                     {t.email ?? (
                                                         <span className="font-mono text-xs text-muted-foreground">
-                                                            {t.token.substring(0, 12)}â€¦
+                                                            {t.token.substring(0, 12)}…
                                                         </span>
                                                     )}
                                                 </TableCell>
@@ -517,7 +517,7 @@ export default function NrcShow({
                             {nrc.students.map((s) => (
                                 <TableRow key={s.id}>
                                     <TableCell className="font-mono text-xs text-muted-foreground">
-                                        {s.uuid.substring(0, 8)}â€¦
+                                        {s.uuid.substring(0, 8)}…
                                     </TableCell>
                                     <TableCell>{s.grade?.partial_1 ?? '—'}</TableCell>
                                     <TableCell>{s.grade?.partial_2 ?? '—'}</TableCell>
