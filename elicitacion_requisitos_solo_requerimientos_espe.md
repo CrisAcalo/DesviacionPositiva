@@ -665,7 +665,67 @@ El sistema no contempla:
 
 ---
 
-## 18. Conclusión
+## 18. Diagrama de Flujo del Sistema
+
+El siguiente flujo describe el proceso general del sistema, desde la ingesta de datos académicos hasta la generación del informe técnico final. El flujo está dividido por actores: Coordinador Académico, Estudiante y Ayudante de Coordinación.
+
+```mermaid
+flowchart TD
+
+    classDef inicio fill:#D8FF8A,stroke:#6AAA00,stroke-width:2px,color:#000;
+    classDef fin fill:#FFC4C4,stroke:#B00020,stroke-width:3px,color:#000;
+    classDef proceso fill:#EAF1FF,stroke:#0070B8,stroke-width:2px,color:#000;
+    classDef decision fill:#FFFDEB,stroke:#B8A900,stroke-width:2px,color:#000;
+
+    subgraph CA["Coordinador Académico"]
+        A((Inicio)) --> B[Ingesta de datos]
+        B --> C[Segmentación de sujetos]
+        C --> D{¿Existen datos significativos?}
+        D -- No --> E[Revalidar datos]
+        E --> B
+        D -- Sí --> F[Generación de encuestas dinámicas]
+    end
+
+    subgraph EST["Estudiante"]
+        G[Responde encuesta]
+    end
+
+    subgraph AC["Ayudante de coordinación"]
+        H[Recolección y anonimización]
+        I[Análisis de Desviación Positiva]
+        J[Determinación de soluciones]
+        K[Generación de informe técnico]
+        L((Fin))
+    end
+
+    F --> G
+    G --> H
+    H --> I
+    I --> J
+    J --> K
+    K --> L
+
+    class A inicio;
+    class L fin;
+    class B,C,E,F,G,H,I,J,K proceso;
+    class D decision;
+```
+
+### 18.1 Descripción textual del flujo
+
+1. El Coordinador Académico inicia el proceso mediante la ingesta de datos académicos.
+2. El sistema realiza la segmentación de sujetos según el rendimiento académico.
+3. Se evalúa si existen datos significativos para continuar el análisis.
+4. Si no existen datos significativos, el Coordinador Académico debe revalidar los datos y repetir la ingesta.
+5. Si existen datos significativos, el sistema genera encuestas dinámicas.
+6. El Estudiante responde la encuesta asignada según su grupo de rendimiento.
+7. El Ayudante de Coordinación realiza la recolección y anonimización de las respuestas.
+8. Se ejecuta el análisis de Desviación Positiva.
+9. Se determinan soluciones a partir de los patrones encontrados.
+10. Se genera el informe técnico final.
+11. El proceso finaliza con la entrega del informe.
+
+## 19. Conclusión
 
 La plataforma propuesta busca identificar prácticas académicas exitosas dentro de la ESPE mediante el modelo de Desviación Positiva. El sistema se enfoca en analizar calificaciones por NRC, segmentar estudiantes, aplicar encuestas diferenciadas, detectar patrones de éxito y generar recomendaciones académicas accionables.
 

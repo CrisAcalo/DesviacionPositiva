@@ -1,5 +1,16 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-react';
+import {
+    BarChart3,
+    BookOpen,
+    ClipboardList,
+    FileText,
+    FolderGit2,
+    LayoutGrid,
+    Library,
+    Settings,
+    Upload,
+    Users,
+} from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
@@ -13,31 +24,91 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { useRole } from '@/hooks/use-role';
 import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
 
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: dashboard(),
-        icon: LayoutGrid,
-    },
-];
-
 const footerNavItems: NavItem[] = [
     {
-        title: 'Repository',
+        title: 'Repositorio',
         href: 'https://github.com/laravel/react-starter-kit',
         icon: FolderGit2,
     },
     {
-        title: 'Documentation',
+        title: 'Documentación',
         href: 'https://laravel.com/docs/starter-kits#react',
         icon: BookOpen,
     },
 ];
 
 export function AppSidebar() {
+    const { isAdmin, isCoordinator, isTeacher, isProjectDirector, isStudent } = useRole();
+
+    const navItems: NavItem[] = [
+        {
+            title: 'Dashboard',
+            href: dashboard(),
+            icon: LayoutGrid,
+        },
+    ];
+
+    if (isAdmin || isCoordinator) {
+        navItems.push(
+            {
+                title: 'Cargar NRC',
+                href: '/nrcs/create',
+                icon: Upload,
+            },
+            {
+                title: 'Gestión de NRCs',
+                href: '/nrcs',
+                icon: ClipboardList,
+            },
+            {
+                title: 'Banco de preguntas',
+                href: '/question-bank',
+                icon: Library,
+            },
+            {
+                title: 'Análisis y Reportes',
+                href: '/reports',
+                icon: BarChart3,
+            },
+        );
+    }
+
+    if (isAdmin || isCoordinator || isTeacher || isProjectDirector) {
+        navItems.push({
+            title: 'Reportes',
+            href: '/reports',
+            icon: FileText,
+        });
+    }
+
+    if (isStudent) {
+        navItems.push({
+            title: 'Mi Encuesta',
+            href: '/survey',
+            icon: ClipboardList,
+        });
+    }
+
+    if (isAdmin) {
+        navItems.push({
+            title: 'Usuarios',
+            href: '/users',
+            icon: Users,
+        });
+    }
+
+    if (isAdmin) {
+        navItems.push({
+            title: 'Configuración',
+            href: '/settings/profile',
+            icon: Settings,
+        });
+    }
+
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -53,7 +124,7 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={navItems} />
             </SidebarContent>
 
             <SidebarFooter>

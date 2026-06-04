@@ -11,7 +11,10 @@ export type User = {
 
 export type Auth = {
     user: User;
+    roles: string[];
 };
+
+export type AppRole = 'admin' | 'coordinator' | 'teacher' | 'project_director' | 'student';
 
 /* @chisel-passkeys */
 export type Passkey = {
