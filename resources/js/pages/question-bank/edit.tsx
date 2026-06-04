@@ -107,7 +107,7 @@ export default function QuestionBankEdit({ question }: { question: Question }) {
                                     <Select value={data.type} onValueChange={(v) => handleTypeChange(v as typeof data.type)}>
                                         <SelectTrigger><SelectValue /></SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value=”likert”>Escala Likert (1–5)</SelectItem>
+                                            <SelectItem value="likert">Escala Likert (1–5)</SelectItem>
                                             <SelectItem value="single_choice">Opción única</SelectItem>
                                             <SelectItem value="multiple_choice">Opción múltiple</SelectItem>
                                         </SelectContent>
