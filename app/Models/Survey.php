@@ -16,6 +16,7 @@ class Survey extends Model
         'title',
         'description',
         'status',
+        'questions_per_page',
         'activated_at',
         'closes_at',
         'activated_by',

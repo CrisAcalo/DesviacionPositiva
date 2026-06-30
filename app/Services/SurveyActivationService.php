@@ -19,21 +19,22 @@ class SurveyActivationService
         'at_risk' => 'En riesgo',
     ];
 
-    public function activate(Nrc $nrc, User $activatedBy, ?string $closesAt = null): void
+    public function activate(Nrc $nrc, User $activatedBy, ?string $closesAt = null, ?int $questionLimit = null, string $questionSelection = 'ordered', int $questionsPerPage = 1): void
     {
-        DB::transaction(function () use ($nrc, $activatedBy, $closesAt) {
+        DB::transaction(function () use ($nrc, $activatedBy, $closesAt, $questionLimit, $questionSelection, $questionsPerPage) {
             foreach (array_keys(self::GROUP_LABELS) as $group) {
                 $survey = Survey::create([
-                    'nrc_id'       => $nrc->id,
-                    'group'        => $group,
-                    'title'        => self::GROUP_LABELS[$group].' — NRC '.$nrc->code,
-                    'status'       => 'active',
-                    'activated_at' => now(),
-                    'activated_by' => $activatedBy->id,
-                    'closes_at'    => $closesAt,
+                    'nrc_id'             => $nrc->id,
+                    'group'              => $group,
+                    'title'              => self::GROUP_LABELS[$group].' — NRC '.$nrc->code,
+                    'status'             => 'active',
+                    'questions_per_page' => $questionsPerPage,
+                    'activated_at'       => now(),
+                    'activated_by'       => $activatedBy->id,
+                    'closes_at'          => $closesAt,
                 ]);
 
-                $this->copyQuestionsFromBank($survey, $group);
+                $this->copyQuestionsFromBank($survey, $group, $questionLimit, $questionSelection);
                 $this->generateTokensForGroup($survey, $nrc, $group);
             }
 
@@ -85,17 +86,27 @@ class SurveyActivationService
                 'token'         => $t->token,
                 'email'         => $t->student->email,
                 'used'          => $t->isUsed(),
+                'opened'        => !is_null($t->opened_at),
                 'survey_open'   => $surveyOpen,
                 'url'           => route('survey.respond', $t->token),
             ]);
     }
 
-    private function copyQuestionsFromBank(Survey $survey, string $group): void
+    private function copyQuestionsFromBank(Survey $survey, string $group, ?int $limit, string $selection): void
     {
-        $bankQuestions = QuestionBank::active()
-            ->forGroup($group)
-            ->orderBy('order')
-            ->get();
+        $query = QuestionBank::active()->forGroup($group);
+
+        if ($selection === 'random') {
+            $query->inRandomOrder();
+        } else {
+            $query->orderBy('order');
+        }
+
+        if ($limit !== null) {
+            $query->limit($limit);
+        }
+
+        $bankQuestions = $query->get();
 
         foreach ($bankQuestions as $idx => $bq) {
             SurveyQuestion::create([

@@ -21,15 +21,7 @@ class UserController extends Controller
 
         return inertia('users/index', [
             'users' => $users,
-        ]);
-    }
-
-    public function create(): Response
-    {
-        Gate::authorize('create', User::class);
-
-        return inertia('users/create', [
-            'roles' => ['admin', 'coordinator'],
+            'roles' => ['admin', 'coordinator', 'teacher'],
         ]);
     }
 
@@ -47,21 +39,6 @@ class UserController extends Controller
 
         return redirect()->route('users.index')
             ->with('toast', ['type' => 'success', 'message' => "Usuario {$user->name} creado correctamente."]);
-    }
-
-    public function edit(User $user): Response
-    {
-        Gate::authorize('update', $user);
-
-        return inertia('users/edit', [
-            'user' => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'role' => $user->roles->first()?->name,
-            ],
-            'roles' => ['admin', 'coordinator'],
-        ]);
     }
 
     public function update(UpdateUserRequest $request, User $user): RedirectResponse

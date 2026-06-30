@@ -11,7 +11,6 @@ class NrcPolicy
     {
         return $user->hasRole('admin')
             || $user->hasRole('coordinator')
-            || $user->hasRole('project_director')
             || $nrc->uploaded_by === $user->id;
     }
 

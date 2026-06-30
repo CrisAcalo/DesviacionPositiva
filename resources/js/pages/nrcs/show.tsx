@@ -1,10 +1,11 @@
 import { Head, Link, router, useForm } from '@inertiajs/react';
-import { ArrowLeft, BarChart2, CalendarClock, CheckCircle2, Copy, Download, Info, Lock, Mail, Trash2, Users } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { ArrowLeft, BarChart2, CalendarClock, CheckCircle2, Copy, Download, Info, Lock, Mail, Trash2, Users, AlertTriangle } from 'lucide-react';
+import { useEffect, useState, useMemo } from 'react';
 import Heading from '@/components/heading';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -72,11 +73,6 @@ const SEGMENTATION_RULES = [
     },
 ];
 
-function deleteNrc(id: number, code: string) {
-    if (!confirm(`¿Eliminar el NRC ${code}? Se borrarán todos los estudiantes y calificaciones asociados. Esta acción no se puede deshacer.`)) return;
-    router.delete(`/nrcs/${id}`);
-}
-
 function CopyButton({ text }: { text: string }) {
     const [copied, setCopied] = useState(false);
     const handleCopy = () => {
@@ -133,13 +129,39 @@ function RunAnalysisSection({ nrcId, rerun = false }: { nrcId: number; rerun?: b
     );
 }
 
-function ActivateSurveysSection({ nrcId }: { nrcId: number }) {
-    const { data, setData, post, processing } = useForm({ closes_at: '' });
+function ActivateSurveysSection({ nrcId, activeQuestionCounts }: { nrcId: number, activeQuestionCounts: Record<string, number> }) {
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const { data, setData, post, processing } = useForm({
+        closes_at: '',
+        question_limit: '',
+        question_selection: 'random',
+        questions_per_page: '1',
+    });
+
+    const maxQuestions = Math.max(
+        activeQuestionCounts.high ?? 0,
+        activeQuestionCounts.medium ?? 0,
+        activeQuestionCounts.at_risk ?? 0
+    );
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        setIsConfirmOpen(true);
+    };
+
+    const confirmActivate = () => {
+        setIsConfirmOpen(false);
         post(`/nrcs/${nrcId}/surveys/activate`);
     };
+
+    const limitParsed = parseInt(data.question_limit);
+    const expectedQuestions = !isNaN(limitParsed) && limitParsed > 0 
+        ? Math.min(limitParsed, maxQuestions) 
+        : maxQuestions;
+    const perPageParsed = parseInt(data.questions_per_page);
+    const perPageMsg = !isNaN(perPageParsed) && perPageParsed > 0 
+        ? `${perPageParsed} por página` 
+        : 'todas en una página';
 
     return (
         <Card className="border-primary/20">
@@ -153,22 +175,85 @@ function ActivateSurveysSection({ nrcId }: { nrcId: number }) {
                 <p className="text-sm text-muted-foreground mb-4">
                     Al activar se crearán 3 encuestas (una por grupo) y se generarán los enlaces de acceso para cada estudiante.
                 </p>
-                <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 items-end">
-                    <div className="space-y-1.5 flex-1 max-w-xs">
-                        <Label htmlFor="closes_at" className="text-sm">Fecha de cierre (opcional)</Label>
-                        <Input
-                            id="closes_at"
-                            type="datetime-local"
-                            value={data.closes_at}
-                            onChange={(e) => setData('closes_at', e.target.value)}
-                        />
-                        <p className="text-xs text-muted-foreground">Si no se define, el cierre es manual.</p>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div className="space-y-1.5">
+                            <Label htmlFor="question_limit" className="text-sm">Límite de preguntas (opcional)</Label>
+                            <Input
+                                id="question_limit"
+                                type="number"
+                                min="1"
+                                placeholder="Ej: 10"
+                                value={data.question_limit}
+                                onChange={(e) => setData('question_limit', e.target.value)}
+                            />
+                            <p className="text-xs text-muted-foreground">Deja en blanco para usar todas.</p>
+                        </div>
+                        
+                        <div className="space-y-1.5">
+                            <Label htmlFor="question_selection" className="text-sm">Selección de preguntas</Label>
+                            <select
+                                id="question_selection"
+                                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                value={data.question_selection}
+                                onChange={(e) => setData('question_selection', e.target.value)}
+                            >
+                                <option value="random">Aleatoria</option>
+                                <option value="ordered">En orden (como en el banco)</option>
+                            </select>
+                        </div>
+
+                        <div className="space-y-1.5">
+                            <Label htmlFor="questions_per_page" className="text-sm">Preguntas por página</Label>
+                            <Input
+                                id="questions_per_page"
+                                type="number"
+                                min="0"
+                                value={data.questions_per_page}
+                                onChange={(e) => setData('questions_per_page', e.target.value)}
+                            />
+                            <p className="text-xs text-muted-foreground">0 = Mostrar todas en una página.</p>
+                        </div>
+
+                        <div className="space-y-1.5">
+                            <Label htmlFor="closes_at" className="text-sm">Fecha de cierre (opcional)</Label>
+                            <Input
+                                id="closes_at"
+                                type="datetime-local"
+                                value={data.closes_at}
+                                onChange={(e) => setData('closes_at', e.target.value)}
+                            />
+                        </div>
                     </div>
-                    <Button type="submit" disabled={processing}>
-                        {processing ? 'Activando...' : 'Activar encuestas'}
-                    </Button>
+                    <div className="flex justify-end">
+                        <Button type="submit" disabled={processing}>
+                            {processing ? 'Activando...' : 'Activar encuestas'}
+                        </Button>
+                    </div>
                 </form>
             </CardContent>
+
+            <Dialog open={isConfirmOpen} onOpenChange={setIsConfirmOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Confirmar activación de encuestas</DialogTitle>
+                        <DialogDescription>
+                            Al activar las encuestas, los estudiantes recibirán un enlace de acceso único.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="py-4">
+                        <p className="text-sm">
+                            Los estudiantes recibirán <strong>{expectedQuestions} preguntas</strong> seleccionadas de forma <strong>{data.question_selection === 'random' ? 'aleatoria' : 'en orden'}</strong>, paginadas <strong>{perPageMsg}</strong>.
+                        </p>
+                    </div>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setIsConfirmOpen(false)}>Cancelar</Button>
+                        <Button onClick={confirmActivate} disabled={processing}>
+                            Confirmar y activar
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </Card>
     );
 }
@@ -178,16 +263,24 @@ type TokenEntry = {
     token: string;
     email: string | null;
     used: boolean;
+    opened: boolean;
     survey_open: boolean;
     url: string;
 };
 
 /** Estado visual de un token */
-function TokenStatusBadge({ used, surveyOpen }: { used: boolean; surveyOpen: boolean }) {
+function TokenStatusBadge({ used, opened, surveyOpen }: { used: boolean; opened: boolean; surveyOpen: boolean }) {
     if (used) {
         return (
             <span className="inline-flex items-center gap-1 rounded-full bg-green-100 text-green-800 border border-green-200 px-2 py-0.5 text-xs font-medium">
                 <CheckCircle2 className="h-3 w-3" /> Completada
+            </span>
+        );
+    }
+    if (opened) {
+        return (
+            <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 text-blue-800 border border-blue-200 px-2 py-0.5 text-xs font-medium">
+                <Info className="h-3 w-3" /> En progreso
             </span>
         );
     }
@@ -230,19 +323,38 @@ function SurveyComplianceSection({
         setLoading((prev) => ({ ...prev, [group]: false }));
     };
 
-    // Auto-cargar tokens para todos los grupos al montar
+    // Auto-cargar tokens y configurar polling
     useEffect(() => {
-        (['high', 'medium', 'at_risk'] as const).forEach((group) => {
-            const survey = surveys[group];
-            if (survey) loadTokens(group, survey.id);
-        });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        let isMounted = true;
+        const fetchAll = () => {
+            (['high', 'medium', 'at_risk'] as const).forEach((group) => {
+                const survey = surveys[group];
+                if (survey) loadTokens(group, survey.id);
+            });
+        };
 
-    const closeSurvey = (surveyId: number, group: string) => {
-        if (!confirm('¿Cerrar esta encuesta? Los tokens existentes seguirán visibles pero no aceptarán nuevas respuestas.')) return;
-        router.post(`/nrcs/${nrcId}/surveys/${surveyId}/close`, {}, {
-            onSuccess: () => loadTokens(group, surveyId, true),
+        fetchAll();
+        const interval = setInterval(() => {
+            if (isMounted) fetchAll();
+        }, 15000); // Polling cada 15 segundos para tiempo real
+
+        return () => {
+            isMounted = false;
+            clearInterval(interval);
+        };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [surveys]);
+
+    // Estado para cerrar encuesta
+    const [closingSurvey, setClosingSurvey] = useState<{ id: number, group: string } | null>(null);
+
+    const closeSurvey = () => {
+        if (!closingSurvey) return;
+        router.post(`/nrcs/${nrcId}/surveys/${closingSurvey.id}/close`, {}, {
+            onSuccess: () => {
+                loadTokens(closingSurvey.group, closingSurvey.id, true);
+                setClosingSurvey(null);
+            },
         });
     };
 
@@ -259,17 +371,53 @@ function SurveyComplianceSection({
         });
     };
 
+    const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
+
+    const resetSurveys = () => {
+        router.delete(`/nrcs/${nrcId}/surveys/reset`, {
+            onSuccess: () => setIsResetConfirmOpen(false),
+        });
+    };
+
     return (
         <div className="space-y-4">
             <div className="flex items-center justify-between">
                 <h3 className="font-medium">Encuestas</h3>
-                <Button asChild variant="outline" size="sm">
-                    <a href={`/nrcs/${nrcId}/surveys/tokens.csv`} download>
-                        <Download className="mr-2 h-4 w-4" />
-                        Descargar CSV completo
-                    </a>
-                </Button>
+                <div className="flex gap-2">
+                    <Button variant="outline" size="sm" className="text-destructive border-destructive/30 hover:border-destructive" onClick={() => setIsResetConfirmOpen(true)}>
+                        <AlertTriangle className="mr-2 h-4 w-4" />
+                        Eliminar configuración
+                    </Button>
+                    <Button asChild variant="outline" size="sm">
+                        <a href={`/nrcs/${nrcId}/surveys/tokens.csv`} download>
+                            <Download className="mr-2 h-4 w-4" />
+                            Descargar CSV completo
+                        </a>
+                    </Button>
+                </div>
             </div>
+
+            <Dialog open={isResetConfirmOpen} onOpenChange={setIsResetConfirmOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Eliminar configuración de encuestas</DialogTitle>
+                        <DialogDescription>
+                            ¿Estás seguro de que deseas eliminar todas las encuestas generadas para este NRC?
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="py-4">
+                        <p className="text-sm text-destructive font-medium mb-2">¡Atención, acción destructiva!</p>
+                        <p className="text-sm text-muted-foreground">
+                            Se borrarán las respuestas que los estudiantes ya hayan enviado, así como los enlaces de acceso generados. 
+                            El NRC regresará al estado de segmentación para poder ser reconfigurado.
+                        </p>
+                    </div>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setIsResetConfirmOpen(false)}>Cancelar</Button>
+                        <Button variant="destructive" onClick={resetSurveys}>Eliminar todo</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
 
             {(['high', 'medium', 'at_risk'] as const).map((group) => {
                 const c = compliance[group];
@@ -313,7 +461,7 @@ function SurveyComplianceSection({
                                             variant="outline"
                                             size="sm"
                                             className="text-destructive border-destructive/30 hover:border-destructive"
-                                            onClick={() => closeSurvey(survey.id, group)}
+                                            onClick={() => setClosingSurvey({ id: survey.id, group })}
                                         >
                                             <Lock className="mr-1.5 h-3 w-3" />
                                             Cerrar encuesta
@@ -332,14 +480,23 @@ function SurveyComplianceSection({
                                 </div>
                             </div>
 
-                            {/* Barra de progreso */}
-                            <div className="mt-2 h-2 rounded-full bg-muted overflow-hidden">
-                                <div
-                                    className="h-full bg-primary rounded-full transition-all"
-                                    style={{ width: `${c.percent}%` }}
-                                />
-                            </div>
-                            <p className="text-xs text-muted-foreground">{c.percent}% de respuestas recibidas</p>
+                            {/* Barra de progreso con datos en tiempo real si están disponibles */}
+                            {(() => {
+                                const realResponded = groupTokens.length > 0 ? groupTokens.filter(t => t.used).length : c.responded;
+                                const realTotal = groupTokens.length > 0 ? groupTokens.length : c.total;
+                                const realPercent = realTotal > 0 ? Math.round((realResponded / realTotal) * 100) : 0;
+                                return (
+                                    <>
+                                        <div className="mt-2 h-2 rounded-full bg-muted overflow-hidden">
+                                            <div
+                                                className="h-full bg-primary rounded-full transition-all"
+                                                style={{ width: `${realPercent}%` }}
+                                            />
+                                        </div>
+                                        <p className="text-xs text-muted-foreground">{realPercent}% de respuestas recibidas ({realResponded}/{realTotal})</p>
+                                    </>
+                                );
+                            })()}
                         </CardHeader>
 
                         {/* Lista de tokens — siempre visible */}
@@ -371,7 +528,7 @@ function SurveyComplianceSection({
                                                     )}
                                                 </TableCell>
                                                 <TableCell>
-                                                    <TokenStatusBadge used={t.used} surveyOpen={t.survey_open} />
+                                                    <TokenStatusBadge used={t.used} opened={t.opened} surveyOpen={t.survey_open} />
                                                 </TableCell>
                                                 <TableCell className="text-right">
                                                     <CopyButton text={t.url} />
@@ -385,6 +542,21 @@ function SurveyComplianceSection({
                     </Card>
                 );
             })}
+
+            <Dialog open={!!closingSurvey} onOpenChange={(open) => !open && setClosingSurvey(null)}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Cerrar encuesta</DialogTitle>
+                        <DialogDescription>
+                            ¿Estás seguro de que deseas cerrar esta encuesta? Los enlaces generados dejarán de aceptar nuevas respuestas, pero la información actual se mantendrá visible.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setClosingSurvey(null)}>Cancelar</Button>
+                        <Button variant="destructive" onClick={closeSurvey}>Sí, cerrar encuesta</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }
@@ -394,13 +566,27 @@ export default function NrcShow({
     groupCounts,
     surveyCompliance,
     surveys,
+    activeQuestionCounts,
 }: {
     nrc: NrcDetail;
     groupCounts: Record<string, number>;
     surveyCompliance: Record<string, ComplianceEntry> | null;
     surveys: Record<string, SurveyData>;
+    activeQuestionCounts: Record<string, number>;
 }) {
     const total = nrc.students.length;
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+
+    const confirmDeleteNrc = () => {
+        setIsDeleting(true);
+        router.delete(`/nrcs/${nrc.id}`, {
+            onFinish: () => {
+                setIsDeleting(false);
+                setIsDeleteDialogOpen(false);
+            }
+        });
+    };
 
     return (
         <>
@@ -421,7 +607,7 @@ export default function NrcShow({
                         variant="outline"
                         size="sm"
                         className="text-destructive hover:text-destructive border-destructive/30 hover:border-destructive"
-                        onClick={() => deleteNrc(nrc.id, nrc.code)}
+                        onClick={() => setIsDeleteDialogOpen(true)}
                     >
                         <Trash2 className="mr-2 h-4 w-4" />
                         Eliminar NRC
@@ -484,7 +670,7 @@ export default function NrcShow({
 
                 {/* Sección de encuestas */}
                 {nrc.status === 'segmented' && (
-                    <ActivateSurveysSection nrcId={nrc.id} />
+                    <ActivateSurveysSection nrcId={nrc.id} activeQuestionCounts={activeQuestionCounts} />
                 )}
 
                 {(nrc.status === 'surveying' || nrc.status === 'analyzed') && surveyCompliance && (
@@ -571,6 +757,23 @@ export default function NrcShow({
                     </Table>
                 </div>
             </div>
+
+            <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Eliminar NRC</DialogTitle>
+                        <DialogDescription>
+                            ¿Estás seguro de que deseas eliminar el NRC <strong>{nrc.code}</strong>? Se borrarán todos los estudiantes, configuraciones de encuestas y calificaciones asociadas. Esta acción no se puede deshacer.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)}>Cancelar</Button>
+                        <Button variant="destructive" onClick={confirmDeleteNrc} disabled={isDeleting}>
+                            Sí, eliminar
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </>
     );
 }

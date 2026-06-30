@@ -1,9 +1,11 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { ClipboardList, Plus, Trash2 } from 'lucide-react';
+import { ClipboardList, Plus, Trash2, Loader2 } from 'lucide-react';
+import { useState } from 'react';
 import Heading from '@/components/heading';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 
 type Nrc = {
     id: number;
@@ -38,12 +40,20 @@ const STATUS_VARIANTS: Record<Nrc['status'], 'secondary' | 'default' | 'outline'
     analyzed:  'default',
 };
 
-function deleteNrc(id: number, code: string) {
-    if (!confirm(`¿Eliminar el NRC ${code}? Se borrarán todos los estudiantes y calificaciones asociados. Esta acción no se puede deshacer.`)) return;
-    router.delete(`/nrcs/${id}`);
-}
-
 export default function NrcsIndex({ nrcs }: { nrcs: PaginatedNrcs }) {
+    const [deletingNrc, setDeletingNrc] = useState<Nrc | null>(null);
+    const [isDeleting, setIsDeleting] = useState(false);
+
+    const confirmDelete = () => {
+        if (!deletingNrc) return;
+        setIsDeleting(true);
+        router.delete(`/nrcs/${deletingNrc.id}`, {
+            onFinish: () => {
+                setIsDeleting(false);
+                setDeletingNrc(null);
+            }
+        });
+    };
     return (
         <>
             <Head title="Gestión de NRCs" />
@@ -112,7 +122,7 @@ export default function NrcsIndex({ nrcs }: { nrcs: PaginatedNrcs }) {
                                                     variant="ghost"
                                                     size="icon"
                                                     className="text-destructive hover:text-destructive"
-                                                    onClick={() => deleteNrc(nrc.id, nrc.code)}
+                                                    onClick={() => setDeletingNrc(nrc)}
                                                 >
                                                     <Trash2 className="h-4 w-4" />
                                                 </Button>
@@ -143,6 +153,24 @@ export default function NrcsIndex({ nrcs }: { nrcs: PaginatedNrcs }) {
                     </div>
                 )}
             </div>
+
+            {/* Modal de Confirmación de Eliminación */}
+            <Dialog open={!!deletingNrc} onOpenChange={(open) => !open && setDeletingNrc(null)}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Eliminar NRC</DialogTitle>
+                        <DialogDescription>
+                            ¿Estás seguro de que deseas eliminar el NRC <strong>{deletingNrc?.code}</strong>? Se borrarán todos los estudiantes, configuraciones de encuestas y calificaciones asociadas. Esta acción no se puede deshacer.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setDeletingNrc(null)}>Cancelar</Button>
+                        <Button variant="destructive" onClick={confirmDelete} disabled={isDeleting}>
+                            {isDeleting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Sí, eliminar'}
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </>
     );
 }

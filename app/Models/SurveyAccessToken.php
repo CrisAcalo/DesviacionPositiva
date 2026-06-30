@@ -13,6 +13,7 @@ class SurveyAccessToken extends Model
         'student_id',
         'survey_id',
         'token',
+        'opened_at',
         'used_at',
         'expires_at',
     ];
@@ -20,6 +21,7 @@ class SurveyAccessToken extends Model
     protected function casts(): array
     {
         return [
+            'opened_at'  => 'datetime',
             'used_at'    => 'datetime',
             'expires_at' => 'datetime',
         ];

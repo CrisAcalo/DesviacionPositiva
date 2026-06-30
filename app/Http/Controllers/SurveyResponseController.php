@@ -24,13 +24,18 @@ class SurveyResponseController extends Controller
             return inertia('surveys/respond', ['state' => 'closed']);
         }
 
+        if (is_null($accessToken->opened_at)) {
+            $accessToken->update(['opened_at' => now()]);
+        }
+
         return inertia('surveys/respond', [
             'state'   => 'open',
             'token'   => $token,
             'survey'  => [
                 'title'     => $accessToken->survey->title,
-                'group'     => $accessToken->survey->group,
-                'questions' => $accessToken->survey->questions->map(fn ($q) => [
+                'group'              => $accessToken->survey->group,
+                'questions_per_page' => $accessToken->survey->questions_per_page,
+                'questions'          => $accessToken->survey->questions->map(fn ($q) => [
                     'id'      => $q->id,
                     'text'    => $q->question_text,
                     'type'    => $q->type,

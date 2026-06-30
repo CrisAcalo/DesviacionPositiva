@@ -50,17 +50,5 @@ class RolesAndPermissionsSeeder extends Seeder
                 'reports.download',
             ]);
 
-        Role::firstOrCreate(['name' => 'project_director'])
-            ->syncPermissions([
-                'nrc.view',
-                'analysis.view',
-                'reports.view',
-                'reports.download',
-            ]);
-
-        Role::firstOrCreate(['name' => 'student'])
-            ->syncPermissions([
-                'survey.respond',
-            ]);
     }
 }

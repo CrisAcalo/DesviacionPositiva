@@ -24,8 +24,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::middleware(['role:admin'])->group(function () {
-        // Gestión de usuarios (solo admin)
+        // Gestión de usuarios y roles
         Route::resource('users', UserController::class)->except(['show']);
+        Route::resource('roles', \App\Http\Controllers\RoleController::class)->only(['index', 'update']);
 
         // Catálogos (departamentos, carreras, materias)
         Route::get('catalogs', [CatalogController::class, 'index'])->name('catalogs.index');
@@ -46,6 +47,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Encuestas por NRC
         Route::post('nrcs/{nrc}/surveys/activate', [SurveyController::class, 'activate'])->name('nrcs.surveys.activate');
+        Route::delete('nrcs/{nrc}/surveys/reset', [SurveyController::class, 'reset'])->name('nrcs.surveys.reset');
         Route::post('nrcs/{nrc}/surveys/{survey}/close', [SurveyController::class, 'close'])->name('nrcs.surveys.close');
         Route::post('nrcs/{nrc}/surveys/{survey}/reopen', [SurveyController::class, 'reopen'])->name('nrcs.surveys.reopen');
         Route::post('nrcs/{nrc}/surveys/{survey}/send-emails', [SurveyController::class, 'sendEmails'])->name('nrcs.surveys.send-emails');

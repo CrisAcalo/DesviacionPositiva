@@ -30,9 +30,26 @@ class SurveyController extends Controller
             return back()->with('toast', ['type' => 'error', 'message' => 'No hay preguntas activas en el banco. Agrega preguntas antes de activar encuestas.']);
         }
 
-        $this->activationService->activate($nrc, auth()->user(), $request->input('closes_at'));
+        $this->activationService->activate(
+            $nrc,
+            auth()->user(),
+            $request->input('closes_at'),
+            $request->input('question_limit'),
+            $request->input('question_selection'),
+            $request->input('questions_per_page')
+        );
 
         return back()->with('toast', ['type' => 'success', 'message' => 'Encuestas activadas. Los enlaces de acceso están disponibles.']);
+    }
+
+    public function reset(Nrc $nrc)
+    {
+        Gate::authorize('update', $nrc);
+
+        $nrc->surveys()->delete();
+        $nrc->update(['status' => 'segmented']);
+
+        return back()->with('toast', ['type' => 'success', 'message' => 'Configuración de encuestas eliminada exitosamente.']);
     }
 
     public function close(Nrc $nrc, Survey $survey): RedirectResponse

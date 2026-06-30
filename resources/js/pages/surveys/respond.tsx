@@ -1,5 +1,7 @@
 import { Head, useForm } from '@inertiajs/react';
-import { CheckCircle, Clock, XCircle } from 'lucide-react';
+import { CheckCircle, Clock, XCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import AppLogoIcon from '@/components/app-logo-icon';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -19,6 +21,7 @@ type Question = {
 type Survey = {
     title: string;
     group: 'high' | 'medium' | 'at_risk';
+    questions_per_page: number;
     questions: Question[];
 };
 
@@ -181,6 +184,14 @@ export default function SurveyRespond(props: Props) {
 
     const { token, survey } = props;
 
+    const [currentPage, setCurrentPage] = useState(1);
+    
+    // Si es 0, mostramos todas. Si es > 0, paginamos.
+    const perPage = survey.questions_per_page > 0 ? survey.questions_per_page : survey.questions.length;
+    const totalPages = Math.ceil(survey.questions.length / perPage);
+    
+    const currentQuestions = survey.questions.slice((currentPage - 1) * perPage, currentPage * perPage);
+
     const { data, setData, post, processing, errors } = useForm<{ responses: Record<number, string | string[]>; token?: string }>({
         responses: {},
     });
@@ -190,6 +201,12 @@ export default function SurveyRespond(props: Props) {
     };
 
     const allAnswered = survey.questions.every((q) => {
+        const ans = data.responses[q.id];
+        if (q.type === 'multiple_choice') return Array.isArray(ans) && ans.length > 0;
+        return ans != null && ans !== '';
+    });
+
+    const currentPageAnswered = currentQuestions.every((q) => {
         const ans = data.responses[q.id];
         if (q.type === 'multiple_choice') return Array.isArray(ans) && ans.length > 0;
         return ans != null && ans !== '';
@@ -209,6 +226,22 @@ export default function SurveyRespond(props: Props) {
 
                 <div className="flex-1 py-8 px-4">
                 <div className="mx-auto max-w-2xl space-y-6">
+                    {/* Barra de progreso */}
+                    <div className="sticky top-0 z-10 bg-muted/30 pb-4 pt-2 -mx-4 px-4 sm:mx-0 sm:px-0">
+                        <div className="flex justify-between text-xs font-medium text-muted-foreground mb-2">
+                            <span>Avance</span>
+                            <span>{Math.round((Object.keys(data.responses).length / survey.questions.length) * 100)}%</span>
+                        </div>
+                        <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
+                            <motion.div 
+                                className="h-full bg-primary"
+                                initial={{ width: 0 }}
+                                animate={{ width: `${(Object.keys(data.responses).length / survey.questions.length) * 100}%` }}
+                                transition={{ duration: 0.5, ease: 'easeOut' }}
+                            />
+                        </div>
+                    </div>
+
                     <div className="text-center space-y-1">
                         <h1 className="text-2xl font-bold">{survey.title}</h1>
                         <p className="text-sm text-muted-foreground">
@@ -217,39 +250,59 @@ export default function SurveyRespond(props: Props) {
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-4">
-                        {survey.questions.map((q, idx) => (
-                            <Card key={q.id}>
-                                <CardHeader className="pb-3">
-                                    <CardTitle className="text-base font-medium">
-                                        <span className="text-muted-foreground mr-2">{idx + 1}.</span>
-                                        {q.text}
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    {q.type === 'likert' && (
-                                        <LikertQuestion
-                                            question={q}
-                                            value={(data.responses[q.id] as string) ?? ''}
-                                            onChange={(v) => setAnswer(q.id, v)}
-                                        />
-                                    )}
-                                    {q.type === 'single_choice' && (
-                                        <SingleChoiceQuestion
-                                            question={q}
-                                            value={(data.responses[q.id] as string) ?? ''}
-                                            onChange={(v) => setAnswer(q.id, v)}
-                                        />
-                                    )}
-                                    {q.type === 'multiple_choice' && (
-                                        <MultipleChoiceQuestion
-                                            question={q}
-                                            values={(data.responses[q.id] as string[]) ?? []}
-                                            onChange={(v) => setAnswer(q.id, v)}
-                                        />
-                                    )}
-                                </CardContent>
-                            </Card>
-                        ))}
+                        {totalPages > 1 && (
+                            <div className="text-right text-xs text-muted-foreground font-medium mb-4">
+                                Página {currentPage} de {totalPages}
+                            </div>
+                        )}
+                        
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={currentPage}
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                transition={{ duration: 0.3 }}
+                                className="space-y-4"
+                            >
+                                {currentQuestions.map((q) => {
+                                    const absoluteIndex = survey.questions.findIndex((x) => x.id === q.id);
+                                    return (
+                                        <Card key={q.id} className="transition-all duration-300 hover:shadow-md">
+                                            <CardHeader className="pb-3">
+                                                <CardTitle className="text-base font-medium">
+                                                    <span className="text-muted-foreground mr-2">{absoluteIndex + 1}.</span>
+                                                    {q.text}
+                                                </CardTitle>
+                                            </CardHeader>
+                                            <CardContent>
+                                                {q.type === 'likert' && (
+                                                    <LikertQuestion
+                                                        question={q}
+                                                        value={(data.responses[q.id] as string) ?? ''}
+                                                        onChange={(v) => setAnswer(q.id, v)}
+                                                    />
+                                                )}
+                                                {q.type === 'single_choice' && (
+                                                    <SingleChoiceQuestion
+                                                        question={q}
+                                                        value={(data.responses[q.id] as string) ?? ''}
+                                                        onChange={(v) => setAnswer(q.id, v)}
+                                                    />
+                                                )}
+                                                {q.type === 'multiple_choice' && (
+                                                    <MultipleChoiceQuestion
+                                                        question={q}
+                                                        values={(data.responses[q.id] as string[]) ?? []}
+                                                        onChange={(v) => setAnswer(q.id, v)}
+                                                    />
+                                                )}
+                                            </CardContent>
+                                        </Card>
+                                    );
+                                })}
+                            </motion.div>
+                        </AnimatePresence>
 
                         {errors.token && (
                             <div className="flex items-center gap-2 rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive">
@@ -258,17 +311,49 @@ export default function SurveyRespond(props: Props) {
                             </div>
                         )}
 
-                        <Button
-                            type="submit"
-                            className="w-full"
-                            disabled={processing || !allAnswered}
-                        >
-                            {processing ? 'Enviando...' : 'Enviar respuestas'}
-                        </Button>
+                        <div className="pt-4 flex items-center justify-between gap-4">
+                            {totalPages > 1 && (
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    disabled={currentPage === 1}
+                                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                >
+                                    <ChevronLeft className="h-4 w-4 mr-2" />
+                                    Anterior
+                                </Button>
+                            )}
+                            
+                            <div className="flex-1 flex justify-end">
+                                {currentPage < totalPages ? (
+                                    <Button
+                                        type="button"
+                                        disabled={!currentPageAnswered}
+                                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                                    >
+                                        Siguiente
+                                        <ChevronRight className="h-4 w-4 ml-2" />
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        type="submit"
+                                        disabled={processing || !allAnswered}
+                                        className={totalPages > 1 ? '' : 'w-full'}
+                                    >
+                                        {processing ? 'Enviando...' : 'Enviar respuestas'}
+                                    </Button>
+                                )}
+                            </div>
+                        </div>
 
-                        {!allAnswered && (
-                            <p className="text-center text-xs text-muted-foreground">
-                                Responde todas las preguntas para poder enviar.
+                        {!allAnswered && currentPage === totalPages && (
+                            <p className="text-center text-xs text-muted-foreground mt-4">
+                                Responde todas las preguntas pendientes para poder enviar.
+                            </p>
+                        )}
+                        {!currentPageAnswered && currentPage < totalPages && (
+                            <p className="text-center text-xs text-muted-foreground mt-4">
+                                Responde las preguntas de esta página para continuar.
                             </p>
                         )}
                     </form>

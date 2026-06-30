@@ -10,8 +10,6 @@ export function useRole() {
     const isAdmin = hasRole('admin');
     const isCoordinator = hasRole('coordinator');
     const isTeacher = hasRole('teacher');
-    const isProjectDirector = hasRole('project_director');
-    const isStudent = hasRole('student');
 
-    return { roles, hasRole, isAdmin, isCoordinator, isTeacher, isProjectDirector, isStudent };
+    return { roles, hasRole, isAdmin, isCoordinator, isTeacher };
 }

@@ -3,6 +3,7 @@ import { BarChart3, Users, BookOpen, TrendingUp, CheckCircle2, AlertTriangle, Ac
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { PieChart, Pie, Cell, Tooltip as RechartsTooltip, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 
 type Props = {
     stats: {
@@ -25,68 +26,26 @@ export default function Dashboard({ stats, groupDistribution, nrcsByStatus }: Pr
         at_risk: { label: 'En riesgo', color: '#ef4444' },
     };
 
-    // Donut chart para distribución de grupos
-    function DonutChart() {
-        const total = Object.values(groupDistribution).reduce((a, b) => a + b, 0);
-        if (total === 0) return null;
+    const donutData = (['high', 'medium', 'at_risk'] as const).map((g) => ({
+        name: GROUP_CONFIG[g].label,
+        value: groupDistribution[g] ?? 0,
+        color: GROUP_CONFIG[g].color,
+        g
+    }));
+    
+    const totalStudents = donutData.reduce((acc, curr) => acc + curr.value, 0);
 
-        const r = 45;
-        const cx = 60;
-        const cy = 60;
-        const circumference = 2 * Math.PI * r;
+    const statusLabels: Record<string, string> = {
+        created: 'Creado',
+        segmented: 'Segmentado',
+        surveying: 'En encuestas',
+        analyzed: 'Analizado',
+    };
 
-        let offset = 0;
-        const slices = (['high', 'medium', 'at_risk'] as const).map((g) => {
-            const n = groupDistribution[g] ?? 0;
-            const pct = n / total;
-            const dash = pct * circumference;
-            const slice = { g, n, pct, dash, offset };
-            offset += dash;
-            return slice;
-        });
-
-        return (
-            <div className="flex items-center gap-6">
-                <svg width="120" height="120" viewBox="0 0 120 120">
-                    <circle cx={cx} cy={cy} r={r} fill="none" stroke="#f1f5f9" strokeWidth="18" />
-                    {slices.map(({ g, dash, offset: off }) => (
-                        <circle
-                            key={g}
-                            cx={cx}
-                            cy={cy}
-                            r={r}
-                            fill="none"
-                            stroke={GROUP_CONFIG[g].color}
-                            strokeWidth="18"
-                            strokeDasharray={`${dash} ${circumference}`}
-                            strokeDashoffset={-off + circumference / 4}
-                            strokeLinecap="butt"
-                        />
-                    ))}
-                    <text x={cx} y={cy - 6} textAnchor="middle" className="text-xs" fontSize="14" fontWeight="700" fill="#0f172a">
-                        {total}
-                    </text>
-                    <text x={cx} y={cy + 10} textAnchor="middle" fontSize="9" fill="#64748b">
-                        estudiantes
-                    </text>
-                </svg>
-                <div className="space-y-2">
-                    {(['high', 'medium', 'at_risk'] as const).map((g) => {
-                        const n = groupDistribution[g] ?? 0;
-                        const pct = total > 0 ? Math.round((n / total) * 100) : 0;
-                        return (
-                            <div key={g} className="flex items-center gap-2 text-sm">
-                                <span className="h-3 w-3 rounded-full shrink-0" style={{ background: GROUP_CONFIG[g].color }} />
-                                <span className="text-muted-foreground">{GROUP_CONFIG[g].label}</span>
-                                <span className="font-semibold ml-auto">{n}</span>
-                                <span className="text-muted-foreground text-xs w-10 text-right">({pct}%)</span>
-                            </div>
-                        );
-                    })}
-                </div>
-            </div>
-        );
-    }
+    const statusData = Object.entries(nrcsByStatus).map(([status, count]) => ({
+        name: statusLabels[status] || status,
+        total: count
+    }));
 
     return (
         <>
@@ -121,7 +80,7 @@ export default function Dashboard({ stats, groupDistribution, nrcsByStatus }: Pr
                             color: 'text-purple-600',
                         },
                     ].map((kpi, i) => (
-                        <Card key={i}>
+                        <Card key={i} className="transition-all duration-300 hover:scale-[1.02] hover:shadow-md">
                             <CardHeader className="pb-2">
                                 <CardTitle className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
                                     <kpi.icon className={`h-4 w-4 ${kpi.color}`} />
@@ -137,49 +96,68 @@ export default function Dashboard({ stats, groupDistribution, nrcsByStatus }: Pr
 
                 <div className="grid gap-6 lg:grid-cols-2">
                     {/* Distribución de grupos */}
-                    <Card>
+                    <Card className="transition-all duration-300 hover:shadow-md">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <Users className="h-5 w-5" />
                                 Distribución de Estudiantes
                             </CardTitle>
                         </CardHeader>
-                        <CardContent>
-                            <DonutChart />
+                        <CardContent className="flex flex-col sm:flex-row items-center gap-6">
+                            <div className="h-48 w-48 shrink-0">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <PieChart>
+                                        <Pie
+                                            data={donutData}
+                                            innerRadius={60}
+                                            outerRadius={80}
+                                            paddingAngle={3}
+                                            dataKey="value"
+                                        >
+                                            {donutData.map((entry, index) => (
+                                                <Cell key={`cell-${index}`} fill={entry.color} />
+                                            ))}
+                                        </Pie>
+                                        <RechartsTooltip formatter={(value: number) => [`${value} estudiantes`, 'Total']} />
+                                    </PieChart>
+                                </ResponsiveContainer>
+                            </div>
+                            <div className="space-y-3 flex-1 w-full">
+                                {donutData.map((entry) => {
+                                    const pct = totalStudents > 0 ? Math.round((entry.value / totalStudents) * 100) : 0;
+                                    return (
+                                        <div key={entry.name} className="flex items-center gap-3 text-sm">
+                                            <span className="h-3 w-3 rounded-full shrink-0" style={{ background: entry.color }} />
+                                            <span className="text-muted-foreground">{entry.name}</span>
+                                            <span className="font-semibold ml-auto">{entry.value}</span>
+                                            <span className="text-muted-foreground text-xs w-10 text-right">({pct}%)</span>
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         </CardContent>
                     </Card>
 
                     {/* Estado de NRCs */}
-                    <Card>
+                    <Card className="transition-all duration-300 hover:shadow-md">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <CheckCircle2 className="h-5 w-5" />
                                 Estado de NRCs
                             </CardTitle>
                         </CardHeader>
-                        <CardContent className="space-y-3">
-                            {Object.entries(nrcsByStatus).map(([status, count]) => {
-                                const statusLabels: Record<string, string> = {
-                                    created: 'Creado',
-                                    segmented: 'Segmentado',
-                                    surveying: 'En encuestas',
-                                    analyzed: 'Analizado',
-                                };
-                                const statusColors: Record<string, string> = {
-                                    created: 'bg-gray-100 text-gray-800',
-                                    segmented: 'bg-blue-100 text-blue-800',
-                                    surveying: 'bg-amber-100 text-amber-800',
-                                    analyzed: 'bg-green-100 text-green-800',
-                                };
-                                return (
-                                    <div key={status} className="flex items-center justify-between">
-                                        <Badge className={statusColors[status] || 'bg-gray-100 text-gray-800'}>
-                                            {statusLabels[status] || status}
-                                        </Badge>
-                                        <span className="font-semibold">{count}</span>
-                                    </div>
-                                );
-                            })}
+                        <CardContent>
+                            <div className="h-48">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <BarChart data={statusData}>
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                                        <XAxis dataKey="name" fontSize={12} tickLine={false} axisLine={false} />
+                                        <YAxis fontSize={12} tickLine={false} axisLine={false} allowDecimals={false} />
+                                        <RechartsTooltip cursor={{fill: 'var(--color-muted)'}} />
+                                        <Bar dataKey="total" fill="var(--color-primary)" radius={[4, 4, 0, 0]} />
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            </div>
                         </CardContent>
                     </Card>
                 </div>
@@ -187,7 +165,7 @@ export default function Dashboard({ stats, groupDistribution, nrcsByStatus }: Pr
                 {/* Hallazgos + Métricas */}
                 <div className="grid gap-6 lg:grid-cols-3">
                     {/* Prácticas validadas */}
-                    <Card className="border-green-200 bg-green-50/30 dark:border-green-900 dark:bg-green-950/10">
+                    <Card className="border-green-200 bg-green-50/30 dark:border-green-900 dark:bg-green-950/10 transition-all duration-300 hover:scale-[1.02] hover:shadow-md">
                         <CardHeader className="pb-2">
                             <CardTitle className="text-sm font-medium flex items-center gap-2">
                                 <TrendingUp className="h-4 w-4 text-green-600" />
@@ -208,7 +186,7 @@ export default function Dashboard({ stats, groupDistribution, nrcsByStatus }: Pr
                     </Card>
 
                     {/* Barreras detectadas */}
-                    <Card className="border-orange-200 bg-orange-50/30 dark:border-orange-900 dark:bg-orange-950/10">
+                    <Card className="border-orange-200 bg-orange-50/30 dark:border-orange-900 dark:bg-orange-950/10 transition-all duration-300 hover:scale-[1.02] hover:shadow-md">
                         <CardHeader className="pb-2">
                             <CardTitle className="text-sm font-medium flex items-center gap-2">
                                 <AlertTriangle className="h-4 w-4 text-orange-500" />
@@ -229,7 +207,7 @@ export default function Dashboard({ stats, groupDistribution, nrcsByStatus }: Pr
                     </Card>
 
                     {/* Métricas operativas */}
-                    <Card>
+                    <Card className="transition-all duration-300 hover:scale-[1.02] hover:shadow-md">
                         <CardHeader className="pb-2">
                             <CardTitle className="text-sm font-medium flex items-center gap-2">
                                 <Activity className="h-4 w-4 text-primary" />

@@ -11,6 +11,9 @@ import {
     Settings,
     Upload,
     Users,
+    Sun,
+    Moon,
+    Shield,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';
@@ -25,6 +28,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { useAppearance } from '@/hooks/use-appearance';
 import { useRole } from '@/hooks/use-role';
 import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
@@ -43,7 +47,8 @@ const footerNavItems: NavItem[] = [
 ];
 
 export function AppSidebar() {
-    const { isAdmin, isCoordinator, isTeacher, isProjectDirector, isStudent } = useRole();
+    const { isAdmin, isCoordinator, isTeacher } =
+        useRole();
 
     const navItems: NavItem[] = [
         {
@@ -78,19 +83,11 @@ export function AppSidebar() {
         );
     }
 
-    if (isTeacher || isProjectDirector) {
+    if (isTeacher) {
         navItems.push({
             title: 'Reportes',
             href: '/reports',
             icon: FileText,
-        });
-    }
-
-    if (isStudent) {
-        navItems.push({
-            title: 'Mi Encuesta',
-            href: '/survey',
-            icon: ClipboardList,
         });
     }
 
@@ -100,6 +97,11 @@ export function AppSidebar() {
                 title: 'Usuarios',
                 href: '/users',
                 icon: Users,
+            },
+            {
+                title: 'Roles y Permisos',
+                href: '/roles',
+                icon: Shield,
             },
             {
                 title: 'Catálogos',
@@ -113,6 +115,12 @@ export function AppSidebar() {
             },
         );
     }
+
+    const { resolvedAppearance, updateAppearance } = useAppearance();
+
+    const toggleAppearance = () => {
+        updateAppearance(resolvedAppearance === 'dark' ? 'light' : 'dark');
+    };
 
     return (
         <Sidebar collapsible="icon" variant="inset">
@@ -133,7 +141,26 @@ export function AppSidebar() {
             </SidebarContent>
 
             <SidebarFooter>
-                <NavFooter items={footerNavItems} className="mt-auto" />
+                <SidebarMenu>
+                    <SidebarMenuItem>
+                        <SidebarMenuButton
+                            onClick={toggleAppearance}
+                            tooltip={
+                                resolvedAppearance === 'dark'
+                                    ? 'Modo claro'
+                                    : 'Modo oscuro'
+                            }
+                        >
+                            {resolvedAppearance === 'dark' ? <Sun /> : <Moon />}
+                            <span>
+                                {resolvedAppearance === 'dark'
+                                    ? 'Modo claro'
+                                    : 'Modo oscuro'}
+                            </span>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                </SidebarMenu>
+                {/* <NavFooter items={footerNavItems} className="mt-auto" /> */}
                 <NavUser />
             </SidebarFooter>
         </Sidebar>

@@ -20,11 +20,6 @@ class QuestionBankController extends Controller
         return inertia('question-bank/index', ['questions' => $questions]);
     }
 
-    public function create(): Response
-    {
-        return inertia('question-bank/create');
-    }
-
     public function store(StoreQuestionRequest $request): RedirectResponse
     {
         QuestionBank::create([
@@ -35,11 +30,6 @@ class QuestionBankController extends Controller
 
         return redirect()->route('question-bank.index')
             ->with('toast', ['type' => 'success', 'message' => 'Pregunta creada correctamente.']);
-    }
-
-    public function edit(QuestionBank $questionBank): Response
-    {
-        return inertia('question-bank/edit', ['question' => $questionBank]);
     }
 
     public function update(UpdateQuestionRequest $request, QuestionBank $questionBank): RedirectResponse

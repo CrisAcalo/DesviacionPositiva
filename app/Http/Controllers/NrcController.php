@@ -143,11 +143,18 @@ class NrcController extends Controller
 
         $surveys = $nrc->surveys()->select('id', 'group', 'status', 'closes_at', 'activated_at')->get()->keyBy('group');
 
+        $activeQuestionCounts = [
+            'high' => \App\Models\QuestionBank::active()->forGroup('high')->count(),
+            'medium' => \App\Models\QuestionBank::active()->forGroup('medium')->count(),
+            'at_risk' => \App\Models\QuestionBank::active()->forGroup('at_risk')->count(),
+        ];
+
         return inertia('nrcs/show', [
-            'nrc'              => $nrc,
-            'groupCounts'      => $groupCounts,
-            'surveyCompliance' => $surveyCompliance,
-            'surveys'          => $surveys,
+            'nrc'                  => $nrc,
+            'groupCounts'          => $groupCounts,
+            'surveyCompliance'     => $surveyCompliance,
+            'surveys'              => $surveys,
+            'activeQuestionCounts' => $activeQuestionCounts,
         ]);
     }
 

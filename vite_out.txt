@@ -654,3 +654,114 @@ Warming up Inertia SSR module graph...
 [2m7:51:35 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [optimizer] bundling dependencies...
 Inertia SSR module graph warmed up
 [2m7:51:37 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [optimizer] bundling dependencies...
+[2m10:02:06 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
+[2m10:02:06 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/auth/forgot-password.tsx[22m
+[2m10:02:06 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2mresources/js/routes/index.ts[22m
+[2m10:02:09 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
+[2m10:02:17 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
+[2m10:02:23 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
+[2m10:02:33 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
+[2m10:02:41 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
+[2m10:16:17 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/users/create.tsx[22m
+[2m10:16:17 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/surveys/respond.tsx[22m
+[2m10:16:17 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/show.tsx[22m
+[2m10:16:17 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/question-bank/create.tsx[22m
+[2m10:16:17 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/users/edit.tsx[22m
+[2m10:16:17 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/question-bank/edit.tsx[22m
+[2m10:17:51 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/users/index.tsx[22m
+[2m10:22:58 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/question-bank/create.tsx[22m
+[2m10:22:58 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/question-bank/edit.tsx[22m
+[2m10:22:58 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/surveys/respond.tsx[22m
+[2m10:22:58 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/users/create.tsx[22m
+[2m10:22:58 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/show.tsx[22m
+[2m10:22:58 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/users/edit.tsx[22m
+[2m10:23:44 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/users/create.tsx[22m
+[2m10:23:44 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/users/edit.tsx[22m
+[2m10:23:44 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/surveys/respond.tsx[22m
+[2m10:23:44 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/show.tsx[22m
+[2m10:23:44 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/question-bank/create.tsx[22m
+[2m10:23:44 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/question-bank/edit.tsx[22m
+[2m10:25:23 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/question-bank/create.tsx[22m
+[2m10:25:23 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/surveys/respond.tsx[22m
+[2m10:25:23 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/question-bank/edit.tsx[22m
+[2m10:25:23 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/users/create.tsx[22m
+[2m10:25:23 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/show.tsx[22m
+[2m10:25:23 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/users/edit.tsx[22m
+[2m10:26:00 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/users/create.tsx[22m
+[2m10:26:00 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/surveys/respond.tsx[22m
+[2m10:26:00 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/users/edit.tsx[22m
+[2m10:26:00 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/question-bank/create.tsx[22m
+[2m10:26:00 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/show.tsx[22m
+[2m10:26:00 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/question-bank/edit.tsx[22m
+[2m11:26:15 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/question-bank/create.tsx[22m
+[2m11:26:19 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/show.tsx[22m
+[2m11:26:23 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/show.tsx[22m
+[2m11:26:44 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/show.tsx[22m
+[2m11:27:50 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/settings/appearance.tsx[22m
+[2m11:27:54 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/settings/appearance.tsx[22m
+[2m11:28:11 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/js/components/appearance-tabs.tsx[22m
+[2m11:40:31 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/show.tsx[22m
+[2m11:41:31 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/show.tsx[22m
+[2m11:41:35 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/show.tsx[22m
+[2m11:41:40 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/question-bank/create.tsx[22m
+[2m11:42:05 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/question-bank/edit.tsx[22m
+[2m11:51:21 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/question-bank/edit.tsx[22m
+[2m1:09:40 PM[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\emails\survey-invitation.blade.php[22m
+[2m1:10:02 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
+[2m1:10:09 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
+[2m1:10:39 PM[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mroutes\web.php.tmp.22656.2944e8490776[22m
+[2m1:10:39 PM[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mroutes\web.php.tmp.22656.2944e8490776[22m
+[2m1:10:39 PM[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mroutes\web.php[22m
+[2m1:10:42 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
+[2m1:10:48 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/show.tsx[22m
+[2m1:11:11 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/show.tsx[22m
+[2m1:11:18 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/show.tsx[22m
+[2m1:11:27 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/show.tsx[22m
+[2m1:11:37 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/show.tsx[22m
+[2m1:11:43 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/show.tsx[22m
+[2m1:11:55 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/show.tsx[22m
+[2m1:12:18 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/create.tsx[22m
+[2m1:26:48 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
+[2m1:27:25 PM[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mroutes\web.php[22m
+[2m1:27:27 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
+[2m1:27:36 PM[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mroutes\web.php.tmp.22656.12e6d29886c8[22m
+[2m1:27:36 PM[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mroutes\web.php[22m
+[2m1:27:38 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
+[2m1:27:44 PM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2mresources/js/components/app-sidebar.tsx[22m
+[2m1:27:53 PM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2mresources/js/components/app-sidebar.tsx[22m
+[2m1:29:13 PM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2mresources/js/pages/catalogs/index.tsx[22m
+[2m1:34:24 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
+[2m1:34:57 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
+[2m1:35:10 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/create.tsx[22m
+[2m1:35:27 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/create.tsx[22m
+[2m1:35:36 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/create.tsx[22m
+[2m1:35:44 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/create.tsx[22m
+[2m1:36:03 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
+[2m1:41:19 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/create.tsx[22m
+[2m1:49:51 PM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2mresources/js/app.tsx[22m
+[2m1:50:07 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/nrcs/create.tsx[22m
+[2m1:50:36 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/surveys/respond.tsx[22m
+[2m1:50:48 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/surveys/respond.tsx[22m
+[2m1:50:59 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/surveys/respond.tsx[22m
+[2m1:51:23 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/@id/C:/Users/crist/OneDrive/Escritorio/HostLaragon/ConstYEv/DesviacionPositiva/resources/js/pages/surveys/respond.tsx[22m
+[2m1:53:15 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/js/components/ui/select.tsx[22m
+[2m1:53:23 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/js/components/ui/select.tsx[22m
+[2m1:53:35 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/js/components/ui/select.tsx[22m
+[2m1:53:46 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/js/components/ui/select.tsx[22m
+[2m2:31:55 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m info: Types generated for actions, routes, form variants
+  Plugin: [35m@laravel/vite-plugin-wayfinder[39m
