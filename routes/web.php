@@ -55,6 +55,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('api/surveys/{survey}/tokens', [SurveyController::class, 'tokens'])->name('surveys.tokens');
 
         // Banco de preguntas
+        Route::get('question-bank/export', [QuestionBankController::class, 'exportCsv'])->name('question-bank.export');
         Route::resource('question-bank', QuestionBankController::class)
             ->parameters(['question-bank' => 'questionBank'])
             ->except(['show']);

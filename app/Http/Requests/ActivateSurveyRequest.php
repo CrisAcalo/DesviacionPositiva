@@ -15,7 +15,8 @@ class ActivateSurveyRequest extends FormRequest
     {
         return [
             'closes_at' => ['nullable', 'date', 'after:now'],
-            'question_limit' => ['nullable', 'integer', 'min:1'],
+            'question_ids' => ['required', 'array', 'min:1'],
+            'question_ids.*' => ['integer', 'exists:question_bank,id'],
             'question_selection' => ['required', 'string', 'in:ordered,random'],
             'questions_per_page' => ['required', 'integer', 'min:0'],
             'groups' => ['required', 'array', 'min:1'],
@@ -27,7 +28,8 @@ class ActivateSurveyRequest extends FormRequest
     {
         return [
             'closes_at.after' => 'La fecha de cierre debe ser posterior al momento actual.',
-            'question_limit.min' => 'El límite de preguntas debe ser al menos 1.',
+            'question_ids.required' => 'Debes seleccionar al menos una pregunta.',
+            'question_ids.min' => 'Debes seleccionar al menos una pregunta.',
             'questions_per_page.min' => 'Las preguntas por página no pueden ser negativas.',
         ];
     }

@@ -149,9 +149,10 @@ function ActivateSurveysSection({
     previewQuestions: QuestionPreview[]
 }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [lastSelectedIdx, setLastSelectedIdx] = useState<number | null>(null);
     const { data, setData, post, processing } = useForm({
         closes_at: '',
-        question_limit: '',
+        question_ids: previewQuestions.map(q => q.id),
         question_selection: 'random',
         questions_per_page: '1',
         groups: ['high'],
@@ -159,14 +160,10 @@ function ActivateSurveysSection({
 
     const maxQuestions = activeQuestionCounts.high ?? 0;
 
-    const limitParsed = parseInt(data.question_limit);
-    const expectedQuestions = !isNaN(limitParsed) && limitParsed > 0 
-        ? Math.min(limitParsed, maxQuestions) 
-        : maxQuestions;
     const perPageParsed = parseInt(data.questions_per_page);
     
-    // Calcular preview
-    let questionsToShow = previewQuestions.slice(0, expectedQuestions);
+    // Mostramos TODAS las preguntas en la preview, permitiendo seleccionarlas.
+    let questionsToShow = previewQuestions;
     const pages = [];
     if (perPageParsed === 0 || isNaN(perPageParsed)) {
         pages.push(questionsToShow);
@@ -175,6 +172,42 @@ function ActivateSurveysSection({
             pages.push(questionsToShow.slice(i, i + perPageParsed));
         }
     }
+
+    const toggleQuestion = (id: number, idx: number, event: React.MouseEvent) => {
+        let newSelection = [...data.question_ids];
+
+        if (event.shiftKey && lastSelectedIdx !== null) {
+            const start = Math.min(lastSelectedIdx, idx);
+            const end = Math.max(lastSelectedIdx, idx);
+            const isCurrentlySelected = data.question_ids.includes(id);
+
+            for (let i = start; i <= end; i++) {
+                const currentId = previewQuestions[i].id;
+                if (!isCurrentlySelected && !newSelection.includes(currentId)) {
+                    newSelection.push(currentId);
+                } else if (isCurrentlySelected && newSelection.includes(currentId)) {
+                    newSelection = newSelection.filter((v) => v !== currentId);
+                }
+            }
+        } else {
+            if (newSelection.includes(id)) {
+                newSelection = newSelection.filter((v) => v !== id);
+            } else {
+                newSelection.push(id);
+            }
+        }
+
+        setData('question_ids', newSelection);
+        setLastSelectedIdx(idx);
+    };
+
+    const toggleAll = () => {
+        if (data.question_ids.length === previewQuestions.length) {
+            setData('question_ids', []);
+        } else {
+            setData('question_ids', previewQuestions.map((q) => q.id));
+        }
+    };
 
     const confirmActivate = () => {
         post(`/nrcs/${nrcId}/surveys/activate`, {
@@ -209,78 +242,81 @@ function ActivateSurveysSection({
                     </DialogHeader>
 
                     {/* Formulario */}
-                    <div className="py-4 border-b shrink-0 space-y-5">
-                        <div className="space-y-2">
-                            <Label className="text-sm">Grupos a encuestar</Label>
-                            <div className="flex flex-wrap gap-4">
-                                {(Object.entries(GROUP_LABELS) as [string, string][]).map(([val, label]) => (
-                                    <div key={val} className="flex items-center space-x-2">
-                                        <Checkbox 
-                                            id={`group-${val}`} 
-                                            checked={data.groups.includes(val)}
-                                            onCheckedChange={(checked) => {
-                                                if (checked) setData('groups', [...data.groups, val]);
-                                                else setData('groups', data.groups.filter(g => g !== val));
-                                            }}
-                                        />
-                                        <Label htmlFor={`group-${val}`} className="font-normal cursor-pointer text-sm">
-                                            {label}
-                                        </Label>
-                                    </div>
-                                ))}
-                            </div>
-                            {data.groups.length === 0 && (
-                                <p className="text-xs text-destructive">Debes seleccionar al menos un grupo.</p>
-                            )}
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                            <div className="space-y-1.5">
-                                <Label htmlFor="question_limit" className="text-sm">Límite de preguntas (opcional)</Label>
-                                <Input
-                                    id="question_limit"
-                                    type="number"
-                                    min="1"
-                                    placeholder="Ej: 10"
-                                    value={data.question_limit}
-                                    onChange={(e) => setData('question_limit', e.target.value)}
-                                />
-                                <p className="text-xs text-muted-foreground">Deja en blanco para usar todas.</p>
-                            </div>
-                            
-                            <div className="space-y-1.5">
-                                <Label htmlFor="question_selection" className="text-sm">Selección de preguntas</Label>
-                                <select
-                                    id="question_selection"
-                                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                                    value={data.question_selection}
-                                    onChange={(e) => setData('question_selection', e.target.value)}
-                                >
-                                    <option value="random">Aleatoria</option>
-                                    <option value="ordered">En orden (como en el banco)</option>
-                                </select>
+                    <div className="py-4 border-b shrink-0 flex flex-col items-center">
+                        <div className="w-full max-w-4xl space-y-6">
+                            <div className="space-y-3">
+                                <Label className="text-sm font-medium">Grupos a encuestar</Label>
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                    {SEGMENTATION_RULES.map((rule) => {
+                                        const isSelected = data.groups.includes(rule.group);
+                                        return (
+                                            <div 
+                                                key={rule.group} 
+                                                onClick={() => {
+                                                    if (isSelected) setData('groups', data.groups.filter(g => g !== rule.group));
+                                                    else setData('groups', [...data.groups, rule.group]);
+                                                }}
+                                                className={`relative flex flex-col p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                                                    isSelected 
+                                                        ? `${rule.color} border-current ring-1 ring-current ring-offset-2 ring-offset-background` 
+                                                        : 'border-border bg-background hover:bg-muted/50 hover:border-muted-foreground/30 text-muted-foreground'
+                                                }`}
+                                            >
+                                                <div className="flex items-center justify-between mb-1">
+                                                    <div className="flex items-center gap-2 font-semibold">
+                                                        <span className={`h-2.5 w-2.5 rounded-full shrink-0 ${isSelected ? rule.dot : 'bg-muted-foreground/30'}`} />
+                                                        <span className={isSelected ? '' : 'text-foreground'}>{rule.label}</span>
+                                                    </div>
+                                                    <Checkbox 
+                                                        checked={isSelected}
+                                                        className={`pointer-events-none ${isSelected ? 'opacity-100' : 'opacity-40'}`}
+                                                    />
+                                                </div>
+                                                <p className={`text-xs mt-1 ${isSelected ? 'opacity-80' : 'opacity-60'}`}>{rule.description}</p>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                                {data.groups.length === 0 && (
+                                    <p className="text-xs text-destructive text-center font-medium mt-2">Debes seleccionar al menos un grupo para continuar.</p>
+                                )}
                             </div>
 
-                            <div className="space-y-1.5">
-                                <Label htmlFor="questions_per_page" className="text-sm">Preguntas por página</Label>
-                                <Input
-                                    id="questions_per_page"
-                                    type="number"
-                                    min="0"
-                                    value={data.questions_per_page}
-                                    onChange={(e) => setData('questions_per_page', e.target.value)}
-                                />
-                                <p className="text-xs text-muted-foreground">0 = Mostrar todas en una página.</p>
-                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-muted/20 p-4 rounded-xl border">
+                                <div className="space-y-1.5">
+                                    <Label htmlFor="question_selection" className="text-sm">Orden de aparición</Label>
+                                    <select
+                                        id="question_selection"
+                                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                        value={data.question_selection}
+                                        onChange={(e) => setData('question_selection', e.target.value)}
+                                    >
+                                        <option value="random">Aleatorio</option>
+                                        <option value="ordered">Secuencial</option>
+                                    </select>
+                                </div>
 
-                            <div className="space-y-1.5">
-                                <Label htmlFor="closes_at" className="text-sm">Fecha de cierre (opcional)</Label>
-                                <Input
-                                    id="closes_at"
-                                    type="datetime-local"
-                                    value={data.closes_at}
-                                    onChange={(e) => setData('closes_at', e.target.value)}
-                                />
+                                <div className="space-y-1.5">
+                                    <Label htmlFor="questions_per_page" className="text-sm">Preguntas por página</Label>
+                                    <Input
+                                        id="questions_per_page"
+                                        type="number"
+                                        min="0"
+                                        value={data.questions_per_page}
+                                        onChange={(e) => setData('questions_per_page', e.target.value)}
+                                    />
+                                    <p className="text-xs text-muted-foreground">0 = Todas en una sola página.</p>
+                                </div>
+
+                                <div className="space-y-1.5">
+                                    <Label htmlFor="closes_at" className="text-sm">Cierre automático (opcional)</Label>
+                                    <Input
+                                        id="closes_at"
+                                        type="datetime-local"
+                                        value={data.closes_at}
+                                        onChange={(e) => setData('closes_at', e.target.value)}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -295,30 +331,55 @@ function ActivateSurveysSection({
                                 </span>
                             )}
                         </h4>
-                        
+                        <div className="flex items-center justify-between mb-2 shrink-0">
+                            <div className="flex items-center gap-2">
+                                <Checkbox 
+                                    id="select-all" 
+                                    checked={data.question_ids.length === previewQuestions.length && previewQuestions.length > 0}
+                                    onCheckedChange={toggleAll}
+                                />
+                                <Label htmlFor="select-all" className="text-sm font-medium cursor-pointer">
+                                    Seleccionar todas
+                                </Label>
+                            </div>
+                            <span className="text-sm font-medium text-muted-foreground">
+                                {data.question_ids.length} / {previewQuestions.length} seleccionadas
+                            </span>
+                        </div>
+
                         <div className="flex-1 overflow-y-auto bg-muted/20 p-4 rounded-xl border space-y-6">
-                            {pages.map((pageQuestions, pageIndex) => (
-                                <div key={pageIndex} className="space-y-4">
-                                    <div className="flex items-center gap-2">
-                                        <Badge variant="outline" className="bg-background font-medium">Hoja {pageIndex + 1}</Badge>
+                            {pages.map((pageQuestions, pageIndex) => {
+                                const globalStartIndex = pageIndex * perPageParsed;
+                                return (
+                                    <div key={pageIndex} className="space-y-4">
+                                        <div className="flex items-center gap-2">
+                                            <Badge variant="outline" className="bg-background font-medium">Hoja {pageIndex + 1}</Badge>
+                                        </div>
+                                        <div className="space-y-3 pl-4 border-l-2 border-border/50">
+                                            {pageQuestions.map((q, localIndex) => {
+                                                const globalIndex = globalStartIndex + localIndex;
+                                                const isSelected = data.question_ids.includes(q.id);
+                                                return (
+                                                    <div 
+                                                        key={q.id} 
+                                                        className={`flex items-start gap-3 p-2 rounded-md transition-colors cursor-pointer select-none hover:bg-muted/50 ${isSelected ? '' : 'opacity-50'}`}
+                                                        onClick={(e) => toggleQuestion(q.id, globalIndex, e)}
+                                                    >
+                                                        <Checkbox 
+                                                            checked={isSelected}
+                                                            className="mt-0.5"
+                                                            // Se deja como readOnly ya que el div padre maneja el evento
+                                                        />
+                                                        <div className="space-y-1">
+                                                            <p className="text-sm font-medium leading-none mt-1">{q.question_text}</p>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
                                     </div>
-                                    <div className="space-y-6 pl-4 border-l-2 border-border/50">
-                                        {pageQuestions.map((q, qIndex) => (
-                                            <div key={q.id} className="space-y-2">
-                                                <p className="text-sm font-medium">{q.question_text}</p>
-                                                <ul className="text-xs text-muted-foreground space-y-1">
-                                                    {q.options.map((opt, oIndex) => (
-                                                        <li key={oIndex} className="flex items-start gap-2">
-                                                            <div className="h-1.5 w-1.5 rounded-full bg-muted-foreground/30 mt-1.5 shrink-0" />
-                                                            {opt.label}
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            ))}
+                                );
+                            })}
                             {pages.length === 0 && (
                                 <p className="text-sm text-muted-foreground text-center py-4">No hay preguntas para mostrar.</p>
                             )}

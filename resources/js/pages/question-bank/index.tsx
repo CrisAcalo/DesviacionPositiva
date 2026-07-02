@@ -1,5 +1,5 @@
 import { Head, router, useForm } from '@inertiajs/react';
-import { PlusCircle, Pencil, Trash2, Loader2, Plus } from 'lucide-react';
+import { PlusCircle, Pencil, Trash2, Loader2, Download, ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
 import Heading from '@/components/heading';
 import { Badge } from '@/components/ui/badge';
@@ -43,6 +43,26 @@ export default function QuestionBankIndex({
 }) {
     const groups = ['high', 'medium', 'at_risk'] as const;
     const totalActive = Object.values(questions).flat().filter((q) => q.is_active).length;
+
+    // Expanded Options State
+    const [expandedQuestions, setExpandedQuestions] = useState<number[]>([]);
+    
+    const allQuestionIds = Object.values(questions).flat().map(q => q.id);
+    const allExpanded = expandedQuestions.length === allQuestionIds.length && allQuestionIds.length > 0;
+
+    const toggleExpand = (id: number) => {
+        setExpandedQuestions(prev => 
+            prev.includes(id) ? prev.filter(qId => qId !== id) : [...prev, id]
+        );
+    };
+
+    const toggleAllExpand = () => {
+        if (allExpanded) {
+            setExpandedQuestions([]);
+        } else {
+            setExpandedQuestions(allQuestionIds);
+        }
+    };
 
     // Delete Modal State
     const [deletingQuestion, setDeletingQuestion] = useState<Question | null>(null);
@@ -136,10 +156,22 @@ export default function QuestionBankIndex({
                         title="Banco de preguntas"
                         description={`${totalActive} preguntas activas disponibles para encuestas`}
                     />
-                    <Button onClick={openCreateModal}>
-                        <PlusCircle className="mr-2 h-4 w-4" />
-                        Nueva pregunta
-                    </Button>
+                    <div className="flex gap-2">
+                        <Button variant="outline" onClick={toggleAllExpand}>
+                            {allExpanded ? <ChevronUp className="mr-2 h-4 w-4" /> : <ChevronDown className="mr-2 h-4 w-4" />}
+                            {allExpanded ? 'Contraer todo' : 'Expandir todo'}
+                        </Button>
+                        <Button asChild variant="outline">
+                            <a href="/question-bank/export" download>
+                                <Download className="mr-2 h-4 w-4" />
+                                Exportar CSV
+                            </a>
+                        </Button>
+                        <Button onClick={openCreateModal}>
+                            <PlusCircle className="mr-2 h-4 w-4" />
+                            Nueva pregunta
+                        </Button>
+                    </div>
                 </div>
 
                 {groups.map((group) => {
@@ -187,7 +219,28 @@ export default function QuestionBankIndex({
                                                         <span className="text-xs text-muted-foreground">{TYPE_LABELS[q.type as keyof typeof TYPE_LABELS]}</span>
                                                     </TableCell>
                                                     <TableCell>
-                                                        <span className="text-xs text-muted-foreground">{q.options.length} opciones</span>
+                                                        <div className="flex flex-col gap-2">
+                                                            <Button 
+                                                                variant="ghost" 
+                                                                size="sm" 
+                                                                onClick={() => toggleExpand(q.id)}
+                                                                className="h-7 px-2 text-xs text-muted-foreground self-start hover:text-foreground"
+                                                            >
+                                                                {q.options.length} opciones
+                                                                {expandedQuestions.includes(q.id) ? (
+                                                                    <ChevronUp className="ml-1 h-3 w-3" />
+                                                                ) : (
+                                                                    <ChevronDown className="ml-1 h-3 w-3" />
+                                                                )}
+                                                            </Button>
+                                                            {expandedQuestions.includes(q.id) && (
+                                                                <ul className="pl-2 space-y-1 text-xs text-muted-foreground border-l-2 border-muted">
+                                                                    {q.options.map((opt, i) => (
+                                                                        <li key={i}><span className="font-mono opacity-50 mr-1">{opt.value}:</span> {opt.label}</li>
+                                                                    ))}
+                                                                </ul>
+                                                            )}
+                                                        </div>
                                                     </TableCell>
                                                     <TableCell>
                                                         <Badge variant={q.is_active ? 'outline' : 'secondary'}>

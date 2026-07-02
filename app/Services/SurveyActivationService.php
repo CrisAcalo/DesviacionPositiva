@@ -24,11 +24,11 @@ class SurveyActivationService
         User $activatedBy, 
         array $groups, 
         ?string $closesAt = null, 
-        ?int $questionLimit = null, 
+        array $questionIds = [], 
         string $questionSelection = 'ordered', 
         int $questionsPerPage = 1
     ): void {
-        DB::transaction(function () use ($nrc, $activatedBy, $groups, $closesAt, $questionLimit, $questionSelection, $questionsPerPage) {
+        DB::transaction(function () use ($nrc, $activatedBy, $groups, $closesAt, $questionIds, $questionSelection, $questionsPerPage) {
             foreach ($groups as $group) {
                 if (!isset(self::GROUP_LABELS[$group])) continue;
                 
@@ -43,7 +43,7 @@ class SurveyActivationService
                     'closes_at'          => $closesAt,
                 ]);
 
-                $this->copyQuestionsFromBank($survey, $group, $questionLimit, $questionSelection);
+                $this->copyQuestionsFromBank($survey, $group, $questionIds, $questionSelection);
                 $this->generateTokensForGroup($survey, $nrc, $group);
             }
 
@@ -101,18 +101,18 @@ class SurveyActivationService
             ]);
     }
 
-    private function copyQuestionsFromBank(Survey $survey, string $group, ?int $limit, string $selection): void
+    private function copyQuestionsFromBank(Survey $survey, string $group, array $questionIds, string $selection): void
     {
         $query = QuestionBank::active()->forGroup($group);
+
+        if (!empty($questionIds)) {
+            $query->whereIn('id', $questionIds);
+        }
 
         if ($selection === 'random') {
             $query->inRandomOrder();
         } else {
             $query->orderBy('order');
-        }
-
-        if ($limit !== null) {
-            $query->limit($limit);
         }
 
         $bankQuestions = $query->get();

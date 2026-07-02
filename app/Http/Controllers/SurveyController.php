@@ -35,7 +35,7 @@ class SurveyController extends Controller
             auth()->user(),
             $request->input('groups'),
             $request->input('closes_at'),
-            $request->input('question_limit'),
+            $request->input('question_ids'),
             $request->input('question_selection'),
             $request->input('questions_per_page')
         );
