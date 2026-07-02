@@ -186,8 +186,8 @@ function FormatGuide() {
                                 {[
                                     { col: 'cedula *', req: true },
                                     { col: 'parcial_1 *', req: true },
-                                    { col: 'parcial_2 *', req: true },
-                                    { col: 'parcial_3 *', req: true },
+                                    { col: 'parcial_2', req: false },
+                                    { col: 'parcial_3', req: false },
                                     { col: 'email', req: false },
                                 ].map(({ col, req }) => (
                                     <th

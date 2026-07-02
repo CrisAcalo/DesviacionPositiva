@@ -19,8 +19,14 @@ class ValidEcuadorianCedula implements Rule
             return false;
         }
 
-        // Algoritmo módulo 11
-        $coef = [10, 9, 8, 7, 6, 5, 4, 3, 2];
+        // El tercer dígito para cédulas de personas naturales debe ser < 6
+        $tercerDigito = (int) substr($value, 2, 1);
+        if ($tercerDigito >= 6) {
+            return false;
+        }
+
+        // Algoritmo módulo 10
+        $coef = [2, 1, 2, 1, 2, 1, 2, 1, 2];
         $sum = 0;
 
         for ($i = 0; $i < 9; $i++) {

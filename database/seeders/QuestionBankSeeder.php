@@ -73,6 +73,132 @@ class QuestionBankSeeder extends Seeder
                 'target_group'  => 'high',
                 'order'         => 5,
             ],
+            // ── Nuevas preguntas: Factores que afectan el rendimiento (Adaptada) ──
+            [
+                'question_text' => '¿Qué factores impulsan principalmente tu alto rendimiento académico en esta materia?',
+                'type'          => 'multiple_choice',
+                'options'       => [
+                    ['value' => 'time_management', 'label' => 'Gestión eficiente del tiempo de estudio'],
+                    ['value' => 'material_comp',   'label' => 'Facilidad para comprender el material de estudio'],
+                    ['value' => 'motivation',      'label' => 'Alta motivación e interés por la materia'],
+                    ['value' => 'methodology',     'label' => 'Adaptación exitosa a la metodología del docente'],
+                    ['value' => 'family_support',  'label' => 'Apoyo del entorno personal y familiar'],
+                ],
+                'target_group'  => 'high',
+                'order'         => 6,
+            ],
+            // ── Nuevas preguntas: Cultura de Estudio ──
+            [
+                'question_text' => '¿Cómo organizas tu entorno físico y digital al momento de estudiar?',
+                'type'          => 'single_choice',
+                'options'       => [
+                    ['value' => 'isolated',      'label' => 'Estudio en un lugar aislado y sin distracciones'],
+                    ['value' => 'library',       'label' => 'Prefiero estudiar en la biblioteca o espacios compartidos'],
+                    ['value' => 'digital_tools', 'label' => 'Utilizo herramientas digitales para bloquear distracciones'],
+                    ['value' => 'flexible',      'label' => 'Me adapto a cualquier entorno disponible'],
+                ],
+                'target_group'  => 'high',
+                'order'         => 7,
+            ],
+            [
+                'question_text' => '¿Cuál es tu actitud frente a un tema que resulta muy difícil de comprender?',
+                'type'          => 'single_choice',
+                'options'       => [
+                    ['value' => 'research',    'label' => 'Investigo por mi cuenta hasta entenderlo (libros, internet)'],
+                    ['value' => 'ask_teacher', 'label' => 'Acudo inmediatamente al docente para pedir aclaraciones'],
+                    ['value' => 'ask_peers',   'label' => 'Consulto con compañeros que hayan entendido el tema'],
+                    ['value' => 'skip_return', 'label' => 'Paso al siguiente tema y vuelvo más tarde con la mente fresca'],
+                ],
+                'target_group'  => 'high',
+                'order'         => 8,
+            ],
+            [
+                'question_text' => '¿Cómo planificas tus sesiones de estudio a lo largo de la semana?',
+                'type'          => 'single_choice',
+                'options'       => [
+                    ['value' => 'routine',      'label' => 'Mantengo una rutina estricta con horarios fijos todos los días'],
+                    ['value' => 'goals',        'label' => 'Estudio basado en objetivos diarios (ej. terminar un capítulo)'],
+                    ['value' => 'flexible',     'label' => 'Estudio cuando tengo tiempo libre sin un horario fijo'],
+                    ['value' => 'before_exams', 'label' => 'Concentro mi estudio principalmente los días previos a las evaluaciones'],
+                ],
+                'target_group'  => 'high',
+                'order'         => 9,
+            ],
+            // ── Nuevas preguntas: Factores Familiares ──
+            [
+                'question_text' => '¿De qué manera tu entorno familiar apoya tu proceso de aprendizaje universitario?',
+                'type'          => 'multiple_choice',
+                'options'       => [
+                    ['value' => 'emotional',   'label' => 'Me brindan apoyo emocional y motivación constante'],
+                    ['value' => 'space',       'label' => 'Respetan mis horarios y me proveen un espacio silencioso para estudiar'],
+                    ['value' => 'economic',    'label' => 'Me apoyan económicamente para que solo deba enfocarme en estudiar'],
+                    ['value' => 'academic',    'label' => 'Me ayudan directamente con temas académicos o discusiones'],
+                    ['value' => 'none',        'label' => 'Estudio de forma totalmente independiente sin involucrar a mi familia'],
+                ],
+                'target_group'  => 'high',
+                'order'         => 10,
+            ],
+            [
+                'question_text' => '¿Con quién vives actualmente durante el período académico?',
+                'type'          => 'single_choice',
+                'options'       => [
+                    ['value' => 'parents',   'label' => 'Con mis padres o familiares directos'],
+                    ['value' => 'alone',     'label' => 'Vivo solo/a'],
+                    ['value' => 'roommates', 'label' => 'Comparto vivienda con amigos o compañeros'],
+                    ['value' => 'partner',   'label' => 'Con mi pareja o familia propia'],
+                ],
+                'target_group'  => 'high',
+                'order'         => 11,
+            ],
+            [
+                'question_text' => '¿Qué nivel de responsabilidad asumes en las tareas del hogar mientras estudias?',
+                'type'          => 'single_choice',
+                'options'       => [
+                    ['value' => 'minimal',     'label' => 'Mínima, mi familia me releva para que pueda estudiar'],
+                    ['value' => 'shared',      'label' => 'Responsabilidades compartidas equitativamente'],
+                    ['value' => 'high',        'label' => 'Alta, soy el/la principal responsable del hogar'],
+                    ['value' => 'independent', 'label' => 'Vivo solo/a, me encargo de todo mi hogar'],
+                ],
+                'target_group'  => 'high',
+                'order'         => 12,
+            ],
+            // ── Nuevas preguntas: Recursos Materiales/Tecnológicos ──
+            [
+                'question_text' => '¿Qué dispositivo tecnológico utilizas principalmente para tu estudio diario?',
+                'type'          => 'single_choice',
+                'options'       => [
+                    ['value' => 'laptop',  'label' => 'Computadora portátil propia'],
+                    ['value' => 'desktop', 'label' => 'Computadora de escritorio'],
+                    ['value' => 'tablet',  'label' => 'Tablet o dispositivo móvil avanzado'],
+                    ['value' => 'shared',  'label' => 'Computadora compartida con la familia o de laboratorio'],
+                ],
+                'target_group'  => 'high',
+                'order'         => 13,
+            ],
+            [
+                'question_text' => '¿Cómo calificarías el acceso a internet que tienes en tu lugar de estudio habitual?',
+                'type'          => 'single_choice',
+                'options'       => [
+                    ['value' => 'excellent', 'label' => 'Excelente, rápido y sin interrupciones'],
+                    ['value' => 'good',      'label' => 'Bueno, suficiente para clases y consultas'],
+                    ['value' => 'unstable',  'label' => 'Inestable, frecuentemente tengo problemas de conexión'],
+                    ['value' => 'limited',   'label' => 'Limitado, uso datos móviles o acceso público'],
+                ],
+                'target_group'  => 'high',
+                'order'         => 14,
+            ],
+            [
+                'question_text' => '¿Qué tipo de herramientas de software utilizas para mejorar tu productividad académica?',
+                'type'          => 'multiple_choice',
+                'options'       => [
+                    ['value' => 'ai',           'label' => 'Herramientas de Inteligencia Artificial (ChatGPT, Copilot, etc.)'],
+                    ['value' => 'organization', 'label' => 'Aplicaciones de organización (Notion, Trello, calendarios)'],
+                    ['value' => 'office',       'label' => 'Herramientas ofimáticas tradicionales (Word, Excel)'],
+                    ['value' => 'specialized',  'label' => 'Software especializado de mi carrera (AutoCAD, IDEs, simuladores)'],
+                ],
+                'target_group'  => 'high',
+                'order'         => 15,
+            ],
 
             // ─── Rendimiento promedio ─────────────────────────────────────────
             [
@@ -82,19 +208,7 @@ class QuestionBankSeeder extends Seeder
                 'target_group'  => 'medium',
                 'order'         => 1,
             ],
-            [
-                'question_text' => '¿Qué factores afectan tu rendimiento académico en esta materia?',
-                'type'          => 'multiple_choice',
-                'options'       => [
-                    ['value' => 'time',        'label' => 'Falta de tiempo para estudiar'],
-                    ['value' => 'material',    'label' => 'Dificultad para entender el material'],
-                    ['value' => 'motivation',  'label' => 'Falta de motivación'],
-                    ['value' => 'methodology', 'label' => 'Metodología de enseñanza del docente'],
-                    ['value' => 'personal',    'label' => 'Factores personales o familiares'],
-                ],
-                'target_group'  => 'medium',
-                'order'         => 2,
-            ],
+            // La antigua pregunta 2 del grupo medio se adaptó y movió a 'high'.
             [
                 'question_text' => '¿Aprovechas las horas de tutoría o consultas disponibles con el docente?',
                 'type'          => 'single_choice',
@@ -105,7 +219,7 @@ class QuestionBankSeeder extends Seeder
                     ['value' => 'never',     'label' => 'Nunca las he utilizado'],
                 ],
                 'target_group'  => 'medium',
-                'order'         => 3,
+                'order'         => 2,
             ],
             [
                 'question_text' => '¿Qué tipo de apoyo adicional te ayudaría a mejorar tu rendimiento en esta materia?',
@@ -118,14 +232,14 @@ class QuestionBankSeeder extends Seeder
                     ['value' => 'digital',    'label' => 'Recursos digitales y plataformas en línea'],
                 ],
                 'target_group'  => 'medium',
-                'order'         => 4,
+                'order'         => 3,
             ],
             [
                 'question_text' => '¿Cuántas horas semanales dedicas al estudio de esta materia fuera de clases?',
                 'type'          => 'single_choice',
                 'options'       => self::HOURS_OPTIONS,
                 'target_group'  => 'medium',
-                'order'         => 5,
+                'order'         => 4,
             ],
 
             // ─── En riesgo ───────────────────────────────────────────────────
@@ -191,3 +305,4 @@ class QuestionBankSeeder extends Seeder
         }
     }
 }
+

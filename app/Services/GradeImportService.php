@@ -152,8 +152,7 @@ class GradeImportService
             $raw = $row[$field] ?? '';
 
             if ($raw === '') {
-                $rowErrors[] = "'{$field}' está vacío";
-                continue;
+                continue; // Permitimos notas vacías
             }
 
             if (! is_numeric($raw)) {
@@ -171,12 +170,16 @@ class GradeImportService
             $grades[$field] = $val;
         }
 
+        if (empty($grades)) {
+            return ['error' => "Línea {$lineNumber}: El estudiante no tiene ninguna nota ingresada."];
+        }
+
         if (! empty($rowErrors)) {
             return ['error' => "Línea {$lineNumber}: ".implode(', ', $rowErrors).'.'];
         }
 
         $finalGrade = round(
-            ($grades['partial_1'] + $grades['partial_2'] + $grades['partial_3']) / 3,
+            array_sum($grades) / count($grades),
             2
         );
 
@@ -186,9 +189,9 @@ class GradeImportService
             'row' => [
                 'identifier'  => $row['identifier'],
                 'email'       => $email,
-                'partial_1'   => $grades['partial_1'],
-                'partial_2'   => $grades['partial_2'],
-                'partial_3'   => $grades['partial_3'],
+                'partial_1'   => $grades['partial_1'] ?? null,
+                'partial_2'   => $grades['partial_2'] ?? null,
+                'partial_3'   => $grades['partial_3'] ?? null,
                 'final_grade' => $finalGrade,
             ],
         ];
