@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Link } from '@inertiajs/react';
 import {
     BarChart3,
@@ -117,10 +118,19 @@ export function AppSidebar() {
     }
 
     const { resolvedAppearance, updateAppearance } = useAppearance();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const toggleAppearance = () => {
         updateAppearance(resolvedAppearance === 'dark' ? 'light' : 'dark');
     };
+
+    // Para evitar errores de hidratación, forzamos que el primer render del cliente 
+    // asuma el mismo estado que el servidor (modo claro por defecto)
+    const isDark = mounted ? resolvedAppearance === 'dark' : false;
 
     return (
         <Sidebar collapsible="icon" variant="inset">
@@ -145,18 +155,10 @@ export function AppSidebar() {
                     <SidebarMenuItem>
                         <SidebarMenuButton
                             onClick={toggleAppearance}
-                            tooltip={
-                                resolvedAppearance === 'dark'
-                                    ? 'Modo claro'
-                                    : 'Modo oscuro'
-                            }
+                            tooltip={isDark ? 'Modo claro' : 'Modo oscuro'}
                         >
-                            {resolvedAppearance === 'dark' ? <Sun /> : <Moon />}
-                            <span>
-                                {resolvedAppearance === 'dark'
-                                    ? 'Modo claro'
-                                    : 'Modo oscuro'}
-                            </span>
+                            {isDark ? <Sun /> : <Moon />}
+                            <span>{isDark ? 'Modo claro' : 'Modo oscuro'}</span>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>

@@ -149,12 +149,15 @@ class NrcController extends Controller
             'at_risk' => \App\Models\QuestionBank::active()->forGroup('at_risk')->count(),
         ];
 
+        $previewQuestions = \App\Models\QuestionBank::active()->forGroup('high')->orderBy('order')->get();
+
         return inertia('nrcs/show', [
             'nrc'                  => $nrc,
             'groupCounts'          => $groupCounts,
             'surveyCompliance'     => $surveyCompliance,
             'surveys'              => $surveys,
             'activeQuestionCounts' => $activeQuestionCounts,
+            'previewQuestions'     => $previewQuestions,
         ]);
     }
 

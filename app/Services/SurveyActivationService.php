@@ -19,10 +19,19 @@ class SurveyActivationService
         'at_risk' => 'En riesgo',
     ];
 
-    public function activate(Nrc $nrc, User $activatedBy, ?string $closesAt = null, ?int $questionLimit = null, string $questionSelection = 'ordered', int $questionsPerPage = 1): void
-    {
-        DB::transaction(function () use ($nrc, $activatedBy, $closesAt, $questionLimit, $questionSelection, $questionsPerPage) {
-            foreach (array_keys(self::GROUP_LABELS) as $group) {
+    public function activate(
+        Nrc $nrc, 
+        User $activatedBy, 
+        array $groups, 
+        ?string $closesAt = null, 
+        ?int $questionLimit = null, 
+        string $questionSelection = 'ordered', 
+        int $questionsPerPage = 1
+    ): void {
+        DB::transaction(function () use ($nrc, $activatedBy, $groups, $closesAt, $questionLimit, $questionSelection, $questionsPerPage) {
+            foreach ($groups as $group) {
+                if (!isset(self::GROUP_LABELS[$group])) continue;
+                
                 $survey = Survey::create([
                     'nrc_id'             => $nrc->id,
                     'group'              => $group,

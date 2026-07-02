@@ -18,6 +18,8 @@ class ActivateSurveyRequest extends FormRequest
             'question_limit' => ['nullable', 'integer', 'min:1'],
             'question_selection' => ['required', 'string', 'in:ordered,random'],
             'questions_per_page' => ['required', 'integer', 'min:0'],
+            'groups' => ['required', 'array', 'min:1'],
+            'groups.*' => ['string', 'in:high,medium,at_risk'],
         ];
     }
 

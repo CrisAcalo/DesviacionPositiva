@@ -5,8 +5,9 @@
     "scripts": {
         "build": "vite build",
         "build:ssr": "vite build && vite build --ssr",
-        "dev": "concurrently --kill-others-on-fail -n backend,frontend -c blue,green \"npm:dev:backend\" \"npm:dev:frontend\"",
+        "dev": "concurrently --kill-others-on-fail -n backend,reverb,frontend -c blue,yellow,green \"npm:dev:backend\" \"npm:dev:reverb\" \"npm:dev:frontend\"",
         "dev:backend": "C:\\laragon\\bin\\php\\php-8.3.12-nts-Win32-vs16-x64\\php.exe artisan serve --host=127.0.0.1 --port=8000",
+        "dev:reverb": "C:\\laragon\\bin\\php\\php-8.3.12-nts-Win32-vs16-x64\\php.exe artisan reverb:start",
         "dev:frontend": "vite",
         "format": "prettier --write resources/",
         "format:check": "prettier --check resources/",
@@ -16,6 +17,7 @@
     },
     "devDependencies": {
         "@eslint/js": "^9.19.0",
+        "@laravel/echo-react": "^2.3.7",
         "@laravel/vite-plugin-wayfinder": "^0.1.3",
         "@stylistic/eslint-plugin": "^5.10.0",
         "@types/node": "^22.13.5",
@@ -26,8 +28,10 @@
         "eslint-plugin-import": "^2.32.0",
         "eslint-plugin-react": "^7.37.3",
         "eslint-plugin-react-hooks": "^7.0.0",
+        "laravel-echo": "^2.3.7",
         "prettier": "^3.4.2",
         "prettier-plugin-tailwindcss": "^0.6.11",
+        "pusher-js": "^8.5.0",
         "typescript-eslint": "^8.23.0"
     },
     "dependencies": {

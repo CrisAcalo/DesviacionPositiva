@@ -1,3 +1,4 @@
+import { useEcho } from '@laravel/echo-react';
 import { Head, Link, router, useForm } from '@inertiajs/react';
 import { ArrowLeft, BarChart2, CalendarClock, CheckCircle2, Copy, Download, Info, Lock, Mail, Trash2, Users, AlertTriangle } from 'lucide-react';
 import { useEffect, useState, useMemo } from 'react';
@@ -5,6 +6,7 @@ import Heading from '@/components/heading';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -129,39 +131,56 @@ function RunAnalysisSection({ nrcId, rerun = false }: { nrcId: number; rerun?: b
     );
 }
 
-function ActivateSurveysSection({ nrcId, activeQuestionCounts }: { nrcId: number, activeQuestionCounts: Record<string, number> }) {
-    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+type QuestionPreview = {
+    id: number;
+    question_text: string;
+    type: string;
+    options: { value: string; label: string }[];
+    order: number;
+};
+
+function ActivateSurveysSection({ 
+    nrcId, 
+    activeQuestionCounts,
+    previewQuestions,
+}: { 
+    nrcId: number, 
+    activeQuestionCounts: Record<string, number>,
+    previewQuestions: QuestionPreview[]
+}) {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const { data, setData, post, processing } = useForm({
         closes_at: '',
         question_limit: '',
         question_selection: 'random',
         questions_per_page: '1',
+        groups: ['high'],
     });
 
-    const maxQuestions = Math.max(
-        activeQuestionCounts.high ?? 0,
-        activeQuestionCounts.medium ?? 0,
-        activeQuestionCounts.at_risk ?? 0
-    );
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsConfirmOpen(true);
-    };
-
-    const confirmActivate = () => {
-        setIsConfirmOpen(false);
-        post(`/nrcs/${nrcId}/surveys/activate`);
-    };
+    const maxQuestions = activeQuestionCounts.high ?? 0;
 
     const limitParsed = parseInt(data.question_limit);
     const expectedQuestions = !isNaN(limitParsed) && limitParsed > 0 
         ? Math.min(limitParsed, maxQuestions) 
         : maxQuestions;
     const perPageParsed = parseInt(data.questions_per_page);
-    const perPageMsg = !isNaN(perPageParsed) && perPageParsed > 0 
-        ? `${perPageParsed} por página` 
-        : 'todas en una página';
+    
+    // Calcular preview
+    let questionsToShow = previewQuestions.slice(0, expectedQuestions);
+    const pages = [];
+    if (perPageParsed === 0 || isNaN(perPageParsed)) {
+        pages.push(questionsToShow);
+    } else {
+        for (let i = 0; i < questionsToShow.length; i += perPageParsed) {
+            pages.push(questionsToShow.slice(i, i + perPageParsed));
+        }
+    }
+
+    const confirmActivate = () => {
+        post(`/nrcs/${nrcId}/surveys/activate`, {
+            onSuccess: () => setIsModalOpen(false)
+        });
+    };
 
     return (
         <Card className="border-primary/20">
@@ -173,83 +192,143 @@ function ActivateSurveysSection({ nrcId, activeQuestionCounts }: { nrcId: number
             </CardHeader>
             <CardContent>
                 <p className="text-sm text-muted-foreground mb-4">
-                    Al activar se crearán 3 encuestas (una por grupo) y se generarán los enlaces de acceso para cada estudiante.
+                    Selecciona a qué grupos deseas encuestar. Se generarán enlaces de acceso únicamente para ellos.
                 </p>
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div className="space-y-1.5">
-                            <Label htmlFor="question_limit" className="text-sm">Límite de preguntas (opcional)</Label>
-                            <Input
-                                id="question_limit"
-                                type="number"
-                                min="1"
-                                placeholder="Ej: 10"
-                                value={data.question_limit}
-                                onChange={(e) => setData('question_limit', e.target.value)}
-                            />
-                            <p className="text-xs text-muted-foreground">Deja en blanco para usar todas.</p>
-                        </div>
-                        
-                        <div className="space-y-1.5">
-                            <Label htmlFor="question_selection" className="text-sm">Selección de preguntas</Label>
-                            <select
-                                id="question_selection"
-                                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                                value={data.question_selection}
-                                onChange={(e) => setData('question_selection', e.target.value)}
-                            >
-                                <option value="random">Aleatoria</option>
-                                <option value="ordered">En orden (como en el banco)</option>
-                            </select>
-                        </div>
-
-                        <div className="space-y-1.5">
-                            <Label htmlFor="questions_per_page" className="text-sm">Preguntas por página</Label>
-                            <Input
-                                id="questions_per_page"
-                                type="number"
-                                min="0"
-                                value={data.questions_per_page}
-                                onChange={(e) => setData('questions_per_page', e.target.value)}
-                            />
-                            <p className="text-xs text-muted-foreground">0 = Mostrar todas en una página.</p>
-                        </div>
-
-                        <div className="space-y-1.5">
-                            <Label htmlFor="closes_at" className="text-sm">Fecha de cierre (opcional)</Label>
-                            <Input
-                                id="closes_at"
-                                type="datetime-local"
-                                value={data.closes_at}
-                                onChange={(e) => setData('closes_at', e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <div className="flex justify-end">
-                        <Button type="submit" disabled={processing}>
-                            {processing ? 'Activando...' : 'Activar encuestas'}
-                        </Button>
-                    </div>
-                </form>
+                <Button onClick={() => setIsModalOpen(true)}>
+                    Configurar y activar encuestas
+                </Button>
             </CardContent>
 
-            <Dialog open={isConfirmOpen} onOpenChange={setIsConfirmOpen}>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>Confirmar activación de encuestas</DialogTitle>
+            <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+                <DialogContent className="sm:max-w-5xl h-[95vh] flex flex-col overflow-hidden">
+                    <DialogHeader className="shrink-0">
+                        <DialogTitle>Configurar y previsualizar encuesta</DialogTitle>
                         <DialogDescription>
-                            Al activar las encuestas, los estudiantes recibirán un enlace de acceso único.
+                            Ajusta los parámetros. Abajo verás una previsualización estructural de cómo se distribuirán las preguntas para los estudiantes de alto rendimiento.
                         </DialogDescription>
                     </DialogHeader>
-                    <div className="py-4">
-                        <p className="text-sm">
-                            Los estudiantes recibirán <strong>{expectedQuestions} preguntas</strong> seleccionadas de forma <strong>{data.question_selection === 'random' ? 'aleatoria' : 'en orden'}</strong>, paginadas <strong>{perPageMsg}</strong>.
-                        </p>
+
+                    {/* Formulario */}
+                    <div className="py-4 border-b shrink-0 space-y-5">
+                        <div className="space-y-2">
+                            <Label className="text-sm">Grupos a encuestar</Label>
+                            <div className="flex flex-wrap gap-4">
+                                {(Object.entries(GROUP_LABELS) as [string, string][]).map(([val, label]) => (
+                                    <div key={val} className="flex items-center space-x-2">
+                                        <Checkbox 
+                                            id={`group-${val}`} 
+                                            checked={data.groups.includes(val)}
+                                            onCheckedChange={(checked) => {
+                                                if (checked) setData('groups', [...data.groups, val]);
+                                                else setData('groups', data.groups.filter(g => g !== val));
+                                            }}
+                                        />
+                                        <Label htmlFor={`group-${val}`} className="font-normal cursor-pointer text-sm">
+                                            {label}
+                                        </Label>
+                                    </div>
+                                ))}
+                            </div>
+                            {data.groups.length === 0 && (
+                                <p className="text-xs text-destructive">Debes seleccionar al menos un grupo.</p>
+                            )}
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div className="space-y-1.5">
+                                <Label htmlFor="question_limit" className="text-sm">Límite de preguntas (opcional)</Label>
+                                <Input
+                                    id="question_limit"
+                                    type="number"
+                                    min="1"
+                                    placeholder="Ej: 10"
+                                    value={data.question_limit}
+                                    onChange={(e) => setData('question_limit', e.target.value)}
+                                />
+                                <p className="text-xs text-muted-foreground">Deja en blanco para usar todas.</p>
+                            </div>
+                            
+                            <div className="space-y-1.5">
+                                <Label htmlFor="question_selection" className="text-sm">Selección de preguntas</Label>
+                                <select
+                                    id="question_selection"
+                                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                    value={data.question_selection}
+                                    onChange={(e) => setData('question_selection', e.target.value)}
+                                >
+                                    <option value="random">Aleatoria</option>
+                                    <option value="ordered">En orden (como en el banco)</option>
+                                </select>
+                            </div>
+
+                            <div className="space-y-1.5">
+                                <Label htmlFor="questions_per_page" className="text-sm">Preguntas por página</Label>
+                                <Input
+                                    id="questions_per_page"
+                                    type="number"
+                                    min="0"
+                                    value={data.questions_per_page}
+                                    onChange={(e) => setData('questions_per_page', e.target.value)}
+                                />
+                                <p className="text-xs text-muted-foreground">0 = Mostrar todas en una página.</p>
+                            </div>
+
+                            <div className="space-y-1.5">
+                                <Label htmlFor="closes_at" className="text-sm">Fecha de cierre (opcional)</Label>
+                                <Input
+                                    id="closes_at"
+                                    type="datetime-local"
+                                    value={data.closes_at}
+                                    onChange={(e) => setData('closes_at', e.target.value)}
+                                />
+                            </div>
+                        </div>
                     </div>
-                    <DialogFooter>
-                        <Button variant="outline" onClick={() => setIsConfirmOpen(false)}>Cancelar</Button>
+
+                    {/* Preview */}
+                    <div className="flex-1 min-h-0 flex flex-col py-2 space-y-4">
+                        <h4 className="font-medium flex items-center justify-between text-sm shrink-0">
+                            Previsualización de la estructura
+                            {data.question_selection === 'random' && (
+                                <span className="text-xs text-muted-foreground font-normal bg-muted px-2 py-1 rounded">
+                                    Nota: El orden será aleatorio para cada estudiante.
+                                </span>
+                            )}
+                        </h4>
+                        
+                        <div className="flex-1 overflow-y-auto bg-muted/20 p-4 rounded-xl border space-y-6">
+                            {pages.map((pageQuestions, pageIndex) => (
+                                <div key={pageIndex} className="space-y-4">
+                                    <div className="flex items-center gap-2">
+                                        <Badge variant="outline" className="bg-background font-medium">Hoja {pageIndex + 1}</Badge>
+                                    </div>
+                                    <div className="space-y-6 pl-4 border-l-2 border-border/50">
+                                        {pageQuestions.map((q, qIndex) => (
+                                            <div key={q.id} className="space-y-2">
+                                                <p className="text-sm font-medium">{q.question_text}</p>
+                                                <ul className="text-xs text-muted-foreground space-y-1">
+                                                    {q.options.map((opt, oIndex) => (
+                                                        <li key={oIndex} className="flex items-start gap-2">
+                                                            <div className="h-1.5 w-1.5 rounded-full bg-muted-foreground/30 mt-1.5 shrink-0" />
+                                                            {opt.label}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                            {pages.length === 0 && (
+                                <p className="text-sm text-muted-foreground text-center py-4">No hay preguntas para mostrar.</p>
+                            )}
+                        </div>
+                    </div>
+
+                    <DialogFooter className="shrink-0 pt-4">
+                        <Button variant="outline" onClick={() => setIsModalOpen(false)}>Cancelar</Button>
                         <Button onClick={confirmActivate} disabled={processing}>
-                            Confirmar y activar
+                            {processing ? 'Activando...' : 'Confirmar y activar encuestas'}
                         </Button>
                     </DialogFooter>
                 </DialogContent>
@@ -323,7 +402,7 @@ function SurveyComplianceSection({
         setLoading((prev) => ({ ...prev, [group]: false }));
     };
 
-    // Auto-cargar tokens y configurar polling
+    // Auto-cargar tokens inicialmente
     useEffect(() => {
         let isMounted = true;
         const fetchAll = () => {
@@ -334,16 +413,23 @@ function SurveyComplianceSection({
         };
 
         fetchAll();
-        const interval = setInterval(() => {
-            if (isMounted) fetchAll();
-        }, 15000); // Polling cada 15 segundos para tiempo real
-
-        return () => {
-            isMounted = false;
-            clearInterval(interval);
-        };
+        return () => { isMounted = false; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [surveys]);
+    }, [surveys, nrcId]);
+
+    // Suscripción al canal privado usando Reverb a través del hook useEcho
+    useEcho(`nrc.${nrcId}`, 'SurveyTokenUpdated', (e: { tokenData: TokenEntry & { group: string } }) => {
+        const updatedToken = e.tokenData;
+        setTokens((prev) => {
+            const groupTokens = prev[updatedToken.group] || [];
+            // Si ya existe lo actualizamos, sino no hacemos nada (por si acaso)
+            const exists = groupTokens.some(t => t.id === updatedToken.id);
+            if (!exists) return prev;
+            
+            const newTokens = groupTokens.map(t => t.id === updatedToken.id ? updatedToken : t);
+            return { ...prev, [updatedToken.group]: newTokens };
+        });
+    }, [nrcId]);
 
     // Estado para cerrar encuesta
     const [closingSurvey, setClosingSurvey] = useState<{ id: number, group: string } | null>(null);
@@ -567,12 +653,14 @@ export default function NrcShow({
     surveyCompliance,
     surveys,
     activeQuestionCounts,
+    previewQuestions,
 }: {
     nrc: NrcDetail;
     groupCounts: Record<string, number>;
     surveyCompliance: Record<string, ComplianceEntry> | null;
     surveys: Record<string, SurveyData>;
     activeQuestionCounts: Record<string, number>;
+    previewQuestions: QuestionPreview[];
 }) {
     const total = nrc.students.length;
     const [isDeleting, setIsDeleting] = useState(false);
@@ -670,7 +758,11 @@ export default function NrcShow({
 
                 {/* Sección de encuestas */}
                 {nrc.status === 'segmented' && (
-                    <ActivateSurveysSection nrcId={nrc.id} activeQuestionCounts={activeQuestionCounts} />
+                    <ActivateSurveysSection 
+                        nrcId={nrc.id} 
+                        activeQuestionCounts={activeQuestionCounts} 
+                        previewQuestions={previewQuestions || []}
+                    />
                 )}
 
                 {(nrc.status === 'surveying' || nrc.status === 'analyzed') && surveyCompliance && (

@@ -26,6 +26,7 @@ class SurveyResponseController extends Controller
 
         if (is_null($accessToken->opened_at)) {
             $accessToken->update(['opened_at' => now()]);
+            \App\Events\SurveyTokenUpdated::dispatch($accessToken);
         }
 
         return inertia('surveys/respond', [
@@ -73,6 +74,8 @@ class SurveyResponseController extends Controller
 
             $accessToken->update(['used_at' => now()]);
         });
+
+        \App\Events\SurveyTokenUpdated::dispatch($accessToken);
 
         return redirect()->route('survey.respond', $token)
             ->with('toast', ['type' => 'success', 'message' => 'Respuestas enviadas. ¡Gracias por participar!']);

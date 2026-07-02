@@ -33,13 +33,14 @@ class SurveyController extends Controller
         $this->activationService->activate(
             $nrc,
             auth()->user(),
+            $request->input('groups'),
             $request->input('closes_at'),
             $request->input('question_limit'),
             $request->input('question_selection'),
             $request->input('questions_per_page')
         );
 
-        return back()->with('toast', ['type' => 'success', 'message' => 'Encuestas activadas. Los enlaces de acceso están disponibles.']);
+        return back()->with('toast', ['type' => 'success', 'message' => 'Encuestas activadas para los grupos seleccionados.']);
     }
 
     public function reset(Nrc $nrc)
