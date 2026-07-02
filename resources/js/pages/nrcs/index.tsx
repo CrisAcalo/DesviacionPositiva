@@ -54,6 +54,19 @@ export default function NrcsIndex({ nrcs }: { nrcs: PaginatedNrcs }) {
             }
         });
     };
+
+    const groupedNrcs = nrcs.data.reduce((acc, nrc) => {
+        const key = nrc.career.name;
+        if (!acc[key]) {
+            acc[key] = {
+                career: nrc.career,
+                items: []
+            };
+        }
+        acc[key].items.push(nrc);
+        return acc;
+    }, {} as Record<string, { career: Nrc['career']; items: Nrc[] }>);
+
     return (
         <>
             <Head title="Gestión de NRCs" />
@@ -81,57 +94,65 @@ export default function NrcsIndex({ nrcs }: { nrcs: PaginatedNrcs }) {
                         </Button>
                     </div>
                 ) : (
-                    <div className="rounded-xl border">
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>Código NRC</TableHead>
-                                    <TableHead>Materia</TableHead>
-                                    <TableHead>Carrera</TableHead>
-                                    <TableHead>Departamento</TableHead>
-                                    <TableHead>Período</TableHead>
-                                    <TableHead>Estado</TableHead>
-                                    <TableHead>Cargado por</TableHead>
-                                    <TableHead />
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {nrcs.data.map((nrc) => (
-                                    <TableRow key={nrc.id}>
-                                        <TableCell className="font-mono font-medium">{nrc.code}</TableCell>
-                                        <TableCell>{nrc.subject.name}</TableCell>
-                                        <TableCell>{nrc.career.name}</TableCell>
-                                        <TableCell className="text-muted-foreground text-sm">
-                                            {nrc.career.department.name}
-                                        </TableCell>
-                                        <TableCell>
-                                            <Badge variant="outline">{nrc.academic_period.name}</Badge>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Badge variant={STATUS_VARIANTS[nrc.status]}>
-                                                {STATUS_LABELS[nrc.status]}
-                                            </Badge>
-                                        </TableCell>
-                                        <TableCell className="text-muted-foreground">{nrc.uploader.name}</TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center gap-1">
-                                                <Button asChild variant="ghost" size="sm">
-                                                    <Link href={`/nrcs/${nrc.id}`}>Ver detalle</Link>
-                                                </Button>
-                                                <Button
-                                                    variant="ghost"
-                                                    size="icon"
-                                                    className="text-destructive hover:text-destructive"
-                                                    onClick={() => setDeletingNrc(nrc)}
-                                                >
-                                                    <Trash2 className="h-4 w-4" />
-                                                </Button>
-                                            </div>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                    <div className="space-y-8">
+                        {Object.values(groupedNrcs).map((group, index) => (
+                            <div key={index} className="space-y-3">
+                                <div>
+                                    <h3 className="text-lg font-semibold tracking-tight text-foreground">
+                                        {group.career.name}
+                                    </h3>
+                                    <p className="text-sm text-muted-foreground">
+                                        {group.career.department.name}
+                                    </p>
+                                </div>
+                                <div className="rounded-xl border bg-card">
+                                    <Table>
+                                        <TableHeader>
+                                            <TableRow>
+                                                <TableHead>Código NRC</TableHead>
+                                                <TableHead>Materia</TableHead>
+                                                <TableHead>Período</TableHead>
+                                                <TableHead>Estado</TableHead>
+                                                <TableHead>Cargado por</TableHead>
+                                                <TableHead className="text-right">Acciones</TableHead>
+                                            </TableRow>
+                                        </TableHeader>
+                                        <TableBody>
+                                            {group.items.map((nrc) => (
+                                                <TableRow key={nrc.id}>
+                                                    <TableCell className="font-mono font-medium">{nrc.code}</TableCell>
+                                                    <TableCell>{nrc.subject.name}</TableCell>
+                                                    <TableCell>
+                                                        <Badge variant="outline">{nrc.academic_period.name}</Badge>
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <Badge variant={STATUS_VARIANTS[nrc.status]}>
+                                                            {STATUS_LABELS[nrc.status]}
+                                                        </Badge>
+                                                    </TableCell>
+                                                    <TableCell className="text-muted-foreground">{nrc.uploader.name}</TableCell>
+                                                    <TableCell>
+                                                        <div className="flex items-center justify-end gap-1">
+                                                            <Button asChild variant="ghost" size="sm">
+                                                                <Link href={`/nrcs/${nrc.id}`}>Ver detalle</Link>
+                                                            </Button>
+                                                            <Button
+                                                                variant="ghost"
+                                                                size="icon"
+                                                                className="text-destructive hover:text-destructive"
+                                                                onClick={() => setDeletingNrc(nrc)}
+                                                            >
+                                                                <Trash2 className="h-4 w-4" />
+                                                            </Button>
+                                                        </div>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 )}
 
